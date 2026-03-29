@@ -31,22 +31,22 @@ export default function BiografiaDirectorDeFotografiaPage() {
 
       {/* Bio content */}
       <div className="max-w-2xl w-full text-center space-y-8">
-        <p className="text-white/55 text-[clamp(0.55rem,1.5vw,0.7rem)] font-light tracking-[0.4em]">
+        <p className="text-white/55 text-[clamp(0.66rem,1.8vw,0.84rem)] font-light tracking-[0.4em]">
           BIOGRAFÍA
         </p>
         <h1 className="text-white text-[clamp(1.3rem,3.9vw,2.28rem)] font-light tracking-[0.2em]">
           NAHUEL BEADE
         </h1>
-        <p className="text-white/65 text-[clamp(0.55rem,1.5vw,0.7rem)] font-light tracking-[0.3em]">
+        <p className="text-white/65 text-[clamp(0.66rem,1.8vw,0.84rem)] font-light tracking-[0.3em]">
           DIRECTOR DE FOTOGRAFÍA
         </p>
         <div className="w-8 h-px bg-white/20 mx-auto" />
-        <p className="text-white/85 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
+        <p className="text-white/85 text-[clamp(0.9rem,1.8vw,1.08rem)] font-light leading-relaxed">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
           ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
-        <p className="text-white/85 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
+        <p className="text-white/85 text-[clamp(0.9rem,1.8vw,1.08rem)] font-light leading-relaxed">
           Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
           nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
           deserunt mollit anim id est laborum.

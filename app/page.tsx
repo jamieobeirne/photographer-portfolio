@@ -23,7 +23,7 @@ export default function IntroPage() {
             <h1 className="text-white text-[clamp(0.75rem,3.5vmin,1.5rem)] font-light tracking-widest">
               NAHUEL BEADE
             </h1>
-            <p className="text-white/75 text-[clamp(0.65rem,3vmin,1.25rem)] font-light tracking-widest mt-2">
+            <p className="text-white/75 text-[clamp(0.78rem,3.6vmin,1.5rem)] font-light tracking-widest mt-2">
               LOGO AQUI
             </p>
           </div>

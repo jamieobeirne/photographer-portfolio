@@ -22,7 +22,7 @@ export default function FotografoPage() {
 
       {/* Page title + bio button */}
       <div className="flex flex-col items-center gap-5">
-        <p className="text-white text-[clamp(0.6rem,2vw,0.875rem)] font-light tracking-[0.2em] sm:tracking-[0.3em] text-center px-8">
+        <p className="text-white text-[clamp(0.72rem,2.4vw,1.05rem)] font-light tracking-[0.2em] sm:tracking-[0.3em] text-center px-8">
           FOTÓGRAFO
         </p>
         <Link

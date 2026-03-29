@@ -19,7 +19,7 @@ export default function ContactoPage() {
 
         {/* Header */}
         <div className="text-center space-y-4">
-          <p className="text-white/55 text-[clamp(0.55rem,1.5vw,0.7rem)] font-light tracking-[0.4em]">
+          <p className="text-white/55 text-[clamp(0.66rem,1.8vw,0.84rem)] font-light tracking-[0.4em]">
             CONTACTO
           </p>
           <h1 className="text-white text-[clamp(1.3rem,3.9vw,2.28rem)] font-light tracking-[0.2em]">
@@ -31,20 +31,20 @@ export default function ContactoPage() {
         {/* Contact info */}
         <div className="flex flex-col sm:flex-row justify-center gap-8 sm:gap-16 text-center">
           <div className="space-y-2">
-            <p className="text-white/45 text-[0.6rem] font-light tracking-[0.3em]">EMAIL</p>
-            <p className="text-white/85 text-[clamp(0.7rem,1.5vw,0.85rem)] font-light tracking-wide">
+            <p className="text-white/45 text-[0.72rem] font-light tracking-[0.3em]">EMAIL</p>
+            <p className="text-white/85 text-[clamp(0.84rem,1.8vw,1.02rem)] font-light tracking-wide">
               hola@nahuelbeade.com
             </p>
           </div>
           <div className="space-y-2">
-            <p className="text-white/45 text-[0.6rem] font-light tracking-[0.3em]">TELÉFONO</p>
-            <p className="text-white/85 text-[clamp(0.7rem,1.5vw,0.85rem)] font-light tracking-wide">
+            <p className="text-white/45 text-[0.72rem] font-light tracking-[0.3em]">TELÉFONO</p>
+            <p className="text-white/85 text-[clamp(0.84rem,1.8vw,1.02rem)] font-light tracking-wide">
               +54 11 0000 0000
             </p>
           </div>
           <div className="space-y-2">
-            <p className="text-white/45 text-[0.6rem] font-light tracking-[0.3em]">UBICACIÓN</p>
-            <p className="text-white/85 text-[clamp(0.7rem,1.5vw,0.85rem)] font-light tracking-wide">
+            <p className="text-white/45 text-[0.72rem] font-light tracking-[0.3em]">UBICACIÓN</p>
+            <p className="text-white/85 text-[clamp(0.84rem,1.8vw,1.02rem)] font-light tracking-wide">
               Buenos Aires, Argentina
             </p>
           </div>
@@ -63,7 +63,7 @@ export default function ContactoPage() {
                 id="nombre"
                 type="text"
                 placeholder="Tu nombre"
-                className="w-full bg-transparent border-b border-white/20 py-2 text-white/85 text-[clamp(0.7rem,1.5vw,0.85rem)] font-light placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors duration-300"
+                className="w-full bg-transparent border-b border-white/20 py-2 text-white/85 text-[clamp(0.84rem,1.8vw,1.02rem)] font-light placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors duration-300"
               />
             </div>
             <div className="space-y-2">
@@ -74,7 +74,7 @@ export default function ContactoPage() {
                 id="email"
                 type="email"
                 placeholder="tu@email.com"
-                className="w-full bg-transparent border-b border-white/20 py-2 text-white/85 text-[clamp(0.7rem,1.5vw,0.85rem)] font-light placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors duration-300"
+                className="w-full bg-transparent border-b border-white/20 py-2 text-white/85 text-[clamp(0.84rem,1.8vw,1.02rem)] font-light placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors duration-300"
               />
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function ContactoPage() {
               id="mensaje"
               rows={4}
               placeholder="Tu mensaje..."
-              className="w-full bg-transparent border-b border-white/20 py-2 text-white/85 text-[clamp(0.7rem,1.5vw,0.85rem)] font-light placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors duration-300 resize-none"
+              className="w-full bg-transparent border-b border-white/20 py-2 text-white/85 text-[clamp(0.84rem,1.8vw,1.02rem)] font-light placeholder:text-white/30 focus:outline-none focus:border-white/50 transition-colors duration-300 resize-none"
             />
           </div>
           <div className="text-center pt-2">
