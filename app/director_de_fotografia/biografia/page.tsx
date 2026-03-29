@@ -33,13 +33,14 @@ export default function BiografiaDirectorDeFotografiaPage() {
         </p>
         <div className="w-8 h-px bg-white/20 mx-auto" />
         <p className="text-white/70 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
-          Texto de biografía aquí. Nahuel Beade es un director de fotografía con amplia experiencia
-          en cine, publicidad y televisión. Su trabajo se caracteriza por una visión estética
-          cuidada y una profunda comprensión de la luz y el espacio.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
         <p className="text-white/70 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
-          A lo largo de su carrera ha colaborado con directores y productoras de renombre,
-          desarrollando un lenguaje visual propio que combina rigor técnico con sensibilidad artística.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+          deserunt mollit anim id est laborum.
         </p>
       </div>
 

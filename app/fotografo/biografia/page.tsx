@@ -33,14 +33,14 @@ export default function BiografiaFotografoPage() {
         </p>
         <div className="w-8 h-px bg-white/20 mx-auto" />
         <p className="text-white/70 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
-          Texto de biografía aquí. Nahuel Beade es un fotógrafo con una mirada singular
-          sobre el mundo. Su trabajo explora la relación entre la luz, el tiempo y las personas,
-          creando imágenes que trascienden lo documental para convertirse en piezas artísticas.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
         <p className="text-white/70 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
-          Ha publicado su trabajo en medios nacionales e internacionales y ha expuesto
-          en galerías de arte. Su fotografía refleja un compromiso constante con la autenticidad
-          y la búsqueda de nuevas formas de ver.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+          deserunt mollit anim id est laborum.
         </p>
       </div>
 

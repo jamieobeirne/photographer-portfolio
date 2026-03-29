@@ -33,14 +33,14 @@ export default function BiografiaDirectorPage() {
         </p>
         <div className="w-8 h-px bg-white/20 mx-auto" />
         <p className="text-white/70 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
-          Texto de biografía aquí. Nahuel Beade es un director con una voz narrativa distintiva.
-          Sus proyectos abarcan el cine de ficción, el documental y la publicidad, siempre
-          guiados por una búsqueda de honestidad y profundidad emocional.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
         <p className="text-white/70 text-[clamp(0.75rem,1.5vw,0.9rem)] font-light leading-relaxed">
-          Ha dirigido cortometrajes y largometrajes reconocidos en festivales nacionales
-          e internacionales, consolidando un estilo que equilibra el rigor formal
-          con una sensibilidad humana profunda.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+          deserunt mollit anim id est laborum.
         </p>
       </div>
 
