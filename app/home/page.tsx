@@ -8,7 +8,7 @@ export default function HomePage() {
       <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20">
         <Link
           href="/contacto"
-          className="text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
+          className="text-white/75 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
         >
           CONTACTO
         </Link>

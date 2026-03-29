@@ -8,13 +8,13 @@ export default function DirectorDeFotografíaPage() {
       <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 flex items-center gap-4 sm:gap-6">
         <Link
           href="/contacto"
-          className="text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
+          className="text-white/75 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
         >
           CONTACTO
         </Link>
         <Link
           href="/home"
-          className="text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
+          className="text-white/75 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
         >
           HOME
         </Link>
@@ -27,7 +27,7 @@ export default function DirectorDeFotografíaPage() {
         </p>
         <Link
           href="/director_de_fotografia/biografia"
-          className="text-white/40 text-[0.6rem] font-light tracking-[0.3em] border border-white/20 px-5 py-2 hover:text-white hover:border-white/60 transition-all duration-300"
+          className="text-white/55 text-[0.6rem] font-light tracking-[0.3em] border border-white/20 px-5 py-2 hover:text-white hover:border-white/60 transition-all duration-300"
         >
           BIOGRAFÍA
         </Link>

@@ -20,7 +20,7 @@ export default function IntroPage() {
       <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 flex items-center gap-4 sm:gap-6">
         <Link
           href="/contacto"
-          className="text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
+          className="text-white/75 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
         >
           CONTACTO
         </Link>
@@ -28,12 +28,12 @@ export default function IntroPage() {
 
       {/* Central black circle with border */}
       <Link href="/home" className="relative z-10">
-        <div className="w-[45vmin] h-[45vmin] rounded-full border border-white/70 bg-black flex items-center justify-center group">
+        <div className="w-[63vmin] h-[63vmin] min-[700px]:w-[45vmin] min-[700px]:h-[45vmin] rounded-full border border-white/70 bg-black flex items-center justify-center group">
           <div className="text-center group-hover:opacity-60 transition-opacity duration-500 cursor-pointer px-[8%]">
             <h1 className="text-white text-[clamp(0.75rem,3.5vmin,1.5rem)] font-light tracking-widest">
               NAHUEL BEADE
             </h1>
-            <p className="text-white/60 text-[clamp(0.65rem,3vmin,1.25rem)] font-light tracking-widest mt-2">
+            <p className="text-white/75 text-[clamp(0.65rem,3vmin,1.25rem)] font-light tracking-widest mt-2">
               LOGO AQUI
             </p>
           </div>
