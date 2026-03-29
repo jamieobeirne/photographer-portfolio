@@ -17,3 +17,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+.strip-img {
+  height: clamp(115px, 35.9vh, 317px);
+}
+
+@media (min-width: 1200px) {
+  .strip-img {
+    height: clamp(172px, 53.9vh, 476px);
+  }
+}

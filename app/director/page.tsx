@@ -44,8 +44,8 @@ export default function DirectorPage() {
               key={i}
               src={`https://picsum.photos/seed/${i + 61}/600/400?grayscale`}
               alt=""
-              className="flex-shrink-0 object-cover"
-              style={{ height: 'clamp(115px, 35.9vh, 317px)', aspectRatio: '3/2' }}
+              className="strip-img flex-shrink-0 object-cover"
+              style={{ aspectRatio: '3/2' }}
             />
           ))}
         </div>
