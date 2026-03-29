@@ -26,7 +26,7 @@ export default function FotografoPage() {
           {Array.from({ length: 30 }, (_, i) => (
             <img
               key={i}
-              src={`https://placehold.co/300x200/2a2a2a/2a2a2a`}
+              src={`https://picsum.photos/seed/${i + 31}/600/400?grayscale`}
               alt=""
               className="flex-shrink-0 object-cover"
               style={{ height: '20vh', aspectRatio: '3/2' }}
