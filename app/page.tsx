@@ -17,9 +17,13 @@ export default function IntroPage() {
       {/* Central black circle with border */}
       <Link href="/home" className="relative z-10">
         <div className="w-[45vmin] h-[45vmin] rounded-full border border-white/70 bg-black flex items-center justify-center group">
-          <div className="text-center group-hover:opacity-60 transition-opacity duration-500 cursor-pointer px-4">
-            <h1 className="text-white text-2xl font-light tracking-widest">NAHUEL BEADE</h1>
-            <p className="text-white/60 text-2xl font-light tracking-widest mt-2">LOGO AQUI</p>
+          <div className="text-center group-hover:opacity-60 transition-opacity duration-500 cursor-pointer px-[8%]">
+            <h1 className="text-white text-[clamp(0.75rem,3.5vmin,1.5rem)] font-light tracking-widest">
+              NAHUEL BEADE
+            </h1>
+            <p className="text-white/60 text-[clamp(0.65rem,3vmin,1.25rem)] font-light tracking-widest mt-2">
+              LOGO AQUI
+            </p>
           </div>
         </div>
       </Link>
