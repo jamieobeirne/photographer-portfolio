@@ -4,13 +4,21 @@ export default function DirectorDeFotografíaPage() {
   return (
     <main className="relative min-h-screen bg-black flex items-center justify-center pb-[clamp(100px,22vh,240px)]">
 
-      {/* Home button */}
-      <Link
-        href="/home"
-        className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
-      >
-        ← HOME
-      </Link>
+      {/* Top-right nav */}
+      <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 flex items-center gap-4 sm:gap-6">
+        <Link
+          href="/contacto"
+          className="text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
+        >
+          CONTACTO
+        </Link>
+        <Link
+          href="/home"
+          className="text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
+        >
+          HOME
+        </Link>
+      </div>
 
       {/* Page title + bio button */}
       <div className="flex flex-col items-center gap-5">

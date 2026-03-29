@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function IntroPage() {
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black">
 
       {/* Full-screen video background */}
       <video
@@ -15,6 +15,16 @@ export default function IntroPage() {
       >
         <source src="https://assets.mixkit.co/videos/17215/17215-720.mp4" type="video/mp4" />
       </video>
+
+      {/* Top-right nav */}
+      <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 flex items-center gap-4 sm:gap-6">
+        <Link
+          href="/contacto"
+          className="text-white/60 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
+        >
+          CONTACTO
+        </Link>
+      </div>
 
       {/* Central black circle with border */}
       <Link href="/home" className="relative z-10">
