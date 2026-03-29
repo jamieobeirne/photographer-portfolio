@@ -24,15 +24,13 @@ export default function DirectorDeFotografíaPage() {
           style={{ scrollbarWidth: 'thin', scrollbarColor: '#ffffff33 transparent' }}
         >
           {Array.from({ length: 30 }, (_, i) => (
-            <div
+            <img
               key={i}
-              className="flex-shrink-0 bg-neutral-800 flex items-center justify-center"
+              src={`https://placehold.co/300x200/2a2a2a/2a2a2a`}
+              alt=""
+              className="flex-shrink-0 object-cover"
               style={{ height: '20vh', aspectRatio: '3/2' }}
-            >
-              <span className="text-white/20 text-xs font-light tracking-widest">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-            </div>
+            />
           ))}
         </div>
       </div>
