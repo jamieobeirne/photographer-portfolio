@@ -12,10 +12,18 @@ export default function DirectorPage() {
         ← HOME
       </Link>
 
-      {/* Page title */}
-      <p className="text-white text-[clamp(0.6rem,2vw,0.875rem)] font-light tracking-[0.2em] sm:tracking-[0.3em] text-center px-8">
-        DIRECTOR
-      </p>
+      {/* Page title + bio button */}
+      <div className="flex flex-col items-center gap-5">
+        <p className="text-white text-[clamp(0.6rem,2vw,0.875rem)] font-light tracking-[0.2em] sm:tracking-[0.3em] text-center px-8">
+          DIRECTOR
+        </p>
+        <Link
+          href="/director/biografia"
+          className="text-white/40 text-[0.6rem] font-light tracking-[0.3em] border border-white/20 px-5 py-2 hover:text-white hover:border-white/60 transition-all duration-300"
+        >
+          BIOGRAFÍA
+        </Link>
+      </div>
 
       {/* Horizontal photo strip */}
       <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 z-10">
