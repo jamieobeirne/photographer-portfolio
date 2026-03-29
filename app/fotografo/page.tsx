@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function FotografoPage() {
   return (
-    <main className="relative min-h-screen bg-black flex items-center justify-center">
+    <main className="relative min-h-screen bg-black flex items-center justify-center pb-[clamp(100px,22vh,240px)]">
 
       {/* Home button */}
       <Link
@@ -21,7 +21,7 @@ export default function FotografoPage() {
       <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 z-10">
         <div
           className="flex gap-2 sm:gap-3 px-3 sm:px-6 overflow-x-auto"
-          style={{ scrollbarWidth: 'thin', scrollbarColor: '#ffffff33 transparent' }}
+          style={{ scrollbarWidth: 'thin', scrollbarColor: '#ffffff33 transparent', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
         >
           {Array.from({ length: 30 }, (_, i) => (
             <img

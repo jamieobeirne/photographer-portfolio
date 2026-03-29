@@ -5,14 +5,16 @@ export default function IntroPage() {
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden">
 
       {/* Full-screen video background */}
-      <div className="absolute inset-0">
-        <iframe
-          src="https://www.youtube.com/embed/h8t1cSSudVQ?autoplay=1&mute=1&loop=1&playlist=h8t1cSSudVQ&controls=0&showinfo=0&rel=0&modestbranding=1"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full"
-          allow="autoplay; fullscreen"
-          style={{ border: 'none', pointerEvents: 'none' }}
-        />
-      </div>
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full object-cover"
+        style={{ pointerEvents: 'none', filter: 'grayscale(1)' }}
+      >
+        <source src="https://assets.mixkit.co/videos/17215/17215-720.mp4" type="video/mp4" />
+      </video>
 
       {/* Central black circle with border */}
       <Link href="/home" className="relative z-10">
