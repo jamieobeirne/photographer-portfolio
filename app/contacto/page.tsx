@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function ContactoPage() {
   return (
-    <main className="relative min-h-screen bg-black flex items-center justify-center px-6 py-24">
+    <main className="relative min-h-screen bg-black flex items-center justify-center px-6 py-16 sm:py-24">
 
       {/* Top-right nav */}
       <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 flex items-center gap-4 sm:gap-6">

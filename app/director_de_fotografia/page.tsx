@@ -45,7 +45,7 @@ export default function DirectorDeFotografíaPage() {
               src={`https://picsum.photos/seed/${i + 1}/600/400?grayscale`}
               alt=""
               className="flex-shrink-0 object-cover"
-              style={{ height: 'clamp(115px, 30.9vh, 317px)', aspectRatio: '3/2' }}
+              style={{ height: 'clamp(115px, 35.9vh, 317px)', aspectRatio: '3/2' }}
             />
           ))}
         </div>
