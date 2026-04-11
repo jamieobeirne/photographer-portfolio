@@ -42,3 +42,8 @@ export interface WPImage {
       }>;
     };
   }
+
+  export interface WPGlobalSettings {
+    logo_image: WPImage;
+    bio_image: WPImage;
+  }

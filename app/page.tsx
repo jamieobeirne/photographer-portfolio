@@ -1,6 +1,17 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { getGlobalSettings } from '@/lib/wordpress';
 
-export default function IntroPage() {
+export default async function IntroPage() {
+  let logo = null;
+
+  try {
+    const globalSettings = await getGlobalSettings();
+    logo = globalSettings.logo_image;
+  } catch (error) {
+    console.error('Could not fetch global settings:', error);
+  }
+
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black">
 
@@ -20,12 +31,19 @@ export default function IntroPage() {
       <Link href="/home" className="relative z-10">
         <div className="logo-circle rounded-full border border-white/70 bg-black flex items-center justify-center group">
           <div className="text-center group-hover:opacity-60 transition-opacity duration-500 cursor-pointer px-[8%]">
-            <h1 className="text-white text-[clamp(0.75rem,3.5vmin,1.5rem)] font-light tracking-widest">
-              NAHUEL BEADE
-            </h1>
-            <p className="text-white/75 text-[clamp(0.78rem,3.6vmin,1.5rem)] font-light tracking-widest mt-2">
-              LOGO AQUI
-            </p>
+            {logo ? (
+              <Image
+                src={logo.url}
+                alt={logo.alt || 'Nahuel Beade'}
+                width={logo.width}
+                height={logo.height}
+                className="object-contain"
+              />
+            ) : (
+              <h1 className="text-white text-[clamp(0.75rem,3.5vmin,1.5rem)] font-light tracking-widest">
+                NAHUEL BEADE
+              </h1>
+            )}
           </div>
         </div>
       </Link>

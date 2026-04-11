@@ -1,3 +1,6 @@
+import { WPGlobalSettings, WPPage } from '@/types/wordpress';
+
+
 const WP_API_URL = 'https://nahuelbeade.com/wp-json/wp/v2';
 
 // Fetch all video entries by portfolio type
@@ -39,4 +42,20 @@ export function getYouTubeId(url: string): string | null {
 export function getYouTubeThumbnail(url: string): string {
   const id = getYouTubeId(url);
   return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : '';
+}
+
+// Fetch Global Settings page (logo, bio image)
+export async function getGlobalSettings(): Promise<WPGlobalSettings> {
+  
+  const res = await fetch(
+    `${WP_API_URL}/pages?slug=global-settings&acf_format=standard`,
+    { next: { revalidate: 3600 } }
+  );
+
+  if (!res.ok) throw new Error(`Failed to fetch global settings: ${res.status}`);
+
+  const pages = await res.json();
+  if (!pages.length) throw new Error('Global Settings page not found');
+
+  return pages[0].acf as WPGlobalSettings;
 }
