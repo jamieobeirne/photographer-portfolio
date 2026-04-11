@@ -1,7 +1,9 @@
 import { WPGlobalSettings, WPPage } from '@/types/wordpress';
 
 
-const WP_API_URL = 'https://nahuelbeade.com/wp-json/wp/v2';
+const WP_API_URL = 'https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2';
+
+
 
 // Fetch all video entries by portfolio type
 export async function getVideosByType(type: 'cinematographer' | 'photographer' | 'director') {
@@ -46,16 +48,16 @@ export function getYouTubeThumbnail(url: string): string {
 
 // Fetch Global Settings page (logo, bio image)
 export async function getGlobalSettings(): Promise<WPGlobalSettings> {
-  
-  const res = await fetch(
-    `${WP_API_URL}/pages?slug=global-settings&acf_format=standard`,
-    { next: { revalidate: 3600 } }
-  );
+
+  const url = `${WP_API_URL}/pages?slug=global-settings&acf_format=standard`;
+  const res = await fetch(url, { cache: 'no-store' });
+
 
   if (!res.ok) throw new Error(`Failed to fetch global settings: ${res.status}`);
 
   const pages = await res.json();
   if (!pages.length) throw new Error('Global Settings page not found');
 
-  return pages[0].acf as WPGlobalSettings;
+  const page = pages[0] as WPPage;
+  return page.acf as unknown as WPGlobalSettings;
 }

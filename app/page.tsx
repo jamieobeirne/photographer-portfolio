@@ -28,23 +28,24 @@ export default async function IntroPage() {
       </video>
 
       {/* Central black circle with border */}
-      <Link href="/home" className="relative z-10">
-        <div className="logo-circle rounded-full border border-white/70 bg-black flex items-center justify-center group">
-          <div className="text-center group-hover:opacity-60 transition-opacity duration-500 cursor-pointer px-[8%]">
-            {logo ? (
+      <Link href="/home" className="relative z-10 group cursor-pointer">
+        <div className="logo-circle relative overflow-hidden rounded-full border border-white/70 bg-black flex items-center justify-center">
+          {logo ? (
+            <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-60">
               <Image
                 src={logo.url}
                 alt={logo.alt || 'Nahuel Beade'}
-                width={logo.width}
-                height={logo.height}
+                fill
                 className="object-contain"
+                sizes="(max-width: 699px) 63vmin, 45vmin"
+                priority
               />
-            ) : (
-              <h1 className="text-white text-[clamp(0.75rem,3.5vmin,1.5rem)] font-light tracking-widest">
-                NAHUEL BEADE
-              </h1>
-            )}
-          </div>
+            </div>
+          ) : (
+            <h1 className="text-white text-[clamp(0.75rem,3.5vmin,1.5rem)] font-light tracking-widest transition-opacity duration-500 group-hover:opacity-60 px-4 text-center">
+              NAHUEL BEADE
+            </h1>
+          )}
         </div>
       </Link>
 
