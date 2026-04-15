@@ -1,4 +1,4 @@
-import { WPGlobalSettings, WPPage } from '@/types/wordpress';
+import type { GalleryImage, WPGlobalSettings, WPPage } from '@/types/wordpress';
 
 
 const WP_API_URL = 'https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2';
@@ -60,4 +60,17 @@ export async function getGlobalSettings(): Promise<WPGlobalSettings> {
 
   const page = pages[0] as WPPage;
   return page.acf as unknown as WPGlobalSettings;
+}
+
+export async function getGalleryImages(tagId: number): Promise<GalleryImage[]> {
+  const res = await fetch(
+    `https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2/media?media_tag=${tagId}&per_page=100`
+  );
+  const images = await res.json();
+  return images.map((img: any) => ({
+    id: img.id,
+    url: img.source_url,
+    alt: img.alt_text || '',
+    caption: img.caption?.rendered || '',
+  }));
 }

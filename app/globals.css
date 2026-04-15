@@ -32,6 +32,9 @@ body {
 
 .strip-img {
   height: clamp(115px, 35.9vh, 317px);
+  width: auto;
+  max-width: none;
+  flex-shrink: 0;
 }
 
 @media (min-width: 1200px) {

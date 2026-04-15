@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import { getGalleryImages } from '@/lib/wordpress';
 
-export default function DirectorDeFotografíaPage() {
+export default async function DirectorDeFotografíaPage() {
+  const images = await getGalleryImages(5);
+
   return (
     <main className="relative min-h-screen bg-black flex items-center justify-center pb-[clamp(100px,22vh,240px)]">
 
@@ -39,13 +42,13 @@ export default function DirectorDeFotografíaPage() {
           className="flex gap-2 sm:gap-3 px-3 sm:px-6 overflow-x-auto"
           style={{ scrollbarWidth: 'thin', scrollbarColor: '#ffffff33 transparent', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
         >
-          {Array.from({ length: 30 }, (_, i) => (
+          {images.map((img) => (
             <img
-              key={i}
-              src={`https://picsum.photos/seed/${i + 1}/600/400?grayscale`}
-              alt=""
+              key={img.id}
+              src={img.url}
+              alt={img.alt}
               className="strip-img flex-shrink-0 object-cover"
-              style={{ aspectRatio: '3/2' }}
+              
             />
           ))}
         </div>

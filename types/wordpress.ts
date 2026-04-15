@@ -47,3 +47,10 @@ export interface WPImage {
     logo_image: WPImage;
     bio_image: WPImage;
   }
+
+  export interface GalleryImage {
+    id: number;
+    url: string;
+    alt: string;
+    caption: string;
+  }
