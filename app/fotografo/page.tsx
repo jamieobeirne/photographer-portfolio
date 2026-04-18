@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import { getGalleryImages } from '@/lib/wordpress';
 
-export default function FotografoPage() {
+
+export default async function FotografoPage() {
+  const images = await getGalleryImages(6);
   return (
     <main className="relative min-h-screen bg-black flex items-center justify-center pb-[clamp(100px,22vh,240px)]">
 
@@ -33,19 +36,19 @@ export default function FotografoPage() {
         </Link>
       </div>
 
-      {/* Horizontal photo strip */}
-      <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 z-10">
+     {/* Horizontal photo strip */}
+     <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 z-10">
         <div
           className="flex gap-2 sm:gap-3 px-3 sm:px-6 overflow-x-auto"
           style={{ scrollbarWidth: 'thin', scrollbarColor: '#ffffff33 transparent', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
         >
-          {Array.from({ length: 30 }, (_, i) => (
+          {images.map((img) => (
             <img
-              key={i}
-              src={`https://picsum.photos/seed/${i + 31}/600/400?grayscale`}
-              alt=""
+              key={img.id}
+              src={img.url}
+              alt={img.alt}
               className="strip-img flex-shrink-0 object-cover"
-              style={{ aspectRatio: '3/2' }}
+              
             />
           ))}
         </div>
