@@ -1,13 +1,16 @@
 import Link from 'next/link';
+import { PortfolioGallery } from '@/components/PortfolioGallery';
+import { PortfolioHorizontalStrip } from '@/components/PortfolioHorizontalStrip';
 import { getGalleryImages } from '@/lib/wordpress';
 
-export default  async function DirectorPage() {
+export default async function DirectorPage() {
   const images = await getGalleryImages(7);
   return (
-    <main className="relative min-h-screen bg-black flex items-center justify-center pb-[clamp(100px,22vh,240px)]">
+    <main
+      className="relative min-h-screen bg-black max-[699px]:pb-16 min-[700px]:flex min-[700px]:items-center min-[700px]:justify-center min-[700px]:pb-[clamp(100px,22vh,240px)]"
+    >
 
-      {/* Top-right nav */}
-      <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 flex items-center gap-4 sm:gap-6">
+      <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-30 flex items-center gap-4 sm:gap-6">
         <Link
           href="/contacto"
           className="text-white/75 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300"
@@ -22,9 +25,8 @@ export default  async function DirectorPage() {
         </Link>
       </div>
 
-      {/* Page title + bio button */}
-      <div className="flex flex-col items-center gap-5">
-        <p className="text-white text-[clamp(0.72rem,2.4vw,1.05rem)] font-light tracking-[0.2em] sm:tracking-[0.3em] text-center px-8">
+      <header className="relative z-10 flex flex-col items-center gap-5 px-4 text-center max-[699px]:pt-24 max-[699px]:pb-12 min-[700px]:py-0">
+        <p className="text-white text-[clamp(0.85rem,2.6vw,1.15rem)] font-light tracking-[0.2em] sm:tracking-[0.3em]">
           DIRECTOR
         </p>
         <Link
@@ -33,26 +35,18 @@ export default  async function DirectorPage() {
         >
           BIOGRAFÍA
         </Link>
-      </div>
+      </header>
 
-     {/* Horizontal photo strip */}
-     <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 z-10">
-        <div
-          className="flex gap-2 sm:gap-3 px-3 sm:px-6 overflow-x-auto"
-          style={{ scrollbarWidth: 'thin', scrollbarColor: '#ffffff33 transparent', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
-        >
-          {images.map((img) => (
-            <img
-              key={img.id}
-              src={img.url}
-              alt={img.alt}
-              className="strip-img flex-shrink-0 object-cover"
-              
-            />
-          ))}
-        </div>
-      </div>
+      <section
+        aria-label="Galería"
+        className="relative z-10 w-full max-w-[min(100vw,1680px)] mx-auto px-3 max-[699px]:block min-[700px]:hidden sm:px-8 md:px-12 lg:px-16"
+      >
+        <PortfolioGallery images={images} />
+      </section>
 
+      <div className="max-[699px]:hidden min-[700px]:block">
+        <PortfolioHorizontalStrip images={images} />
+      </div>
     </main>
   );
 }

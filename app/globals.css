@@ -30,6 +30,7 @@ body {
   }
 }
 
+/* Horizontal strip thumbnails (portfolio pages, ≥700px) */
 .strip-img {
   height: clamp(115px, 35.9vh, 317px);
   width: auto;
@@ -41,4 +42,11 @@ body {
   .strip-img {
     height: clamp(172px, 53.9vh, 476px);
   }
+}
+
+/* Two-column masonry gallery (portfolio pages, under 700px) */
+.portfolio-masonry {
+  columns: 2;
+  column-gap: clamp(0.5rem, 2.5vw, 1.25rem);
+  column-fill: balance;
 }
