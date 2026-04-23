@@ -43,9 +43,24 @@ export interface WPImage {
     };
   }
 
+  /** ACF File field (return as File Array) — has at least `url` */
+  export interface ACFMediaFile {
+    id?: number;
+    ID?: number;
+    url: string;
+    mime_type?: string;
+    title?: string;
+    filename?: string;
+  }
+
+  /**
+   * Global Settings page (ACF), slug `global-settings`.
+   * Add `logo_video` in ACF: type File, return **File** or **URL**; Show in REST API: on.
+   */
   export interface WPGlobalSettings {
-    logo_image: WPImage;
-    bio_image: WPImage;
+    logo_image?: WPImage | null;
+    bio_image?: WPImage | null;
+    logo_video?: ACFMediaFile | string | null | false;
   }
 
   export interface GalleryImage {

@@ -18,18 +18,6 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-.logo-circle {
-  width: 63vmin;
-  height: 63vmin;
-}
-
-@media (min-width: 700px) {
-  .logo-circle {
-    width: 45vmin;
-    height: 45vmin;
-  }
-}
-
 /* Horizontal strip thumbnails (portfolio pages, ≥700px) */
 .strip-img {
   height: clamp(115px, 35.9vh, 317px);

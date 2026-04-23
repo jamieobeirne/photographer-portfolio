@@ -1,0 +1,236 @@
+# Project Memory — 2026-04-23
+
+Session update: merges [2026-04-18](2026-04-18.md) context with `logo_video` ACF field setup, video compression task, and sound toggle planning.
+
+---
+
+## Tech stack
+
+| Tool | Purpose |
+|------|---------|
+| Next.js | Frontend framework |
+| TypeScript | Language |
+| Tailwind CSS | Styling |
+| Vercel | Hosting / deployment |
+| WordPress (on Hostinger) | Headless CMS / content backend |
+| Hostinger | Domain, DNS, WordPress host |
+| GitHub | Code repository |
+| Bitwarden | Password manager |
+| ACF (Free) | Custom fields in WordPress |
+| Code Snippets (WP) | PHP for media tag registration |
+
+### Critical: WordPress REST API base URL
+
+`nahuelbeade.com/wp-json/` returns **403** because DNS points the apex/www to **Vercel**, not Hostinger.
+
+**Always call the API on the Hostinger temporary domain:**
+
+```
+https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2
+```
+
+---
+
+## #14 — Key URLs and WordPress admin access
+
+| Item | Value |
+|------|-------|
+| Live site (Vercel) | https://photographer-portfolio-ruby.vercel.app |
+| Live site (custom domain) | https://www.nahuelbeade.com |
+| GitHub repo | jamieobeirne/photographer-portfolio |
+| WordPress REST API (use this host) | `https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2` |
+| Nahuel's email | nah.beade@gmail.com |
+
+**WordPress admin:** Hostinger hPanel → site `nahuelbeade.com` → **WordPress Admin**.
+
+---
+
+## #15 — Pages built and code structure
+
+### Pages (routes)
+
+- Intro — full-screen video bg; logo + video from WordPress global settings ✅
+- `/home` — three full-width sections + CONTACTO
+- `/director_de_fotografia` — gallery wired to **media tag ID 5**
+- `/fotografo` — gallery wired via `getGalleryImages(<tagId>)` — **confirm tag ID in WP**
+- `/director` — gallery wired via `getGalleryImages(<tagId>)` — **confirm tag ID in WP**
+- `/contacto`
+
+### Code map
+
+| Area | Location |
+|------|----------|
+| WordPress types | `types/wordpress.ts` |
+| WordPress API helpers | `lib/wordpress.ts` |
+| Intro + logo + video | `app/page.tsx` |
+| Director de fotografía gallery | `app/director_de_fotografia/page.tsx` |
+| Fotografo gallery | `app/fotografo/page.tsx` |
+| Director gallery | `app/director/page.tsx` |
+| Remote images | `next.config.ts` → `images.remotePatterns` |
+| Gallery CSS | `app/globals.css` → `.strip-img`, `.portfolio-masonry` |
+
+### Shared components
+
+| Component | Purpose |
+|-----------|---------|
+| `PortfolioGallery` | Two-column masonry layout (mobile, < 700px) |
+| `PortfolioHorizontalStrip` | Horizontal scroll strip (desktop, ≥ 700px) |
+
+---
+
+## #16 — ACF setup, Global Fields, `getGlobalSettings()` pattern
+
+### Global Fields (Global Settings page)
+
+| Field | Name | Type | Return Value | Frontend |
+|-------|------|------|--------------|----------|
+| Logo Image | `logo_image` | Image | — | Intro ✅ |
+| Bio Image | `bio_image` | Image | — | Not yet wired |
+| Logo Video | `logo_video` | File | **File URL** | Intro ✅ |
+
+- **Show in REST API** must be **ON** for every field group.
+- ACF Gallery/Repeater = Pro only; use media tags for galleries on free tier.
+
+### `getGlobalSettings()` pattern
+
+```typescript
+export async function getGlobalSettings(): Promise<WPGlobalSettings> {
+  const url = `${WP_API_URL}/pages?slug=global-settings&acf_format=standard`;
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`Failed to fetch global settings: ${res.status}`);
+  const pages = await res.json();
+  if (!pages.length) throw new Error('Global Settings page not found');
+  return pages[0].acf as unknown as WPGlobalSettings;
+}
+```
+
+### `WPGlobalSettings` interface
+
+```typescript
+export interface WPGlobalSettings {
+  logo_image?: WPImage | null;
+  bio_image?: WPImage | null;
+  logo_video?: ACFMediaFile | string | null | false;
+}
+```
+
+### Video resolution chain (`lib/wordpress.ts`)
+
+- `resolveIntroVideo(logoVideo)` — tries ACF first, falls back to `INTRO_VIDEO_URL` env var
+- `resolveLogoVideoField(logoVideo)` — extracts `{ url, type }` from object or plain string
+- `acfFileFieldUrl(value)` — handles `false`, `null`, string, or object shapes
+- `videoSourceTypeFromUrl(url)` — infers `video/mp4`, `video/webm`, `video/ogg` from extension
+
+Since ACF field is set to **File URL**, WordPress returns a plain string; `acfFileFieldUrl` handles this path.
+
+---
+
+## Intro page video (`app/page.tsx`)
+
+```typescript
+export default async function IntroPage() {
+  let video: { url: string; type: string } | null = null;
+  try {
+    const globalSettings = await getGlobalSettings();
+    video = resolveIntroVideo(globalSettings.logo_video);
+  } catch (error) {
+    console.error('Could not fetch global settings:', error);
+    video = resolveIntroVideo(null);
+  }
+
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-black">
+      {video ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute top-1/2 left-1/2 h-[56.25vw] min-h-full w-[177.77vh] min-w-full -translate-x-1/2 -translate-y-1/2 object-cover"
+          style={{ pointerEvents: 'none' }}
+        >
+          <source src={video.url} type={video.type} />
+        </video>
+      ) : null}
+      <Link href="/home" className="absolute inset-0 z-10 block cursor-pointer" aria-label="Entrar al sitio">
+        <span className="sr-only">Entrar al sitio</span>
+      </Link>
+    </main>
+  );
+}
+```
+
+### Video notes
+
+- Video has audio — currently `muted` for autoplay compliance
+- **Next session:** add a **sound toggle button** (muted autoplay + click to unmute)
+- Video is landscape; `object-cover` crops sides on portrait/mobile — acceptable since subject is centered
+- **Current file size: ~256MB — must compress before next session**
+  - Tool: **HandBrake** (handbrake.fr)
+  - Preset: Web → Gmail Large 3 Minutes 720p30 or similar
+  - Target: **under 20MB**, ideally under 10MB
+  - Upload compressed version to WordPress media library and re-attach to `logo_video` field
+
+---
+
+## Media tags setup (WordPress)
+
+| Portfolio | Tag slug | Tag ID |
+|-----------|----------|--------|
+| director-de-fotografia | `director-de-fotografia` | **5** |
+| fotografo | TBC | — |
+| director | TBC | — |
+
+Query pattern: `…/wp/v2/media?media_tag={id}&per_page=100`
+
+---
+
+## #17 — Key lessons
+
+1. **Validate REST API on day one** — use Hostinger hostname, not `nahuelbeade.com`.
+2. **ACF "Show in REST API"** must be ON.
+3. **ACF File field set to "File URL"** returns a plain string, not an object — handle both shapes in code.
+4. **`false` from ACF** means the field is saved but file isn't properly linked — go back to WP, open the field, select from Media Library, re-save.
+5. **Next.js fetch caching** — `cache: 'no-store'` during dev; switch to `revalidate` for prod.
+6. **Portfolio distinction is in the tag ID** — `getGalleryImages()` is generic; each page owns its tag ID.
+7. **Bulk tagging in WP** — no native bulk tagging; tag images one by one in list view.
+8. **Browser autoplay policy** — videos with audio require `muted` to autoplay; add a toggle button for unmute.
+
+---
+
+## #18 — Remaining open items
+
+- **Compress `logo_video` mp4** from 256MB to under 20MB (HandBrake) and re-upload to WP
+- **Add sound toggle button** to intro page video
+- **Confirm media tag IDs** for `/fotografo` and `/director` in WP Admin
+- **Upload and tag real photos** per portfolio (10+ per section)
+- Wire **`bio_image`** to the three biografia pages
+- Replace placeholder videos and `picsum.photos` placeholders with real content
+- Save WordPress password to Bitwarden
+- Push memory folder to GitHub
+- Optional: subdomain `cms.nahuelbeade.com` → Hostinger IP (Patrick's suggestion) for stable API URLs
+
+### Next steps (immediate)
+
+1. Compress the video with HandBrake, re-upload to WP, verify via REST API URL
+2. Add sound toggle button to `app/page.tsx`
+3. Confirm media tag IDs for `/fotografo` and `/director`
+4. Upload test photos and verify gallery wiring
+5. Commit all changes
+
+---
+
+## DNS snapshot (Hostinger)
+
+| Type | Name | Content |
+|------|------|---------|
+| A | @ | 216.198.79.1 |
+| CNAME | www | `29eb3af94fc0c9b2.vercel-dns-017.com` |
+
+---
+
+## Nahuel notes
+
+- Prefers **no extra spend** where possible
+- Hundreds of photos per section anticipated
+- Divi (if installed) only affects WP admin, not the Next.js frontend
