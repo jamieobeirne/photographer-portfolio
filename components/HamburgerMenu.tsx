@@ -17,11 +17,11 @@ export function HamburgerMenu({ links }: HamburgerMenuProps) {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className="flex lg:hidden flex-col justify-center gap-[6.6px] p-2"
+        className="flex lg:hidden flex-col justify-center gap-[7.3px] p-2"
       >
-        <span className="block w-[26px] h-px bg-white/70" />
-        <span className="block w-[26px] h-px bg-white/70" />
-        <span className="block w-[26px] h-px bg-white/70" />
+        <span className="block w-[29px] h-px bg-white/70" />
+        <span className="block w-[29px] h-px bg-white/70" />
+        <span className="block w-[29px] h-px bg-white/70" />
       </button>
 
       {open && (
