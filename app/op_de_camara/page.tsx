@@ -6,40 +6,40 @@ import { getGlobalSettings } from '@/lib/wordpress';
 const reels = [
   {
     id: 1,
-    title: 'REEL CINE / TV / VIDEOCLIPS',
+    title: 'REEL CÁMARA',
     year: '2023 / 24',
-    duration: '1:50',
-    description: 'Largometrajes, series de televisión y videoclips musicales',
+    duration: '2:15',
+    description: 'Operación de cámara en cine y televisión',
   },
   {
     id: 2,
-    title: 'REEL PUBLICIDAD',
+    title: 'REEL GIMBAL',
     year: '2023 / 24',
-    duration: '1:43',
-    description: 'Campañas publicitarias y contenido comercial',
+    duration: '1:50',
+    description: 'Operación de gimbal y steadicam',
   },
   {
     id: 3,
-    title: 'PROYECTOS PERSONALES',
+    title: 'REEL PUBLICIDAD',
     year: '2022 / 23',
-    duration: '2:10',
-    description: 'Cortometrajes y proyectos de autor',
+    duration: '1:40',
+    description: 'Spots y campañas publicitarias',
   },
   {
     id: 4,
-    title: 'DOCUMENTALES',
+    title: 'PROYECTOS PERSONALES',
     year: '2021 / 22',
-    duration: '1:28',
-    description: 'Documentales y periodismo audiovisual',
+    duration: '2:30',
+    description: 'Proyectos independientes y experimentales',
   },
 ];
 
-export default async function DirectorDeFotografiaPage() {
+export default async function OpDeCamaraPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    heroUrl = settings.cinematographer_fondo?.url ?? null;
+    heroUrl = settings.op_de_camara_fondo?.url ?? settings.cinematographer_fondo?.url ?? null;
     logoUrl = settings.cinematographer_logo?.url ?? null;
   } catch {}
 
@@ -48,7 +48,7 @@ export default async function DirectorDeFotografiaPage() {
 
         <PageHero
           eyebrow="PORTFOLIO"
-          title="DIRECCIÓN DE FOTOGRAFÍA"
+          title="OP. DE CÁMARA & GIMBAL"
           imageUrl={heroUrl}
           logoUrl={logoUrl}
         />
@@ -101,16 +101,16 @@ export default async function DirectorDeFotografiaPage() {
             <div className="max-w-xl">
               <p className="text-white/30 text-[0.52rem] tracking-[0.45em] mb-4">ACERCA DE</p>
               <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
-                Director de fotografía con más de 10 años de experiencia en cine,
-                publicidad y televisión. Estudió artes audiovisuales y se especializó
-                en fotografía cinematográfica para proyectos de toda escala.
+                Operador de cámara y gimbal con amplia experiencia en rodajes de cine,
+                televisión y publicidad. Manejo fluido de sistemas de estabilización
+                y movimientos de cámara complejos.
               </p>
             </div>
             <Link
-              href="/director_de_fotografia/biografia"
+              href="/contacto"
               className="text-white/40 text-[0.56rem] font-light tracking-[0.3em] border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300 whitespace-nowrap self-start sm:self-auto"
             >
-              BIOGRAFÍA
+              CONTACTO
             </Link>
           </div>
         </section>
