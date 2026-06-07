@@ -20,7 +20,7 @@ export function NavLinks() {
           <Link
             key={label}
             href={href}
-            className={`text-sm xl:text-[1.125rem] tracking-wider xl:tracking-widest whitespace-nowrap transition-colors duration-300 ${
+            className={`text-[clamp(0.72rem,1.8vw,1.05rem)] font-light tracking-[0.2em] xl:tracking-[0.3em] whitespace-nowrap transition-colors duration-300 ${
               pathname === href ? 'text-orange-500' : 'text-white hover:text-orange-400'
             }`}
           >
@@ -33,7 +33,7 @@ export function NavLinks() {
       <nav className="flex lg:hidden items-center gap-4">
         <Link
           href="/contacto"
-          className="text-white/80 text-xs font-light tracking-[0.2em] hover:text-white transition-colors duration-300"
+          className="text-white/75 text-[0.65rem] font-light tracking-[0.2em] hover:text-white transition-colors duration-300"
         >
           CONTACTO
         </Link>

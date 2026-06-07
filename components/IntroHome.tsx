@@ -37,7 +37,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
       {/* Portrait video — mobile */}
       <video
         autoPlay muted loop playsInline
-        className="block sm:hidden absolute top-1/2 left-1/2 h-[56.25vw] min-h-full w-[177.77vh] min-w-full -translate-x-1/2 -translate-y-1/2 object-cover"
+        className="block sm:hidden absolute top-1/2 left-1/2 w-[56.25vh] min-w-full h-[177.77vw] min-h-full -translate-x-1/2 -translate-y-1/2 object-cover"
         style={{
           pointerEvents: 'none',
           filter: phase !== 'video' ? 'grayscale(1)' : 'grayscale(0)',
