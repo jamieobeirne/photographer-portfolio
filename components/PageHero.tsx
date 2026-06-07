@@ -32,7 +32,7 @@ export function PageHero({ imageUrl, logoUrl }: PageHeroProps) {
               <img
                 src={logoUrl}
                 alt="Nahuel Beade"
-                className="h-[9.35rem] w-[9.35rem] sm:h-[10.56rem] sm:w-[10.56rem] object-cover rounded-full brightness-110"
+                className="h-[4.5rem] w-[4.5rem] sm:h-[7rem] sm:w-[7rem] md:h-[8.5rem] md:w-[8.5rem] lg:h-[9.35rem] lg:w-[9.35rem] xl:h-[10.56rem] xl:w-[10.56rem] object-cover rounded-full brightness-110"
               />
             ) : (
               <span className="text-white text-xs font-light tracking-[0.3em] hover:text-white/60 transition-colors duration-300">
