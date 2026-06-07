@@ -67,6 +67,8 @@ export interface WPImage {
     cinematographer_nahuel?: WPImage | null;
     op_de_camara_fondo?: WPImage | null;
     foquista_fondo?: WPImage | null;
+    foto_fondo?: WPImage | null;
+    foto_logo?: WPImage | null;
   }
 
   export interface GalleryImage {

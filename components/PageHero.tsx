@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import { NavLinks } from './NavLinks';
+import type { ReactNode } from 'react';
 
 interface PageHeroProps {
   imageUrl?: string | null;
   logoUrl?: string | null;
+  nav?: ReactNode;
 }
 
-export function PageHero({ imageUrl, logoUrl }: PageHeroProps) {
+export function PageHero({ imageUrl, logoUrl, nav }: PageHeroProps) {
   return (
     <section
       className="relative flex items-center overflow-hidden"
@@ -40,7 +42,7 @@ export function PageHero({ imageUrl, logoUrl }: PageHeroProps) {
               </span>
             )}
           </Link>
-          <NavLinks />
+          {nav ?? <NavLinks />}
         </div>
       )}
     </section>

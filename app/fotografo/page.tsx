@@ -1,4 +1,8 @@
 import Link from 'next/link';
+import { Footer } from '@/components/Footer';
+import { FotografoNavLinks } from '@/components/FotografoNavLinks';
+import { PageHero } from '@/components/PageHero';
+import { getGlobalSettings } from '@/lib/wordpress';
 
 const series = [
   {
@@ -27,31 +31,23 @@ const series = [
   },
 ];
 
-export default function FotografoPage() {
+export default async function FotografoPage() {
+  let heroUrl: string | null = null;
+  let logoUrl: string | null = null;
+  try {
+    const settings = await getGlobalSettings();
+    heroUrl = settings.foto_fondo?.url ?? null;
+    logoUrl = settings.foto_logo?.url ?? null;
+  } catch {}
+
   return (
     <main className="min-h-screen bg-black text-white">
 
-      {/* Fixed nav */}
-      <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20 flex items-center gap-4 sm:gap-6">
-        <Link href="/contacto" className="text-white/75 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300">
-          CONTACTO
-        </Link>
-        <Link href="/home" className="text-white/75 text-[0.65rem] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] hover:text-white transition-colors duration-300">
-          HOME
-        </Link>
-      </div>
-
-      {/* Page title */}
-      <section className="px-6 sm:px-12 py-20 sm:py-28 text-center">
-        <p className="text-white/30 text-[0.58rem] tracking-[0.55em] mb-5">PORTFOLIO</p>
-        <h1 className="text-white text-[clamp(1.3rem,3.2vw,2.2rem)] font-light tracking-[0.22em]">
-          FOTÓGRAFO
-        </h1>
-        <div className="w-8 h-px bg-white/15 mx-auto mt-8" />
-      </section>
+      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
 
       {/* Series grid */}
-      <section className="px-6 sm:px-12 pb-24 max-w-6xl mx-auto">
+      <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
+        <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10">PORTFOLIO</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {series.map((item) => (
             <article key={item.id} className="group cursor-pointer">
@@ -96,6 +92,8 @@ export default function FotografoPage() {
           </Link>
         </div>
       </section>
+
+      <Footer imageUrl={heroUrl} logoUrl={logoUrl} />
 
     </main>
   );
