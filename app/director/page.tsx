@@ -8,8 +8,8 @@ export default function DirectorPage() {
       <DirectorHeader />
 
       {/* Reels — placeholder */}
-      <section className="py-16 sm:py-20">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10 px-6 sm:px-12">REELS</p>
+      <section className="py-16 sm:py-20 px-6 sm:px-12">
+        <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10">REELS</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {[1, 2].map((n) => (
             <div

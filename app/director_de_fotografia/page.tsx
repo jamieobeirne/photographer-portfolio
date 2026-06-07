@@ -9,14 +9,14 @@ const reels = [
     title: 'REEL CINE / TV / VIDEOCLIPS',
     year: '2023 / 24',
     duration: '01:50',
-    description: 'Últimos trabajos de cine, tv y series, videoclips y livesession de la temporada 2023 y 2024',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor',
   },
   {
     id: 2,
     title: 'REEL PUBLICIDAD',
     year: '2023 / 24',
     duration: '01:43',
-    description: 'Últimos trabajos de publicidad e institucionales de la temporada 2023 y 2024',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor',
   },
 ];
 

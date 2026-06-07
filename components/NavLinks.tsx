@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { HamburgerMenu } from './HamburgerMenu';
 
 const links = [
   { href: '/director_de_fotografia', label: 'HOME' },
@@ -29,15 +30,8 @@ export function NavLinks() {
         ))}
       </nav>
 
-      {/* Mobile / tablet — hamburger-style condensed */}
-      <nav className="flex lg:hidden items-center gap-4">
-        <Link
-          href="/contacto"
-          className="text-white/75 text-[0.65rem] font-light tracking-[0.2em] hover:text-white transition-colors duration-300"
-        >
-          CONTACTO
-        </Link>
-      </nav>
+      {/* Mobile */}
+      <HamburgerMenu links={links} />
     </>
   );
 }

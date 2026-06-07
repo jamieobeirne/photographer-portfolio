@@ -15,7 +15,7 @@ export function Header({ logoUrl, backOnly }: HeaderProps) {
           <img
             src={logoUrl}
             alt="Nahuel Beade"
-            className="h-12 sm:h-14 w-12 sm:w-14 object-cover rounded-full brightness-110"
+            className="h-[6.6rem] w-[6.6rem] sm:h-14 sm:w-14 object-cover rounded-full brightness-110"
           />
         ) : (
           <span className="text-white text-xs font-light tracking-[0.3em] hover:text-white/60 transition-colors duration-300">

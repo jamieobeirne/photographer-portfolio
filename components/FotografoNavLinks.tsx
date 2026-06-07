@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { HamburgerMenu } from './HamburgerMenu';
 
 const links = [
   { href: '/fotografo', label: 'HOME' },
@@ -31,14 +32,7 @@ export function FotografoNavLinks() {
       </nav>
 
       {/* Mobile */}
-      <nav className="flex lg:hidden items-center gap-4">
-        <Link
-          href="/contacto"
-          className="text-white/75 text-[0.65rem] font-light tracking-[0.2em] hover:text-white transition-colors duration-300"
-        >
-          CONTACTO
-        </Link>
-      </nav>
+      <HamburgerMenu links={links} />
     </>
   );
 }

@@ -9,25 +9,25 @@ const series = [
     id: 1,
     title: 'RETRATOS',
     year: '2023 / 24',
-    description: 'Retratos de luz natural y estudio',
+    description: 'Lorem ipsum dolor sit amet consectetur',
   },
   {
     id: 2,
     title: 'EDITORIAL',
     year: '2023 / 24',
-    description: 'Fotografía editorial para moda y publicaciones',
+    description: 'Lorem ipsum dolor sit amet consectetur',
   },
   {
     id: 3,
     title: 'PAISAJE',
     year: '2022 / 23',
-    description: 'Paisajes urbanos y naturales de Argentina',
+    description: 'Lorem ipsum dolor sit amet consectetur',
   },
   {
     id: 4,
     title: 'PROYECTO PERSONAL',
     year: '2021 / 22',
-    description: 'Series documentales y fotografía de autor',
+    description: 'Lorem ipsum dolor sit amet consectetur',
   },
 ];
 
@@ -79,9 +79,9 @@ export default async function FotografoPage() {
           <div className="max-w-xl">
             <p className="text-white/30 text-[0.52rem] tracking-[0.45em] mb-4">ACERCA DE</p>
             <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
-              Fotógrafo con más de 10 años de trayectoria en retrato, editorial y
-              fotografía documental. Su trabajo explora la luz natural y la narrativa
-              visual en proyectos de diversa escala.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              veniam, quis nostrud exercitation ullamco laboris.
             </p>
           </div>
           <Link
