@@ -23,7 +23,7 @@ export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '' }:
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={logoUrl}
+          src={logoUrl ?? '/blackLogo.png'}
           alt="Nahuel Beade"
           className="h-[161px] w-[161px] sm:h-[185px] sm:w-[185px] object-cover rounded-full shrink-0"
           style={{ mixBlendMode: 'screen' }}
