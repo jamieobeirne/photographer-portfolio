@@ -59,6 +59,7 @@ export interface WPImage {
    */
   export interface WPGlobalSettings {
     logo_image?: WPImage | null;
+    initial_logo?: WPImage | null;
     bio_image?: WPImage | null;
     logo_video?: ACFMediaFile | string | null | false;
     cinematographer_fondo?: WPImage | null;

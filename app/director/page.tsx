@@ -1,20 +1,8 @@
 import { Footer } from '@/components/Footer';
-import { PageHero } from '@/components/PageHero';
-import { getGlobalSettings } from '@/lib/wordpress';
 
-export default async function DirectorPage() {
-  let heroUrl: string | null = null;
-  let logoUrl: string | null = null;
-  try {
-    const settings = await getGlobalSettings();
-    heroUrl = settings.cinematographer_fondo?.url ?? null;
-    logoUrl = settings.cinematographer_logo?.url ?? null;
-  } catch {}
-
+export default function DirectorPage() {
   return (
     <main className="min-h-screen bg-black text-white">
-
-      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} />
 
       {/* Reels — placeholder */}
       <section className="py-16 sm:py-20">
@@ -38,7 +26,7 @@ export default async function DirectorPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl={logoUrl} />
+      <Footer />
 
     </main>
   );

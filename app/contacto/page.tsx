@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer';
 export default function ContactoPage() {
   return (
     <>
-      <Header />
+      <Header backOnly />
 
       <main className="min-h-screen bg-black text-white pt-16 sm:pt-20">
 
