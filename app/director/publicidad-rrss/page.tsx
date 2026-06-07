@@ -1,22 +1,11 @@
-import Link from 'next/link';
-import { DirectorNavLinks } from '@/components/DirectorNavLinks';
+import { DirectorHeader } from '@/components/DirectorHeader';
 import { Footer } from '@/components/Footer';
 
 export default function PublicidadRrssPage() {
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <header className="flex items-center justify-between px-6 sm:px-10 py-4">
-        <Link href="/" className="shrink-0">
-          <div className="h-10 w-10 bg-white/10 border border-white/20" />
-        </Link>
-        <div className="flex items-center gap-5 xl:gap-8">
-          <Link href="/director" className="text-white/70 text-[clamp(0.72rem,1.8vw,1.05rem)] font-light tracking-[0.2em] xl:tracking-[0.3em] hover:text-white transition-colors duration-300 shrink-0 whitespace-nowrap">
-            HOME
-          </Link>
-          <DirectorNavLinks />
-        </div>
-      </header>
+      <DirectorHeader />
 
       <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
         <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10">PUBLICIDAD & RRSS</p>
@@ -27,7 +16,7 @@ export default function PublicidadRrssPage() {
         </div>
       </section>
 
-<Footer />
+<Footer className="bg-zinc-900" />
 
     </main>
   );

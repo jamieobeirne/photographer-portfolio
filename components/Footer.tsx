@@ -1,12 +1,13 @@
 interface FooterProps {
   imageUrl?: string | null;
   logoUrl?: string | null;
+  className?: string;
 }
 
-export function Footer({ imageUrl, logoUrl }: FooterProps) {
+export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '' }: FooterProps) {
   return (
     <footer
-      className="relative border-t border-white/10 py-12 px-6 sm:px-12 mt-8"
+      className={`relative border-t border-white/10 py-12 px-6 sm:px-12 mt-8 ${className}`}
       style={
         imageUrl
           ? {
@@ -20,15 +21,13 @@ export function Footer({ imageUrl, logoUrl }: FooterProps) {
       {imageUrl && <div className="absolute inset-0 bg-black/25" />}
 
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
-        {logoUrl && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={logoUrl}
-            alt="Nahuel Beade"
-            className="h-[161px] w-[161px] sm:h-[185px] sm:w-[185px] object-cover rounded-full shrink-0"
-            style={{ mixBlendMode: 'screen' }}
-          />
-        )}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logoUrl}
+          alt="Nahuel Beade"
+          className="h-[161px] w-[161px] sm:h-[185px] sm:w-[185px] object-cover rounded-full shrink-0"
+          style={{ mixBlendMode: 'screen' }}
+        />
 
         <div className="flex flex-col items-center sm:items-end gap-3">
           <p className="text-white text-2xl sm:text-3xl font-light tracking-wide">
@@ -59,7 +58,7 @@ export function Footer({ imageUrl, logoUrl }: FooterProps) {
 
       <div className="relative z-10 max-w-6xl mx-auto border-t border-white/10 mt-10 pt-5">
         <p className="text-white/20 text-[0.5rem] font-light tracking-[0.2em]">
-          © 2024 NAHUEL BEADE — TODOS LOS DERECHOS RESERVADOS
+          © 2026 NAHUEL BEADE — TODOS LOS DERECHOS RESERVADOS
         </p>
       </div>
     </footer>

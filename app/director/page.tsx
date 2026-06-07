@@ -1,21 +1,11 @@
-import Link from 'next/link';
-import { DirectorNavLinks } from '@/components/DirectorNavLinks';
+import { DirectorHeader } from '@/components/DirectorHeader';
 import { Footer } from '@/components/Footer';
 
 export default function DirectorPage() {
   return (
     <main className="min-h-screen bg-black text-white">
 
-      {/* Minimal header */}
-      <header className="flex items-center justify-between px-6 sm:px-10 py-4">
-        <Link
-          href="/home"
-          className="text-white/70 text-[0.65rem] font-light tracking-[0.3em] hover:text-white transition-colors duration-300 shrink-0"
-        >
-          ← HOME
-        </Link>
-        <DirectorNavLinks />
-      </header>
+      <DirectorHeader />
 
       {/* Reels — placeholder */}
       <section className="py-16 sm:py-20">
@@ -39,7 +29,7 @@ export default function DirectorPage() {
         </div>
       </section>
 
-      <Footer />
+      <Footer className="bg-zinc-900" />
 
     </main>
   );

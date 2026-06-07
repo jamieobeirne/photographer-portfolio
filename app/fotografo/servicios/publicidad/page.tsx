@@ -38,7 +38,7 @@ export default async function PublicidadPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl={logoUrl} />
+      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
 
     </main>
   );

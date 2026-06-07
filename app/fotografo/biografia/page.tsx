@@ -62,7 +62,7 @@ export default async function BiografiaFotografoPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl={logoUrl} />
+      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
 
     </main>
   );
