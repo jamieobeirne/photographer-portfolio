@@ -3,18 +3,18 @@ import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
 const carousels = [
-  { id: 1, label: 'FICCIÓN / TV' },
+  { id: 1, label: 'CINE / TV / SERIES' },
   { id: 2, label: 'PUBLICIDAD' },
   { id: 3, label: 'VIDEOCLIPS' },
-  { id: 4, label: 'PROYECTOS INDEPENDIENTES' },
+  { id: 4, label: 'PROYECTOS PERSONALES' },
 ];
 
-export default async function FoquistaPage() {
+export default async function DirectorDeFotografiaProyectosPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    heroUrl = settings.foquista_fondo?.url ?? settings.cinematographer_fondo?.url ?? null;
+    heroUrl = settings.cinematographer_fondo?.url ?? null;
     logoUrl = settings.cinematographer_logo?.url ?? null;
   } catch {}
 

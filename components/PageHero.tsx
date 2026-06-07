@@ -2,15 +2,11 @@ import Link from 'next/link';
 import { NavLinks } from './NavLinks';
 
 interface PageHeroProps {
-  eyebrow?: string;
-  title?: string;
   imageUrl?: string | null;
   logoUrl?: string | null;
 }
 
 export function PageHero({ imageUrl, logoUrl }: PageHeroProps) {
-  const hasHeader = logoUrl !== undefined;
-
   return (
     <section
       className="relative flex items-center overflow-hidden"
@@ -28,15 +24,15 @@ export function PageHero({ imageUrl, logoUrl }: PageHeroProps) {
     >
       <div className="absolute inset-0 bg-black/25" />
 
-      {hasHeader && (
-        <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-6 sm:px-10 h-full">
-          <Link href="/home" className="flex items-center">
+      {logoUrl !== undefined && (
+        <div className="absolute inset-0 z-10 flex items-center justify-between px-6 sm:px-10">
+          <Link href="/home" className="flex items-center shrink-0">
             {logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={logoUrl}
                 alt="Nahuel Beade"
-                className="h-24 sm:h-28 w-24 sm:w-28 object-cover rounded-full brightness-110"
+                className="h-[9.35rem] w-[9.35rem] sm:h-[10.56rem] sm:w-[10.56rem] object-cover rounded-full brightness-110"
               />
             ) : (
               <span className="text-white text-xs font-light tracking-[0.3em] hover:text-white/60 transition-colors duration-300">
