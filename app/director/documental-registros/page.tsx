@@ -7,10 +7,15 @@ export default function DocumentalRegistrosPage() {
     <main className="min-h-screen bg-black text-white">
 
       <header className="flex items-center justify-between px-6 sm:px-10 py-4">
-        <Link href="/home" className="text-white/70 text-[0.65rem] font-light tracking-[0.3em] hover:text-white transition-colors duration-300 shrink-0">
-          ← HOME
+        <Link href="/" className="shrink-0">
+          <div className="h-10 w-10 bg-white/10 border border-white/20" />
         </Link>
-        <DirectorNavLinks />
+        <div className="flex items-center gap-5 xl:gap-8">
+          <Link href="/director" className="text-white/70 text-[clamp(0.72rem,1.8vw,1.05rem)] font-light tracking-[0.2em] xl:tracking-[0.3em] hover:text-white transition-colors duration-300 shrink-0 whitespace-nowrap">
+            HOME
+          </Link>
+          <DirectorNavLinks />
+        </div>
       </header>
 
       <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
@@ -22,18 +27,7 @@ export default function DocumentalRegistrosPage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 px-6 sm:px-12 py-12">
-        <div className="max-w-6xl mx-auto flex items-center gap-6">
-          <Link href="/director" className="text-white/40 text-[0.54rem] font-light tracking-[0.35em] hover:text-white transition-colors duration-300">
-            ← DIRECCIÓN AUDIOVISUAL
-          </Link>
-          <Link href="/contacto" className="text-white/40 text-[0.54rem] font-light tracking-[0.35em] border border-white/15 px-8 py-3.5 hover:text-white hover:border-white/45 transition-all duration-300">
-            CONTACTO
-          </Link>
-        </div>
-      </section>
-
-      <Footer />
+<Footer />
 
     </main>
   );
