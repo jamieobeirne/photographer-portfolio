@@ -25,7 +25,7 @@ main {
 }
 
 footer {
-  margin-top: auto;
+  margin-top: auto !important;
 }
 
 /* Horizontal strip thumbnails (portfolio pages, ≥700px) */

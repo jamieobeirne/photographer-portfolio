@@ -7,7 +7,7 @@ interface FooterProps {
 export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '' }: FooterProps) {
   return (
     <footer
-      className={`relative border-t border-white/10 py-12 px-6 sm:px-12 mt-8 ${className}`}
+      className={`relative border-t border-white/10 py-12 px-6 sm:px-12 ${className}`}
       style={
         imageUrl
           ? {
