@@ -20,12 +20,12 @@ export default async function BiografiaFotografoPage() {
 
       {/* Bio content */}
       <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-3xl mx-auto">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10">BIO / ACERCA DE MÍ</p>
+        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">BIO / ACERCA DE MÍ</p>
 
-        <h1 className="text-white text-[clamp(1.3rem,3.2vw,2.2rem)] font-light tracking-[0.22em] mb-2">
+        <h1 className="text-white text-[clamp(1.3rem,3.2vw,2.2rem)] font-light mb-2">
           NAHUEL BEADE
         </h1>
-        <p className="text-orange-400/80 text-[0.62rem] tracking-[0.45em] mb-10">FOTÓGRAFO</p>
+        <p className="text-orange-400/80 text-[0.62rem] tracking-[0.4em] mb-10">FOTÓGRAFO</p>
         <div className="w-10 h-px bg-white/20 mb-10" />
 
         <div className="space-y-6">
@@ -49,13 +49,13 @@ export default async function BiografiaFotografoPage() {
         <div className="flex items-center gap-6 mt-10">
           <Link
             href="/fotografo"
-            className="text-white/40 text-[0.54rem] font-light tracking-[0.35em] hover:text-white transition-colors duration-300"
+            className="text-white/40 text-[0.54rem] font-light hover:text-white transition-colors duration-300"
           >
             ← VOLVER
           </Link>
           <Link
             href="/contacto"
-            className="text-white/40 text-[0.54rem] font-light tracking-[0.35em] border border-white/15 px-8 py-3.5 hover:text-white hover:border-white/45 transition-all duration-300"
+            className="text-white/40 text-[0.54rem] font-light border border-white/15 px-8 py-3.5 hover:text-white hover:border-white/45 transition-all duration-300"
           >
             CONTACTO
           </Link>

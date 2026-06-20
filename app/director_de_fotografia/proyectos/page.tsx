@@ -1,4 +1,4 @@
-import { Footer } from '@/components/Footer';
+﻿import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
@@ -26,7 +26,7 @@ export default async function DirectorDeFotografiaProyectosPage() {
       <div className="py-16 sm:py-20 space-y-16">
         {carousels.map((carousel) => (
           <section key={carousel.id}>
-            <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-6 px-6 sm:px-12">
+            <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-6 px-6 sm:px-12">
               {carousel.label}
             </p>
             <div

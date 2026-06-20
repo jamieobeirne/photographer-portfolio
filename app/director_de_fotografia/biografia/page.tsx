@@ -18,8 +18,8 @@ export default async function BiografiaDirectorDeFotografiaPage() {
 
         {/* Page title */}
         <section className="px-6 sm:px-12 py-20 sm:py-28 text-center">
-          <p className="text-white/30 text-[0.58rem] tracking-[0.55em] mb-5">DIRECTOR DE FOTOGRAFÍA</p>
-          <h1 className="text-white text-[clamp(1.3rem,3.2vw,2.2rem)] font-light tracking-[0.22em]">
+          <p className="text-white/30 text-[0.58rem] tracking-[0.4em] mb-5">DIRECTOR DE FOTOGRAFÍA</p>
+          <h1 className="text-white text-[clamp(1.3rem,3.2vw,2.2rem)] font-light">
             NAHUEL BEADE
           </h1>
           <div className="w-8 h-px bg-white/15 mx-auto mt-8" />
@@ -46,13 +46,13 @@ export default async function BiografiaDirectorDeFotografiaPage() {
           <div className="pt-4 flex items-center gap-6">
             <Link
               href="/director_de_fotografia"
-              className="text-white/40 text-[0.56rem] font-light tracking-[0.3em] hover:text-white transition-colors duration-300"
+              className="text-white/40 text-[0.56rem] font-light hover:text-white transition-colors duration-300"
             >
               ← VOLVER
             </Link>
             <Link
               href="/contacto"
-              className="text-white/40 text-[0.56rem] font-light tracking-[0.3em] border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300"
+              className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300"
             >
               CONTACTO
             </Link>

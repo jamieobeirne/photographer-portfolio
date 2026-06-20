@@ -38,7 +38,7 @@ export default async function DirectorDeFotografiaPage() {
 
       {/* Reels */}
       <section className="py-16 sm:py-20">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10 px-6 sm:px-12">REELS</p>
+        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10 px-6 sm:px-12">REELS</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {reels.map((reel) => (
             <article key={reel.id} className="group cursor-pointer">
@@ -50,7 +50,7 @@ export default async function DirectorDeFotografiaPage() {
                       'repeating-linear-gradient(0deg, transparent, transparent 3px, white 3px, white 4px)',
                   }}
                 />
-                <span className="absolute top-3 right-3 text-white/30 text-[0.5rem] font-light tracking-[0.2em]">
+                <span className="absolute top-3 right-3 text-white/30 text-[0.5rem] font-light">
                   {reel.duration}
                 </span>
                 <div className="relative flex flex-col items-center gap-3">
@@ -63,15 +63,15 @@ export default async function DirectorDeFotografiaPage() {
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </div>
-                  <p className="text-white/20 text-[0.48rem] font-light tracking-[0.45em] group-hover:text-white/35 transition-colors duration-500">
+                  <p className="text-white/20 text-[0.48rem] font-light tracking-[0.4em] group-hover:text-white/35 transition-colors duration-500">
                     {reel.year}
                   </p>
                 </div>
               </div>
-              <p className="text-white text-[0.66rem] font-light tracking-[0.26em] mb-2 px-1">
+              <p className="text-white text-[0.66rem] font-light mb-2 px-1">
                 {reel.title}
               </p>
-              <p className="text-white/40 text-[0.58rem] font-light tracking-[0.1em] leading-relaxed px-1 lowercase">
+              <p className="text-white/40 text-[0.58rem] font-light leading-relaxed px-1 lowercase">
                 {reel.description}
               </p>
             </article>
@@ -81,7 +81,7 @@ export default async function DirectorDeFotografiaPage() {
 
       {/* Biography */}
       <section className="border-t border-white/10 py-16">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.45em] mb-10 px-6 sm:px-12">BIOGRAFÍA</p>
+        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10 px-6 sm:px-12">BIOGRAFÍA</p>
         <div className="grid grid-cols-1 sm:grid-cols-2">
 
             {/* Photo */}
@@ -95,11 +95,11 @@ export default async function DirectorDeFotografiaPage() {
             {/* Bio text */}
             <div className="flex flex-col px-8 sm:px-14 py-12 sm:py-16">
               <div>
-                <p className="text-white/30 text-[0.5rem] tracking-[0.5em] mb-8">BIOGRAFÍA</p>
-                <h2 className="text-white text-[clamp(2rem,3.5vw,3rem)] font-light tracking-[0.15em] leading-tight mb-2">
+                <p className="text-white/30 text-[0.5rem] tracking-[0.4em] mb-8">BIOGRAFÍA</p>
+                <h2 className="text-white text-[clamp(2rem,3.5vw,3rem)] font-light leading-tight mb-2">
                   NAHUEL BEADE
                 </h2>
-                <p className="text-orange-400/80 text-[0.62rem] tracking-[0.45em] mb-10">CINEMATÓGRAFO</p>
+                <p className="text-orange-400/80 text-[0.62rem] tracking-[0.4em] mb-10">CINEMATÓGRAFO</p>
                 <div className="w-10 h-px bg-white/20 mb-10" />
                 <div className="space-y-6">
                   <p className="text-white/70 text-[clamp(0.88rem,1.3vw,1rem)] font-light leading-[1.85] lowercase">
@@ -115,7 +115,7 @@ export default async function DirectorDeFotografiaPage() {
               </div>
               <Link
                 href="#"
-                className="mt-8 text-white/40 text-[0.54rem] font-light tracking-[0.35em] border border-white/15 px-8 py-3.5 hover:text-white hover:border-white/45 transition-all duration-300 whitespace-nowrap self-start"
+                className="mt-8 text-white/40 text-[0.54rem] font-light border border-white/15 px-8 py-3.5 hover:text-white hover:border-white/45 transition-all duration-300 whitespace-nowrap self-start"
               >
                 DESCARGAR CV
               </Link>

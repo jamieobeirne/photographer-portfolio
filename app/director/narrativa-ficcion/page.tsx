@@ -1,4 +1,4 @@
-import { DirectorNavLinks } from '@/components/DirectorNavLinks';
+﻿import { DirectorNavLinks } from '@/components/DirectorNavLinks';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
@@ -16,7 +16,7 @@ export default async function NarrativaFiccionPage() {
       <PageHero logoUrl={logoUrl} nav={<DirectorNavLinks />} />
 
       <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10">NARRATIVA & FICCIÓN</p>
+        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">NARRATIVA & FICCIÍ“N</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {[1,2,3,4,5,6].map((n) => (
             <div key={n} className="aspect-video bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors duration-500" />

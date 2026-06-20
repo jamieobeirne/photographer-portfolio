@@ -42,7 +42,7 @@ export function HamburgerMenu({ links }: HamburgerMenuProps) {
                 key={label}
                 href={href}
                 onClick={() => setOpen(false)}
-                className={`text-[clamp(1rem,5vw,1.4rem)] font-light tracking-[0.3em] transition-colors duration-300 ${
+                className={`text-[clamp(1rem,5vw,1.4rem)] font-light transition-colors duration-300 ${
                   pathname === href ? 'text-orange-500' : 'text-white/70 hover:text-white'
                 }`}
               >

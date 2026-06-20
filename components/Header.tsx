@@ -19,7 +19,7 @@ export function Header({ logoUrl, backOnly }: HeaderProps) {
               className="h-14 sm:h-12 w-auto object-contain"
             />
           ) : (
-            <span className="text-white text-xs font-light tracking-[0.3em] hover:text-white/60 transition-colors duration-300">
+            <span className="text-white text-xs font-light hover:text-white/60 transition-colors duration-300">
               NAHUEL BEADE
             </span>
           )}
@@ -28,7 +28,7 @@ export function Header({ logoUrl, backOnly }: HeaderProps) {
       {backOnly ? (
         <Link
           href="/home"
-          className="text-white/70 text-[clamp(0.72rem,1.8vw,1.05rem)] font-light tracking-[0.2em] xl:tracking-[0.3em] hover:text-white transition-colors duration-300"
+          className="text-white/70 text-[clamp(0.72rem,1.8vw,1.05rem)] font-light hover:text-white transition-colors duration-300"
         >
           HOME
         </Link>

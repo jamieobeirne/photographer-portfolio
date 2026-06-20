@@ -25,15 +25,15 @@ export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '' }:
         <img
           src={logoUrl ?? '/blackLogo.png'}
           alt="Nahuel Beade"
-          className="h-[161px] w-[161px] sm:h-[185px] sm:w-[185px] object-cover rounded-full shrink-0"
+          className="h-[120px] sm:h-[140px] w-auto object-contain shrink-0"
           style={{ mixBlendMode: 'screen' }}
         />
 
         <div className="flex flex-col items-center sm:items-end gap-3">
-          <p className="text-white text-2xl sm:text-3xl font-light tracking-wide">
+          <p className="text-white text-2xl sm:text-3xl font-light">
             +34 678 768 119
           </p>
-          <p className="text-white/70 text-sm font-light tracking-wide">
+          <p className="text-white/70 text-sm font-light">
             nah.beade@gmail.com
           </p>
           <div className="flex items-center gap-4 mt-1">
@@ -57,7 +57,7 @@ export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '' }:
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto border-t border-white/10 mt-10 pt-5">
-        <p className="text-white/20 text-[0.5rem] font-light tracking-[0.2em]">
+        <p className="text-white/20 text-[0.5rem] font-light tracking-[0.4em]">
           © 2026 NAHUEL BEADE — TODOS LOS DERECHOS RESERVADOS
         </p>
       </div>
