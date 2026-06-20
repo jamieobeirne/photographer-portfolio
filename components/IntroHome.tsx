@@ -13,7 +13,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
   const [phase, setPhase] = useState<Phase>('video');
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('reveal'), 5000);
+    const t1 = setTimeout(() => setPhase('reveal'), 4000);
     const t2 = setTimeout(() => setPhase('exit'), 7500);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
