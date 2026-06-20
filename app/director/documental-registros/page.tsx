@@ -4,16 +4,18 @@ import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
 export default async function DocumentalRegistrosPage() {
+  let heroUrl: string | null = null;
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    logoUrl = settings.main_logo?.url ?? null;
+    heroUrl = settings.fondo_direccion?.url ?? null;
+    logoUrl = settings.logo_direccion?.url ?? settings.main_logo?.url ?? null;
   } catch {}
 
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <PageHero logoUrl={logoUrl} nav={<DirectorNavLinks />} />
+      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
 
       <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
         <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">DOCUMENTAL & REGISTROS</p>

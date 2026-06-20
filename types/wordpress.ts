@@ -69,6 +69,8 @@ export interface WPImage {
     foquista_fondo?: WPImage | null;
     fondo_fotographia?: WPImage | null;
     logo_fotographia_esp?: WPImage | null;
+    fondo_direccion?: WPImage | null;
+    logo_direccion?: WPImage | null;
   }
 
   export interface GalleryImage {
