@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { HamburgerMenu } from './HamburgerMenu';
 
 const links = [
-  { href: '/director/publicidad-rrss',      label: 'PUBLICIDAD & RRSS' },
+  { href: '/director',                       label: 'HOME' },
+  { href: '/director/publicidad-rrss',       label: 'PUBLICIDAD & RRSS' },
   { href: '/director/narrativa-ficcion',     label: 'NARRATIVA & FICCIÓN' },
   { href: '/director/documental-registros',  label: 'DOCUMENTAL & REGISTROS' },
   { href: '/contacto',                       label: 'CONTACTO' },
@@ -29,6 +31,8 @@ export function DirectorNavLinks() {
         ))}
       </nav>
 
+      {/* Mobile */}
+      <HamburgerMenu links={links} />
     </>
   );
 }

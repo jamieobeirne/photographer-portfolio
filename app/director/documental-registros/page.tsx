@@ -1,11 +1,19 @@
-import { DirectorHeader } from '@/components/DirectorHeader';
+import { DirectorNavLinks } from '@/components/DirectorNavLinks';
 import { Footer } from '@/components/Footer';
+import { PageHero } from '@/components/PageHero';
+import { getGlobalSettings } from '@/lib/wordpress';
 
-export default function DocumentalRegistrosPage() {
+export default async function DocumentalRegistrosPage() {
+  let logoUrl: string | null = null;
+  try {
+    const settings = await getGlobalSettings();
+    logoUrl = settings.main_logo?.url ?? null;
+  } catch {}
+
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <DirectorHeader />
+      <PageHero logoUrl={logoUrl} nav={<DirectorNavLinks />} />
 
       <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
         <p className="text-white/30 text-[0.52rem] tracking-[0.5em] mb-10">DOCUMENTAL & REGISTROS</p>
@@ -16,7 +24,7 @@ export default function DocumentalRegistrosPage() {
         </div>
       </section>
 
-<Footer className="bg-zinc-900" />
+      <Footer logoUrl="/blackLogo.png" />
 
     </main>
   );
