@@ -75,7 +75,6 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
             src={logoUrl}
             alt="Nahuel Beade"
             className="h-[10.5rem] w-[10.5rem] sm:h-[15rem] sm:w-[15rem] md:h-[18rem] md:w-[18rem] object-contain"
-            style={{ filter: 'invert(1)' }}
           />
         </div>
       )}
