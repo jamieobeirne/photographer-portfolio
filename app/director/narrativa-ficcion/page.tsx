@@ -26,7 +26,7 @@ export default async function NarrativaFiccionPage() {
         </div>
       </section>
 
-      <Footer logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
 
     </main>
   );
