@@ -3,16 +3,18 @@ import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
 export default async function ContactoPage() {
+  let heroUrl: string | null = null;
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
+    heroUrl = settings.fondo_contacto?.url ?? null;
     logoUrl = settings.main_logo?.url ?? null;
   } catch {}
 
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <PageHero logoUrl={logoUrl} />
+      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} />
 
       {/* Page title */}
       <section className="px-6 sm:px-12 py-20 sm:py-28 text-center">

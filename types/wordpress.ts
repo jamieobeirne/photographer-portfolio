@@ -71,6 +71,7 @@ export interface WPImage {
     logo_fotographia_esp?: WPImage | null;
     fondo_direccion?: WPImage | null;
     logo_direccion?: WPImage | null;
+    fondo_contacto?: WPImage | null;
   }
 
   export interface GalleryImage {
