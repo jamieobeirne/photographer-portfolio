@@ -100,7 +100,7 @@ export default async function ContactoPage() {
 
       </section>
 
-      <Footer />
+      <Footer imageUrl={heroUrl} />
 
     </main>
   );

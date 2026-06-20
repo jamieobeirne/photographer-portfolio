@@ -9,7 +9,7 @@ export default async function DocumentalRegistrosPage() {
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_direccion?.url ?? null;
-    logoUrl = settings.logo_direccion?.url ?? settings.main_logo?.url ?? null;
+    logoUrl = settings.logo_direccion?.url ?? null;
   } catch {}
 
   return (

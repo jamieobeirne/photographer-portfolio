@@ -15,7 +15,7 @@ export default async function FoquistaPage() {
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.foquista_fondo?.url ?? settings.fondo_dir_fotographia?.url ?? null;
-    logoUrl = settings.main_logo?.url ?? null;
+    logoUrl = settings.logo_dir_fotographia_esp?.url ?? null;
   } catch {}
 
   return (

@@ -15,7 +15,7 @@ export default async function OpDeCamaraPage() {
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.op_de_camara_fondo?.url ?? settings.fondo_dir_fotographia?.url ?? null;
-    logoUrl = settings.main_logo?.url ?? null;
+    logoUrl = settings.logo_dir_fotographia_esp?.url ?? null;
   } catch {}
 
   return (
