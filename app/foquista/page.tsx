@@ -3,7 +3,7 @@ import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
 const carousels = [
-  { id: 1, label: 'FICCIÍ“N / TV' },
+  { id: 1, label: 'FICCIÓN / TV' },
   { id: 2, label: 'PUBLICIDAD' },
   { id: 3, label: 'VIDEOCLIPS' },
   { id: 4, label: 'PROYECTOS INDEPENDIENTES' },
@@ -14,7 +14,7 @@ export default async function FoquistaPage() {
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    heroUrl = settings.foquista_fondo?.url ?? settings.cinematographer_fondo?.url ?? null;
+    heroUrl = settings.foquista_fondo?.url ?? settings.fondo_dir_fotographia?.url ?? null;
     logoUrl = settings.main_logo?.url ?? null;
   } catch {}
 

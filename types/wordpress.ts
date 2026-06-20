@@ -62,7 +62,7 @@ export interface WPImage {
     main_logo?: WPImage | null;
     bio_image?: WPImage | null;
     logo_video?: ACFMediaFile | string | null | false;
-    cinematographer_fondo?: WPImage | null;
+    fondo_dir_fotographia?: WPImage | null;
     cinematographer_nahuel?: WPImage | null;
     op_de_camara_fondo?: WPImage | null;
     foquista_fondo?: WPImage | null;

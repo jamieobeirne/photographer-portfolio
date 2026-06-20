@@ -14,7 +14,7 @@ export default async function DirectorDeFotografiaProyectosPage() {
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    heroUrl = settings.cinematographer_fondo?.url ?? null;
+    heroUrl = settings.fondo_dir_fotographia?.url ?? null;
     logoUrl = settings.main_logo?.url ?? null;
   } catch {}
 

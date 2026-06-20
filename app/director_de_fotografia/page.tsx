@@ -26,7 +26,7 @@ export default async function DirectorDeFotografiaPage() {
   let fotoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    heroUrl = settings.cinematographer_fondo?.url ?? null;
+    heroUrl = settings.fondo_dir_fotographia?.url ?? null;
     logoUrl = settings.main_logo?.url ?? null;
     fotoUrl = settings.cinematographer_nahuel?.url ?? null;
   } catch {}

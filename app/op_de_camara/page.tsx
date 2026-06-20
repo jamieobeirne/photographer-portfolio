@@ -3,7 +3,7 @@ import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
 const carousels = [
-  { id: 1, label: 'FICCIÍ“N / TV' },
+  { id: 1, label: 'FICCIÓN / TV' },
   { id: 2, label: 'PUBLICIDAD' },
   { id: 3, label: 'GIMBAL / STEADICAM' },
   { id: 4, label: 'VIDEOCLIPS' },
@@ -14,7 +14,7 @@ export default async function OpDeCamaraPage() {
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    heroUrl = settings.op_de_camara_fondo?.url ?? settings.cinematographer_fondo?.url ?? null;
+    heroUrl = settings.op_de_camara_fondo?.url ?? settings.fondo_dir_fotographia?.url ?? null;
     logoUrl = settings.main_logo?.url ?? null;
   } catch {}
 
