@@ -34,7 +34,7 @@ export function PageHero({ imageUrl, logoUrl, nav }: PageHeroProps) {
               <img
                 src={logoUrl}
                 alt="Nahuel Beade"
-                className="h-[5rem] sm:h-[4.5rem] md:h-[5rem] lg:h-[5.5rem] xl:h-[6rem] w-auto object-contain"
+                className="h-[4.75rem] sm:h-[4.5rem] md:h-[5rem] lg:h-[5.5rem] xl:h-[6rem] w-auto object-contain"
               />
             ) : (
               <span className="text-white text-xs font-light hover:text-white/60 transition-colors duration-300">
