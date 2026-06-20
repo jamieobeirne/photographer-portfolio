@@ -7,7 +7,7 @@ export default async function BiografiaDirectorDeFotografiaPage() {
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    logoUrl = settings.cinematographer_logo?.url ?? null;
+    logoUrl = settings.main_logo?.url ?? null;
   } catch {}
 
   return (

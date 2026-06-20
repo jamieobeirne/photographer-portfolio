@@ -59,16 +59,14 @@ export interface WPImage {
    */
   export interface WPGlobalSettings {
     logo_image?: WPImage | null;
-    initial_logo?: WPImage | null;
+    main_logo?: WPImage | null;
     bio_image?: WPImage | null;
     logo_video?: ACFMediaFile | string | null | false;
     cinematographer_fondo?: WPImage | null;
-    cinematographer_logo?: WPImage | null;
     cinematographer_nahuel?: WPImage | null;
     op_de_camara_fondo?: WPImage | null;
     foquista_fondo?: WPImage | null;
     foto_fondo?: WPImage | null;
-    foto_logo?: WPImage | null;
   }
 
   export interface GalleryImage {

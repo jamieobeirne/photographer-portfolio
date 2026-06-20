@@ -19,7 +19,7 @@ export default async function ServiciosFotografoPage() {
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.foto_fondo?.url ?? null;
-    logoUrl = settings.foto_logo?.url ?? null;
+    logoUrl = settings.main_logo?.url ?? null;
   } catch {}
 
   return (
