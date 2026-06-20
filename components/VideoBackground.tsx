@@ -21,7 +21,7 @@ export function VideoBackground({ startTime = 0, overlayOpacity = 0.55 }: VideoB
       <video
         ref={landRef}
         autoPlay muted loop playsInline
-        className="hidden sm:block fixed inset-0 w-full h-full object-cover"
+        className="hidden sm:block absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{ filter: 'grayscale(1)', zIndex: 0 }}
       >
         <source src="/intro-landscape.mp4" type="video/mp4" />
@@ -29,7 +29,7 @@ export function VideoBackground({ startTime = 0, overlayOpacity = 0.55 }: VideoB
       <video
         ref={portRef}
         autoPlay muted loop playsInline
-        className="block sm:hidden fixed inset-0 w-full h-full object-cover"
+        className="block sm:hidden absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{ filter: 'grayscale(1)', zIndex: 0 }}
       >
         <source src="/intro-portrait.mp4" type="video/mp4" />
