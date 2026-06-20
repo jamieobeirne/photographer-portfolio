@@ -3,6 +3,7 @@ name: project-general-config
 description: Tool stack, hosting, and credential management for the Nahuel Beade portfolio project
 metadata:
   type: project
+  date: 2026-06-20
 ---
 
 # General Project Configuration
