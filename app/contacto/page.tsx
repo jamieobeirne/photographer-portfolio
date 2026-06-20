@@ -8,7 +8,7 @@ export default async function ContactoPage() {
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_contacto?.url ?? null;
-    logoUrl = settings.main_logo?.url ?? null;
+    logoUrl = settings.main_logo_new?.url ?? null;
   } catch {}
 
   return (

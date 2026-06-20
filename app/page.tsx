@@ -5,7 +5,7 @@ export default async function IntroPage() {
   let logoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    logoUrl = settings.main_logo?.url ?? null;
+    logoUrl = settings.main_logo_new?.url ?? null;
   } catch {}
 
   return <IntroHome logoUrl={logoUrl} />;

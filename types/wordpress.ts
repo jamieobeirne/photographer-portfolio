@@ -60,6 +60,7 @@ export interface WPImage {
   export interface WPGlobalSettings {
     logo_image?: WPImage | null;
     main_logo?: WPImage | null;
+    main_logo_new?: WPImage | null;
     bio_image?: WPImage | null;
     logo_video?: ACFMediaFile | string | null | false;
     fondo_dir_fotographia?: WPImage | null;
