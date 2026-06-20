@@ -25,7 +25,7 @@ export default async function ContactoPage() {
         {/* Logo — link back to home, sits over video */}
         <section className="relative z-10 flex justify-center py-20 sm:py-28">
           {logoUrl && (
-            <Link href="/">
+            <Link href="/home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={logoUrl}
