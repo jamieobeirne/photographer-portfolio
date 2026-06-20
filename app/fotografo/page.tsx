@@ -67,7 +67,7 @@ export default async function FotografoPage() {
                 </div>
               </div>
               <p className="text-white text-[0.66rem] font-light tracking-[0.26em] mb-2">{item.title}</p>
-              <p className="text-white/38 text-[0.58rem] font-light tracking-[0.14em]">{item.description}</p>
+              <p className="text-white/38 text-[0.58rem] font-light tracking-[0.14em] lowercase">{item.description}</p>
             </article>
           ))}
         </div>
@@ -78,7 +78,7 @@ export default async function FotografoPage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-8">
           <div className="max-w-xl">
             <p className="text-white/30 text-[0.52rem] tracking-[0.45em] mb-4">ACERCA DE</p>
-            <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
+            <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed lowercase">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris.

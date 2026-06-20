@@ -71,7 +71,7 @@ export default async function DirectorDeFotografiaPage() {
               <p className="text-white text-[0.66rem] font-light tracking-[0.26em] mb-2 px-1">
                 {reel.title}
               </p>
-              <p className="text-white/40 text-[0.58rem] font-light tracking-[0.1em] leading-relaxed px-1">
+              <p className="text-white/40 text-[0.58rem] font-light tracking-[0.1em] leading-relaxed px-1 lowercase">
                 {reel.description}
               </p>
             </article>
@@ -102,13 +102,13 @@ export default async function DirectorDeFotografiaPage() {
                 <p className="text-orange-400/80 text-[0.62rem] tracking-[0.45em] mb-10">CINEMATÓGRAFO</p>
                 <div className="w-10 h-px bg-white/20 mb-10" />
                 <div className="space-y-6">
-                  <p className="text-white/70 text-[clamp(0.88rem,1.3vw,1rem)] font-light leading-[1.85]">
+                  <p className="text-white/70 text-[clamp(0.88rem,1.3vw,1rem)] font-light leading-[1.85] lowercase">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
                   </p>
-                  <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85]">
+                  <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85] lowercase">
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.
                   </p>
-                  <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85]">
+                  <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85] lowercase">
                     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto.
                   </p>
                 </div>

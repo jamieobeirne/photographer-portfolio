@@ -53,7 +53,7 @@ export default function ContactoPage() {
                 <input
                   id="nombre"
                   type="text"
-                  placeholder="Tu nombre"
+                  placeholder="tu nombre"
                   className="w-full bg-transparent border-b border-white/15 py-2.5 text-white/75 text-[clamp(0.84rem,1.6vw,1rem)] font-light placeholder:text-white/20 focus:outline-none focus:border-white/40 transition-colors duration-300"
                 />
               </div>
@@ -76,7 +76,7 @@ export default function ContactoPage() {
               <textarea
                 id="mensaje"
                 rows={5}
-                placeholder="Tu mensaje..."
+                placeholder="tu mensaje..."
                 className="w-full bg-transparent border-b border-white/15 py-2.5 text-white/75 text-[clamp(0.84rem,1.6vw,1rem)] font-light placeholder:text-white/20 focus:outline-none focus:border-white/40 transition-colors duration-300 resize-none"
               />
             </div>
