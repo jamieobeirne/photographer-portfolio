@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
 import { VideoBackground } from '@/components/VideoBackground';
@@ -21,22 +22,25 @@ export default async function ContactoPage() {
       <div className="relative overflow-hidden">
         <VideoBackground startTime={20} overlayOpacity={0.3} />
 
-        {/* Logo — sits over video */}
+        {/* Logo — link back to home, sits over video */}
         <section className="relative z-10 flex justify-center py-20 sm:py-28">
           {logoUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={logoUrl}
-              alt="Nahuel Beade"
-              className="h-[5rem] sm:h-[6rem] md:h-[7rem] w-auto object-contain"
-            />
+            <Link href="/">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={logoUrl}
+                alt="Nahuel Beade"
+                className="h-[5rem] sm:h-[6rem] md:h-[7rem] w-auto object-contain"
+              />
+            </Link>
           )}
         </section>
 
-        {/* Form section — extra dark layer for readability */}
-        <div className="relative z-10">
-          <div className="absolute inset-0 bg-black/60 pointer-events-none" />
-          <section className="relative px-6 sm:px-12 pb-24 max-w-3xl mx-auto">
+        {/* Form section — centered dark rectangle, not full-width */}
+        <div className="relative z-10 px-4 sm:px-8 pb-24 flex justify-center">
+          <div className="relative w-full max-w-3xl">
+            <div className="absolute -inset-x-8 -inset-y-10 bg-black/60 pointer-events-none" />
+            <section className="relative px-6 sm:px-10 pt-2">
 
             {/* Contact info */}
             <div className="flex flex-col sm:flex-row justify-center gap-12 sm:gap-20 text-center mb-16">
@@ -109,7 +113,8 @@ export default async function ContactoPage() {
               </div>
             </form>
 
-          </section>
+            </section>
+          </div>
         </div>
       </div>
 
