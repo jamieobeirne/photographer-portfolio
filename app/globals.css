@@ -18,6 +18,16 @@ body {
   letter-spacing: 0.12em;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
+
 /* Horizontal strip thumbnails (portfolio pages, ≥700px) */
 .strip-img {
   height: clamp(115px, 35.9vh, 317px);
