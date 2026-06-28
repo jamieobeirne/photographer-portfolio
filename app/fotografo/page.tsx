@@ -69,7 +69,7 @@ export default async function FotografoPage() {
             </Link>
           </div>
           {bioImageUrl && (
-            <div className="w-[80vw] sm:w-[calc((100vw-6px)/3)] aspect-square shrink-0 overflow-hidden">
+            <div className="w-[90vw] sm:w-[calc((100vw-6px)/3)] aspect-square shrink-0 overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={bioImageUrl}
