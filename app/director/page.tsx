@@ -22,7 +22,7 @@ export default async function DirectorPage() {
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
 
       {videoUrl && (
-        <section>
+        <section className="mt-[50px] sm:mt-[100px] mb-[50px] sm:mb-[100px]">
           <video
             src={videoUrl}
             autoPlay
