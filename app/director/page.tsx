@@ -23,7 +23,9 @@ export default async function DirectorPage() {
         <section>
           <video
             src={videoUrl}
-            controls
+            autoPlay
+            loop
+            muted
             playsInline
             className="w-full aspect-video"
           />
