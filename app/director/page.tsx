@@ -29,7 +29,7 @@ export default async function DirectorPage() {
             loop
             muted
             playsInline
-            className="w-full aspect-video"
+            className="w-[90vw] mx-auto aspect-video block"
           />
         </section>
       )}
