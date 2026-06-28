@@ -81,7 +81,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
 
       {/* Three links — slide up from below */}
       <div
-        className="absolute top-[15px] sm:top-0 right-0 bottom-0 left-0 flex flex-col sm:flex-row z-10"
+        className="absolute top-[30px] sm:top-0 right-0 bottom-0 left-0 flex flex-col sm:flex-row z-10"
         style={{
           transform: phase === 'exit' ? 'translateY(0)' : 'translateY(100vh)',
           transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1)',
@@ -92,7 +92,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/director_de_fotografia"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.845rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white text-[clamp(0.91rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             DIRECTOR DE FOTOGRAFÍA
           </p>
         </Link>
@@ -100,7 +100,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/fotografo"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.845rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white text-[clamp(0.91rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             FOTÓGRAFO
           </p>
         </Link>
@@ -108,7 +108,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/director"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.845rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white text-[clamp(0.91rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             DIRECTOR
           </p>
         </Link>
