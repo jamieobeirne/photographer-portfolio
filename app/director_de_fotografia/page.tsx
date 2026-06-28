@@ -79,48 +79,32 @@ export default async function DirectorDeFotografiaPage() {
         </div>
       </section>
 
-      {/* Biography */}
-      <section className="border-t border-white/10 py-16">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10 px-6 sm:px-12">BIOGRAFÍA</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2">
-
-            {/* Photo */}
-            <div className="aspect-[3/4] sm:aspect-auto sm:min-h-[520px] bg-white/[0.04] border border-white/10 overflow-hidden">
-              {fotoUrl && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={fotoUrl} alt="Nahuel Beade" className="w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} />
-              )}
-            </div>
-
-            {/* Bio text */}
-            <div className="flex flex-col px-8 sm:px-14 py-12 sm:py-16">
-              <div>
-                <p className="text-white/30 text-[0.5rem] tracking-[0.4em] mb-8">BIOGRAFÍA</p>
-                <h2 className="text-white text-[clamp(2rem,3.5vw,3rem)] font-light leading-tight mb-2">
-                  NAHUEL BEADE
-                </h2>
-                <p className="text-orange-400/80 text-[0.62rem] tracking-[0.4em] mb-10">CINEMATÓGRAFO</p>
-                <div className="w-10 h-px bg-white/20 mb-10" />
-                <div className="space-y-6">
-                  <p className="text-white/70 text-[clamp(0.88rem,1.3vw,1rem)] font-light leading-[1.85] lowercase">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-                  </p>
-                  <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85] lowercase">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.
-                  </p>
-                  <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85] lowercase">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto.
-                  </p>
-                </div>
-              </div>
-              <Link
-                href="#"
-                className="mt-8 text-white/40 text-[0.54rem] font-light border border-white/15 px-8 py-3.5 hover:text-white hover:border-white/45 transition-all duration-300 whitespace-nowrap self-start"
-              >
-                DESCARGAR CV
-              </Link>
-            </div>
-
+      {/* Bio teaser */}
+      <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16">
+        {fotoUrl && (
+          <div className="order-2 sm:order-1 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={fotoUrl}
+              alt="Nahuel Beade"
+              className="w-full h-full object-cover"
+              style={{ transform: 'scaleX(-1)' }}
+            />
+          </div>
+        )}
+        <div className="order-1 sm:order-2 flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
+          <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-6">ACERCA DE</p>
+          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed lowercase mb-8">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris.
+          </p>
+          <Link
+            href="/director_de_fotografia/biografia"
+            className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300 self-start"
+          >
+            BIOGRAFÍA
+          </Link>
         </div>
       </section>
 

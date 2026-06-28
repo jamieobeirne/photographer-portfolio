@@ -37,7 +37,7 @@ export default async function DirectorPage() {
       {/* Bio — photo left, text right */}
       <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16">
         {bioFotoUrl && (
-          <div className="w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
+          <div className="order-2 sm:order-1 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={bioFotoUrl}
@@ -46,7 +46,7 @@ export default async function DirectorPage() {
             />
           </div>
         )}
-        <div className="flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
+        <div className="order-1 sm:order-2 flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
           <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-6">ACERCA DE</p>
           <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed lowercase">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
