@@ -36,7 +36,7 @@ export default async function FotografoPage() {
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
 
       {/* Instagram-style photo grid */}
-      <section className="mt-8 sm:mt-16">
+      <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
         <div className="w-[90vw] mx-auto grid grid-cols-3 gap-[3px]">
           {photos.map((photo) => (
             <article key={photo.id} className="group cursor-pointer relative aspect-square overflow-hidden">
