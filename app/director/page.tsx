@@ -35,7 +35,7 @@ export default async function DirectorPage() {
       )}
 
       {/* Bio — photo left, text right */}
-      <section className="border-t border-white/10 flex flex-col sm:flex-row sm:mb-[50px]">
+      <section className="border-t border-white/10 flex flex-col sm:flex-row sm:mb-[100px]">
         {bioFotoUrl && (
           <div className="w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
