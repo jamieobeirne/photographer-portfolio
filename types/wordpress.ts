@@ -75,6 +75,7 @@ export interface WPImage {
     fondo_contacto?: WPImage | null;
     fotopage_bio?: ACFMediaFile | null;
     director_video?: ACFMediaFile | null;
+    director_bio_foto?: ACFMediaFile | null;
   }
 
   export interface GalleryImage {
