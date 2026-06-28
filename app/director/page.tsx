@@ -22,7 +22,7 @@ export default async function DirectorPage() {
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
 
       {videoUrl && (
-        <section className="mt-[50px] sm:mt-[100px] mb-[50px] sm:mb-[100px]">
+        <section className="mt-12 sm:mt-24 mb-12 sm:mb-24">
           <video
             src={videoUrl}
             autoPlay
@@ -35,7 +35,7 @@ export default async function DirectorPage() {
       )}
 
       {/* Bio — photo left, text right */}
-      <section className="border-t border-white/10 flex flex-col sm:flex-row sm:mb-[100px]">
+      <section className="border-t border-white/10 flex flex-col sm:flex-row mb-12 sm:mb-24">
         {bioFotoUrl && (
           <div className="w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
