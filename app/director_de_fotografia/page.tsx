@@ -38,7 +38,8 @@ export default async function DirectorDeFotografiaPage() {
 
       {/* Reels */}
       <section className="py-16 sm:py-20">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10 px-6 sm:px-12">REELS</p>
+        <div className="w-[90vw] mx-auto">
+        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">REELS</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {reels.map((reel) => (
             <article key={reel.id} className="group cursor-pointer">
@@ -76,6 +77,7 @@ export default async function DirectorDeFotografiaPage() {
               </p>
             </article>
           ))}
+        </div>
         </div>
       </section>
 

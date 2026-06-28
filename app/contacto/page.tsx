@@ -7,10 +7,12 @@ import { getGlobalSettings } from '@/lib/wordpress';
 export default async function ContactoPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
+  let bioFotoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_contacto?.url ?? null;
     logoUrl = settings.main_logo_new?.url ?? null;
+    bioFotoUrl = settings.cinematographer_nahuel?.url ?? null;
   } catch {}
 
   return (
@@ -117,6 +119,34 @@ export default async function ContactoPage() {
           </div>
         </div>
       </div>
+
+      {/* Bio teaser */}
+      <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16">
+        {bioFotoUrl && (
+          <div className="order-2 sm:order-1 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={bioFotoUrl}
+              alt="Nahuel Beade"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+        <div className="order-1 sm:order-2 flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
+          <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-6">ACERCA DE</p>
+          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed lowercase mb-8">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris.
+          </p>
+          <Link
+            href="/director_de_fotografia/biografia"
+            className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300 self-start"
+          >
+            BIOGRAFÍA
+          </Link>
+        </div>
+      </section>
 
       <Footer imageUrl={heroUrl} />
 
