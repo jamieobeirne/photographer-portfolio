@@ -74,6 +74,7 @@ export interface WPImage {
     logo_direccion?: WPImage | null;
     fondo_contacto?: WPImage | null;
     fotopage_bio?: ACFMediaFile | null;
+    director_video?: ACFMediaFile | null;
   }
 
   export interface GalleryImage {
