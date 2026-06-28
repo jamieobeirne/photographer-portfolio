@@ -4,31 +4,19 @@ import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
-const series = [
-  {
-    id: 1,
-    title: 'RETRATOS',
-    year: '2023 / 24',
-    description: 'Lorem ipsum dolor sit amet consectetur',
-  },
-  {
-    id: 2,
-    title: 'EDITORIAL',
-    year: '2023 / 24',
-    description: 'Lorem ipsum dolor sit amet consectetur',
-  },
-  {
-    id: 3,
-    title: 'PAISAJE',
-    year: '2022 / 23',
-    description: 'Lorem ipsum dolor sit amet consectetur',
-  },
-  {
-    id: 4,
-    title: 'PROYECTO PERSONAL',
-    year: '2021 / 22',
-    description: 'Lorem ipsum dolor sit amet consectetur',
-  },
+const photos = [
+  { id: 1,  title: 'RETRATOS' },
+  { id: 2,  title: 'EDITORIAL' },
+  { id: 3,  title: 'PAISAJE' },
+  { id: 4,  title: 'PROYECTO PERSONAL' },
+  { id: 5,  title: 'NATURALEZA' },
+  { id: 6,  title: 'ARQUITECTURA' },
+  { id: 7,  title: 'MODA' },
+  { id: 8,  title: 'DOCUMENTAL' },
+  { id: 9,  title: 'ABSTRACTO' },
+  { id: 10, title: 'URBANO' },
+  { id: 11, title: 'FAMILIA' },
+  { id: 12, title: 'EVENTOS' },
 ];
 
 export default async function FotografoPage() {
@@ -45,29 +33,17 @@ export default async function FotografoPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
 
-      {/* Series grid */}
-      <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">PORTFOLIO</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {series.map((item) => (
-            <article key={item.id} className="group cursor-pointer">
-              <div className="relative aspect-video bg-white/[0.03] border border-white/10 flex items-center justify-center mb-5 overflow-hidden group-hover:border-white/20 transition-colors duration-500">
-                <div
-                  className="absolute inset-0 opacity-[0.035]"
-                  style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, white 3px, white 4px)' }}
-                />
-                <span className="absolute top-3 right-3 text-white/30 text-[0.5rem] font-light">
-                  {item.year}
-                </span>
-                <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white/45 group-hover:scale-105 transition-all duration-500">
-                  <svg className="w-5 h-5 text-white/35 group-hover:text-white/65 transition-colors duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                </div>
-              </div>
-              <p className="text-white text-[0.66rem] font-light mb-2">{item.title}</p>
-              <p className="text-white/38 text-[0.58rem] font-light lowercase">{item.description}</p>
+      {/* Instagram-style photo grid */}
+      <section>
+        <div className="grid grid-cols-3 gap-[3px]">
+          {photos.map((photo) => (
+            <article key={photo.id} className="group cursor-pointer relative aspect-square overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://picsum.photos/seed/${photo.id * 37}/800/800`}
+                alt={photo.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
             </article>
           ))}
         </div>
