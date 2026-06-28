@@ -121,7 +121,7 @@ export default async function ContactoPage() {
       </div>
 
       {/* Bio teaser */}
-      <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16">
+      <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
         {bioFotoUrl && (
           <div className="order-2 sm:order-1 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
