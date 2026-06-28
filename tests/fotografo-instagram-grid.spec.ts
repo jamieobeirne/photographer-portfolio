@@ -19,14 +19,6 @@ const DESKTOP = { width: 1280, height: 900 };
 const MOBILE  = { width: 390,  height: 844 };
 const MAX_GAP_PX = 4;
 
-// ─── helpers ──────────────────────────────────────────────────────────────────
-
-/** Return the computed style of the first grid that is wider than 80 % of the viewport. */
-function findPortfolioGrid(doc: Document) {
-  const grids = Array.from(doc.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-  return grids.find(el => el.getBoundingClientRect().width > window.innerWidth * 0.8) ?? null;
-}
-
 // ─── desktop ──────────────────────────────────────────────────────────────────
 
 test.describe('/fotografo — Instagram grid (desktop 1280px)', () => {
@@ -37,8 +29,7 @@ test.describe('/fotografo — Instagram grid (desktop 1280px)', () => {
 
   test('portfolio grid has exactly 3 equal columns', async ({ page }) => {
     const result = await page.evaluate(() => {
-      const grid = (window as any).__findGrid?.() ??
-        Array.from(document.querySelectorAll('[class*="grid"]'))
+      const grid = Array.from(document.querySelectorAll('[class*="grid"]'))
           .find((el) => el.getBoundingClientRect().width > window.innerWidth * 0.8);
       if (!grid) return { count: 0, raw: 'no grid found' };
       const raw = window.getComputedStyle(grid as Element).gridTemplateColumns;
@@ -94,19 +85,22 @@ test.describe('/fotografo — Instagram grid (desktop 1280px)', () => {
     }
   });
 
-  test('grid spans full viewport width — edge-to-edge layout', async ({ page }) => {
-    const { left, right, vw } = await page.evaluate(() => {
+  test('grid is 90vw wide and centered', async ({ page }) => {
+    const { width, left, vw } = await page.evaluate(() => {
       const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
       for (const el of grids) {
         const r = el.getBoundingClientRect();
         if (r.width > window.innerWidth * 0.8)
-          return { left: Math.round(r.left), right: Math.round(r.right), vw: window.innerWidth };
+          return { width: r.width, left: Math.round(r.left), vw: window.innerWidth };
       }
-      return { left: -1, right: -1, vw: window.innerWidth };
+      return { width: 0, left: -1, vw: window.innerWidth };
     });
 
-    expect(left,  `Grid left edge is ${left}px — should be ≤ 2px from viewport`).toBeLessThanOrEqual(2);
-    expect(right, `Grid right edge is ${right}px — should reach ${vw - 2}px+`).toBeGreaterThanOrEqual(vw - 2);
+    const expectedWidth = vw * 0.9;
+    const expectedMargin = vw * 0.05;
+
+    expect(width,  `Grid width ${width}px — expected ~${expectedWidth}px (90vw)`).toBeCloseTo(expectedWidth, -1);
+    expect(left,   `Grid left edge ${left}px — expected ~${expectedMargin}px (5vw)`).toBeCloseTo(expectedMargin, -1);
   });
 
   test('every thumbnail cell contains a visible <img>', async ({ page }) => {
