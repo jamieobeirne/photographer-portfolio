@@ -69,12 +69,12 @@ export default async function FotografoPage() {
             </Link>
           </div>
           {bioImageUrl && (
-            <div className="w-full sm:w-72 lg:w-96 shrink-0">
+            <div className="w-[calc((100vw-6px)/3)] aspect-square shrink-0 overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={bioImageUrl}
                 alt="Nahuel Beade"
-                className="w-full object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
           )}
