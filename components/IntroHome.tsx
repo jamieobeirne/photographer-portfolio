@@ -57,15 +57,15 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
         }}
       />
 
-      {/* Logo — fades in, then flies up */}
+      {/* Logo — fades in at centre, then moves to top and shrinks */}
       {logoUrl && (
         <div
           className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
           style={{
-            opacity: phase === 'reveal' ? 1 : 0,
-            transform: phase === 'exit' ? 'translateY(-120vh)' : 'translateY(0)',
+            opacity: phase === 'video' ? 0 : 1,
+            transform: phase === 'exit' ? 'translateY(var(--intro-logo-y)) scale(var(--intro-logo-scale))' : 'translateY(0) scale(1)',
             transition: phase === 'exit'
-              ? 'transform 0.85s cubic-bezier(0.4,0,0.6,1), opacity 0.3s ease'
+              ? 'transform 0.85s cubic-bezier(0.4,0,0.6,1)'
               : 'opacity 0.9s ease, transform 0s',
             mixBlendMode: 'screen',
           }}
@@ -81,7 +81,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
 
       {/* Three links — slide up from below */}
       <div
-        className="absolute inset-0 flex flex-col sm:flex-row z-10"
+        className="absolute top-[15px] sm:top-0 right-0 bottom-0 left-0 flex flex-col sm:flex-row z-10"
         style={{
           transform: phase === 'exit' ? 'translateY(0)' : 'translateY(100vh)',
           transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1)',
@@ -92,7 +92,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/director_de_fotografia"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.72rem,1.8vw,1.05rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white text-[clamp(0.845rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             DIRECTOR DE FOTOGRAFÍA
           </p>
         </Link>
@@ -100,7 +100,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/fotografo"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.72rem,1.8vw,1.05rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white text-[clamp(0.845rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             FOTÓGRAFO
           </p>
         </Link>
@@ -108,7 +108,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/director"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.72rem,1.8vw,1.05rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white text-[clamp(0.845rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             DIRECTOR
           </p>
         </Link>
@@ -125,7 +125,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
       >
         <Link
           href="/contacto"
-          className="text-white/75 text-[0.65rem] sm:text-xs font-light hover:text-white transition-colors duration-300"
+          className="text-white/75 text-[0.775rem] sm:text-[0.875rem] font-light hover:text-white transition-colors duration-300"
         >
           CONTACTO
         </Link>

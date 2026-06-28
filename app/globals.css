@@ -3,6 +3,18 @@
 :root {
   --background: #000000;
   --foreground: #ededed;
+
+  /* Intro logo exit animation — mobile (h-[10.5rem] source → h-14 target) */
+  --intro-logo-scale: 0.333;
+  --intro-logo-y: calc(-50vh + 2.75rem);
+}
+
+@media (min-width: 640px) {
+  :root {
+    /* sm+ (h-[15rem] source → h-12 target) */
+    --intro-logo-scale: 0.2;
+    --intro-logo-y: calc(-50vh + 2.5rem);
+  }
 }
 
 @theme inline {

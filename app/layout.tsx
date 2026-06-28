@@ -11,6 +11,7 @@ const jost = Jost({
 export const metadata: Metadata = {
   title: 'Nahuel Beade',
   description: 'Director de Fotografía, Fotógrafo y Director',
+  icons: [],
 };
 
 export default function RootLayout({
