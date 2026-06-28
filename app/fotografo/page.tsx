@@ -22,10 +22,12 @@ const photos = [
 export default async function FotografoPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
+  let bioImageUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_fotographia?.url ?? null;
     logoUrl = settings.logo_fotographia_esp?.url ?? null;
+    bioImageUrl = settings.fotopage_bio?.url ?? null;
   } catch {}
 
   return (
@@ -51,21 +53,31 @@ export default async function FotografoPage() {
 
       {/* Bio teaser */}
       <section className="border-t border-white/10 px-6 sm:px-12 py-16">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-8">
-          <div className="max-w-xl">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center gap-10 sm:gap-16">
+          <div className="flex-1">
             <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-4">ACERCA DE</p>
-            <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed lowercase">
+            <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed lowercase mb-8">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
               veniam, quis nostrud exercitation ullamco laboris.
             </p>
+            <Link
+              href="/fotografo/biografia"
+              className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300"
+            >
+              BIOGRAFÍA
+            </Link>
           </div>
-          <Link
-            href="/fotografo/biografia"
-            className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300 whitespace-nowrap self-start sm:self-auto"
-          >
-            BIOGRAFÍA
-          </Link>
+          {bioImageUrl && (
+            <div className="w-full sm:w-72 lg:w-96 shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={bioImageUrl}
+                alt="Nahuel Beade"
+                className="w-full object-cover"
+              />
+            </div>
+          )}
         </div>
       </section>
 
