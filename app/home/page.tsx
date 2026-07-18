@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col sm:flex-row bg-black">
+    <main className="flex min-h-screen flex-col sm:!flex-row bg-black">
 
       <div className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20">
         <Link

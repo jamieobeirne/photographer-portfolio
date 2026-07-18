@@ -55,7 +55,7 @@ body {
   text-transform: uppercase;
 }
 
-main {
+main:not(.flex) {
   display: flex;
   flex-direction: column;
   min-height: 100vh;

@@ -7,8 +7,8 @@ import { HamburgerMenu } from './HamburgerMenu';
 
 const sectionLinks = [
   { href: '/director/publicidad-rrss',     label: 'PUBLICIDAD & RRSS' },
-  { href: '/director/narrativa-ficcion',    label: 'NARRATIVA & FICCIÓN' },
-  { href: '/director/documental-registros', label: 'DOCUMENTAL & REGISTROS' },
+  { href: '/director/narrativa-ficcion',    label: 'CINE FICCIÓN & DOCUMENTAL' },
+  { href: '/director/documental-registros', label: 'VIDEO CLIPS & LIVE SESSION' },
   { href: '/contacto',                      label: 'CONTACTO' },
 ];
 
@@ -37,12 +37,12 @@ export function DirectorHeader() {
       </Link>
       <div className="flex items-center gap-5 xl:gap-8">
         {/* Desktop HOME link */}
-        <Link href={homeHref} className={`hidden lg:inline ${linkClass(homeActive)}`}>
+        <Link href={homeHref} className={`hidden xl:inline ${linkClass(homeActive)}`}>
           HOME
         </Link>
         <DirectorNavLinks />
         {/* Mobile hamburger with HOME included */}
-        <HamburgerMenu links={mobileLinks} />
+        <HamburgerMenu links={mobileLinks} desktopBreakpoint="xl" />
       </div>
     </header>
   );

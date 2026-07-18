@@ -6,9 +6,10 @@ import { usePathname } from 'next/navigation';
 
 interface HamburgerMenuProps {
   links: { href: string; label: string }[];
+  desktopBreakpoint?: 'lg' | 'xl';
 }
 
-export function HamburgerMenu({ links }: HamburgerMenuProps) {
+export function HamburgerMenu({ links, desktopBreakpoint = 'lg' }: HamburgerMenuProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -17,7 +18,7 @@ export function HamburgerMenu({ links }: HamburgerMenuProps) {
       <button
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className="flex lg:hidden flex-col justify-center gap-[7.3px] p-2"
+        className={`flex ${desktopBreakpoint === 'xl' ? 'xl:hidden' : 'lg:hidden'} flex-col justify-center gap-[7.3px] p-2`}
       >
         <span className="block w-[29px] h-px bg-white/70" />
         <span className="block w-[29px] h-px bg-white/70" />

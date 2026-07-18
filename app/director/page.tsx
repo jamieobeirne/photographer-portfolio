@@ -1,19 +1,19 @@
 import { DirectorNavLinks } from '@/components/DirectorNavLinks';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
-import { getGlobalSettings } from '@/lib/wordpress';
+import { getGlobalSettings, resolveLogoVideoField } from '@/lib/wordpress';
 
 export default async function DirectorPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
-  let videoUrl: string | null = null;
+  let video: { url: string; type: string } | null = null;
   let bioFotoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
     // Spec 4.4: new FOTO FONDO MENÚ image, falling back to previous fondo_direccion
     heroUrl = settings.fondo_menu_director?.url ?? settings.fondo_direccion?.url ?? null;
     logoUrl = settings.logo_direccion?.url ?? null;
-    videoUrl = settings.director_video?.url ?? null;
+    video = resolveLogoVideoField(settings.director_video);
     bioFotoUrl = settings.director_bio_foto?.url ?? null;
   } catch {}
 
@@ -22,16 +22,17 @@ export default async function DirectorPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
 
-      {videoUrl && (
+      {video && (
         <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
           <video
-            src={videoUrl}
             autoPlay
             loop
             muted
             playsInline
             className="w-[90vw] mx-auto aspect-video block"
-          />
+          >
+            <source src={video.url} type={video.type} />
+          </video>
         </section>
       )}
 
@@ -49,12 +50,12 @@ export default async function DirectorPage() {
         )}
         <div className="order-1 flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20 space-y-6">
           <p className="text-white/30 text-[0.52rem] tracking-[0.4em]">ACERCA DE</p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Nahuel Beade es director audiovisual con base en Barcelona, con
             formación en cine y una sólida trayectoria en proyectos de ficción,
             documental y contenido comercial.
           </p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Nació el 21 de octubre de 1986 en Santa Fe (Argentina) y creció en Paraná, donde
             desde muy joven desarrolló un fuerte vínculo con la imagen, el cine, la música y
             los procesos creativos. Se formó en la Escuela de Artes Visuales “Prof. Roberto
@@ -64,12 +65,12 @@ export default async function DirectorPage() {
             en Dirección de Fotografía, lo que influye directamente en su enfoque visual
             como director.
           </p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             A lo largo de más de 18 años de experiencia, ha trabajado en el ámbito audiovisual
             y fotográfico tanto de manera independiente como en colaboración con equipos de
             comunicación, desarrollando proyectos en publicidad, ficción y documental.
           </p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Como director, ha desarrollado una amplia variedad de proyectos propios, incluyendo
             cortometrajes, videoclips, livesessions y formatos experimentales, donde combina
             una mirada narrativa con una fuerte impronta visual. Entre sus trabajos se
@@ -79,13 +80,13 @@ export default async function DirectorPage() {
             <em>Urbanos: La Vida en Colectivos</em> (2018), <em>La Pasarela</em> (2020),{' '}
             <em>Lo Que Se Perdió</em> (2021) y <em>Vibra Electrónica</em> (2023).
           </p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Paralelamente, ha participado en proyectos de otros realizadores como director de
             fotografía, operador de cámara y foquista, experiencia que refuerza su comprensión
             integral del proceso cinematográfico y su capacidad para trabajar dentro de
             equipos técnicos en distintos contextos de producción.
           </p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Actualmente reside en Barcelona, donde desarrolla proyectos en el ámbito
             publicitario y musical, y se encuentra en proceso de desarrollo de su primer
             largometraje.

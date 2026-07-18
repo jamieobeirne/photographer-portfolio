@@ -1,6 +1,8 @@
-﻿import { DirectorNavLinks } from '@/components/DirectorNavLinks';
+import { DirectorNavLinks } from '@/components/DirectorNavLinks';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
+import { VideoGrid } from '@/components/VideoGrid';
+import { musicVideos } from '@/lib/director-videos';
 import { getGlobalSettings } from '@/lib/wordpress';
 
 export default async function DocumentalRegistrosPage() {
@@ -14,20 +16,12 @@ export default async function DocumentalRegistrosPage() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
-
       <section className="px-6 sm:px-12 py-16 sm:py-20 max-w-6xl mx-auto">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">DOCUMENTAL & REGISTROS</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {[1,2,3,4,5,6].map((n) => (
-            <div key={n} className="aspect-video bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors duration-500" />
-          ))}
-        </div>
+        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">VIDEO CLIPS & LIVE SESSION</p>
+        <VideoGrid videos={musicVideos} />
       </section>
-
       <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
-
     </main>
   );
 }
