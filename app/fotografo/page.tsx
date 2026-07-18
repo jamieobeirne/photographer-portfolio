@@ -22,12 +22,11 @@ const photos = [
 export default async function FotografoPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
-  let bioImageUrl: string | null = null;
+  const bioImageUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_fotographia?.url ?? null;
     logoUrl = settings.logo_fotographia_esp?.url ?? null;
-    bioImageUrl = settings.fotopage_bio?.url ?? null;
   } catch {}
 
   return (
@@ -37,20 +36,24 @@ export default async function FotografoPage() {
 
       {/* Instagram-style photo grid */}
       <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
-        <div className="w-[90vw] mx-auto grid grid-cols-3 gap-[3px]">
+        <div className="w-[90vw] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3">
           {/* Empty cells — awaiting collection photos from Nahuel (3 per collection) */}
           {photos.map((photo) => (
             <article
               key={photo.id}
               aria-label={photo.title}
-              className="group cursor-pointer relative aspect-square overflow-hidden bg-white/[0.03] border border-white/5"
-            />
+              className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden border border-white/5 bg-white/[0.03]"
+            >
+              <span className="text-[0.52rem] font-light tracking-[0.35em] text-white/25">
+                IMÁGENES PENDIENTES
+              </span>
+            </article>
           ))}
         </div>
       </section>
 
       {/* Bio teaser */}
-      <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
+      <section className="hidden" aria-hidden="true">
         {bioImageUrl && (
           <div className="order-2 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
