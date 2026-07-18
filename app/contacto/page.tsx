@@ -4,15 +4,19 @@ import { PageHero } from '@/components/PageHero';
 import { VideoBackground } from '@/components/VideoBackground';
 import { getGlobalSettings } from '@/lib/wordpress';
 
-export default async function ContactoPage() {
+export default async function ContactoPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sent?: string; error?: string }>;
+}) {
+  const result = await searchParams;
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
-  let bioFotoUrl: string | null = null;
+  const bioFotoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_contacto?.url ?? null;
     logoUrl = settings.main_logo_new?.url ?? null;
-    bioFotoUrl = settings.cinematographer_nahuel?.url ?? null;
   } catch {}
 
   return (
@@ -45,11 +49,11 @@ export default async function ContactoPage() {
             <section className="relative px-6 sm:px-10 pt-2">
 
             {/* Contact info */}
-            <div className="flex flex-col sm:flex-row justify-center gap-12 sm:gap-20 text-center mb-16">
+            <div className="hidden">
               <div className="space-y-2">
                 <p className="text-white text-[0.52rem] font-light tracking-[0.4em]">EMAIL</p>
                 <p className="text-white text-[clamp(0.84rem,1.6vw,1rem)] font-light">
-                  hola@nahuelbeade.com
+                  jamieobeirne123@gmail.com
                 </p>
               </div>
               <div className="space-y-2">
@@ -66,10 +70,21 @@ export default async function ContactoPage() {
               </div>
             </div>
 
-            <div className="w-full h-px bg-white/10 mb-16" />
+            <div className="hidden" />
+
+            {result.sent === '1' && (
+              <p className="mb-8 text-center text-[0.62rem] font-light text-white/75">
+                MENSAJE ENVIADO CORRECTAMENTE.
+              </p>
+            )}
+            {result.error === '1' && (
+              <p className="mb-8 text-center text-[0.62rem] font-light text-red-300/80">
+                NO SE PUDO ENVIAR EL MENSAJE. REVISA LA CONFIGURACIÓN E INTÉNTALO DE NUEVO.
+              </p>
+            )}
 
             {/* Form */}
-            <form className="space-y-8">
+            <form action="/api/contact" method="post" className="space-y-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label htmlFor="nombre" className="text-white text-[0.52rem] font-light tracking-[0.4em]">
@@ -77,7 +92,9 @@ export default async function ContactoPage() {
                   </label>
                   <input
                     id="nombre"
+                    name="nombre"
                     type="text"
+                    required
                     placeholder="tu nombre"
                     className="w-full bg-transparent border-b border-white/15 py-2.5 text-white text-[clamp(0.84rem,1.6vw,1rem)] font-light placeholder:text-white/20 focus:outline-none focus:border-white/40 transition-colors duration-300"
                   />
@@ -88,7 +105,9 @@ export default async function ContactoPage() {
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
+                    required
                     placeholder="tu@email.com"
                     className="w-full bg-transparent border-b border-white/15 py-2.5 text-white text-[clamp(0.84rem,1.6vw,1rem)] font-light placeholder:text-white/20 focus:outline-none focus:border-white/40 transition-colors duration-300"
                   />
@@ -100,7 +119,9 @@ export default async function ContactoPage() {
                 </label>
                 <textarea
                   id="mensaje"
+                  name="mensaje"
                   rows={5}
+                  required
                   placeholder="tu mensaje..."
                   className="w-full bg-transparent border-b border-white/15 py-2.5 text-white text-[clamp(0.84rem,1.6vw,1rem)] font-light placeholder:text-white/20 focus:outline-none focus:border-white/40 transition-colors duration-300 resize-none"
                 />
@@ -121,7 +142,7 @@ export default async function ContactoPage() {
       </div>
 
       {/* Bio teaser */}
-      <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
+      <section className="hidden" aria-hidden="true">
         {bioFotoUrl && (
           <div className="order-2 sm:order-1 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
