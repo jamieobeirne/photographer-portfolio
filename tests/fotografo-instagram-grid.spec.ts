@@ -9,7 +9,8 @@ import { test, expect } from '@playwright/test';
  *   - 3 equal columns, edge-to-edge (no horizontal padding)
  *   - ≤ 4px gap between cells  (Instagram uses 3px)
  *   - Square (1:1) thumbnail cells
- *   - Every cell contains an <img> that fills it (object-cover)
+ *   - Cells are empty containers until Nahuel supplies collection photos
+ *     (when photos land: every cell should contain an <img> with object-cover)
  *   - No caption text below thumbnails inside the grid
  *
  * Reference: https://nahuelbeadeph.wixsite.com/nahuelbeadeph
@@ -103,7 +104,10 @@ test.describe('/fotografo — Instagram grid (desktop 1280px)', () => {
     expect(left,   `Grid left edge ${left}px — expected ~${expectedMargin}px (5vw)`).toBeCloseTo(expectedMargin, -1);
   });
 
-  test('every thumbnail cell contains a visible <img>', async ({ page }) => {
+  // Placeholder images removed 18-Jul-2026 (Jamie's request): cells are empty
+  // containers until Nahuel supplies 3 photos per collection. When real photos
+  // land, restore the every-cell-contains-<img> assertion.
+  test('grid cells render as empty containers (no placeholder images)', async ({ page }) => {
     const results = await page.evaluate(() => {
       const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
       for (const grid of grids) {
@@ -119,10 +123,10 @@ test.describe('/fotografo — Instagram grid (desktop 1280px)', () => {
 
     expect(results.length, 'No grid cells found').toBeGreaterThan(0);
 
-    const missing = results.filter((r) => !r.hasImg);
+    const withImg = results.filter((r) => r.hasImg);
     expect(
-      missing.length,
-      `${missing.length} cell(s) have no <img> element`
+      withImg.length,
+      `${withImg.length} cell(s) still contain an <img> (placeholders should be gone)`
     ).toBe(0);
   });
 

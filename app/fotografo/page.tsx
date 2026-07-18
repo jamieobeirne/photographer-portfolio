@@ -38,15 +38,13 @@ export default async function FotografoPage() {
       {/* Instagram-style photo grid */}
       <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
         <div className="w-[90vw] mx-auto grid grid-cols-3 gap-[3px]">
+          {/* Empty cells — awaiting collection photos from Nahuel (3 per collection) */}
           {photos.map((photo) => (
-            <article key={photo.id} className="group cursor-pointer relative aspect-square overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`https://picsum.photos/seed/${photo.id * 37}/800/800`}
-                alt={photo.title}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-            </article>
+            <article
+              key={photo.id}
+              aria-label={photo.title}
+              className="group cursor-pointer relative aspect-square overflow-hidden bg-white/[0.03] border border-white/5"
+            />
           ))}
         </div>
       </section>
