@@ -6,12 +6,14 @@ interface PageHeroProps {
   imageUrl?: string | null;
   logoUrl?: string | null;
   nav?: ReactNode;
+  /** Portrait mode: pin background to top of image (spec 2.1 — clouds crop) */
+  portraitTop?: boolean;
 }
 
-export function PageHero({ imageUrl, logoUrl, nav }: PageHeroProps) {
+export function PageHero({ imageUrl, logoUrl, nav, portraitTop = false }: PageHeroProps) {
   return (
     <section
-      className="relative flex items-center overflow-hidden"
+      className={`relative flex items-center overflow-hidden ${portraitTop ? 'hero-portrait-top' : ''}`}
       style={{
         height: 'clamp(150px, 20vw, 160px)',
         backgroundColor: '#080808',

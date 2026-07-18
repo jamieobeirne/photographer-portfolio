@@ -21,7 +21,7 @@ export default async function DirectorDeFotografiaProyectosPage() {
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} />
+      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} portraitTop />
 
       <div className="py-16 sm:py-20 space-y-16">
         {carousels.map((carousel) => (
@@ -46,7 +46,7 @@ export default async function DirectorDeFotografiaProyectosPage() {
         ))}
       </div>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" portraitTop />
 
     </main>
   );

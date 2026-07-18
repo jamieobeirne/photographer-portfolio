@@ -29,17 +29,17 @@ export default async function BiografiaFotografoPage() {
         <div className="w-10 h-px bg-white/20 mb-10" />
 
         <div className="space-y-6">
-          <p className="text-white/70 text-[clamp(0.88rem,1.3vw,1rem)] font-light leading-[1.85] lowercase">
+          <p className="text-white/70 text-[clamp(0.88rem,1.3vw,1rem)] font-light leading-[1.85]">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
             ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
             ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
-          <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85] lowercase">
+          <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85]">
             Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
             nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
             deserunt mollit anim id est laborum.
           </p>
-          <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85] lowercase">
+          <p className="text-white/45 text-[clamp(0.82rem,1.2vw,0.93rem)] font-light leading-[1.85]">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
             laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi
             architecto beatae vitae dicta sunt explicabo.

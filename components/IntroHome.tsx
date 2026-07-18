@@ -5,6 +5,15 @@ import Link from 'next/link';
 
 type Phase = 'video' | 'reveal' | 'exit';
 
+/**
+ * Portrait (mobile) resting position of the logo after the intro.
+ * 'top' — logo docks at the top (mirrors landscape behaviour).
+ * 'bottom' — logo docks at the bottom of the screen.
+ * Flip this constant to switch; both positions are wired in globals.css.
+ * Pending Nahuel's choice (spec 1.4).
+ */
+const PORTRAIT_LOGO_POSITION: 'top' | 'bottom' = 'top';
+
 interface IntroHomeProps {
   logoUrl: string | null;
 }
@@ -13,7 +22,8 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
   const [phase, setPhase] = useState<Phase>('video');
 
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase('reveal'), 4000);
+    // Logo reveal at 3s (spec 1.2 — moved 1s earlier from 4s)
+    const t1 = setTimeout(() => setPhase('reveal'), 3000);
     const t2 = setTimeout(() => setPhase('exit'), 7500);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
@@ -60,7 +70,9 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
       {/* Logo — fades in at centre, then moves to top and shrinks */}
       {logoUrl && (
         <div
-          className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+          className={`absolute inset-0 flex items-center justify-center z-10 pointer-events-none ${
+            PORTRAIT_LOGO_POSITION === 'bottom' ? 'intro-logo-bottom' : ''
+          }`}
           style={{
             opacity: phase === 'video' ? 0 : 1,
             transform: phase === 'exit' ? 'translateY(var(--intro-logo-y)) scale(var(--intro-logo-scale))' : 'translateY(0) scale(1)',

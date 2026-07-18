@@ -2,12 +2,14 @@ interface FooterProps {
   imageUrl?: string | null;
   logoUrl?: string | null;
   className?: string;
+  /** Portrait mode: pin background to top of image (spec 2.1 — clouds crop) */
+  portraitTop?: boolean;
 }
 
-export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '' }: FooterProps) {
+export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '', portraitTop = false }: FooterProps) {
   return (
     <footer
-      className={`relative border-t border-white/10 py-12 px-6 sm:px-12 ${className}`}
+      className={`relative border-t border-white/10 py-12 px-6 sm:px-12 ${portraitTop ? 'hero-portrait-top' : ''} ${className}`}
       style={
         imageUrl
           ? {
