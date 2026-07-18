@@ -10,7 +10,8 @@ export default async function DirectorPage() {
   let bioFotoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
-    heroUrl = settings.fondo_direccion?.url ?? null;
+    // Spec 4.4: new FOTO FONDO MENÚ image, falling back to previous fondo_direccion
+    heroUrl = settings.fondo_menu_director?.url ?? settings.fondo_direccion?.url ?? null;
     logoUrl = settings.logo_direccion?.url ?? null;
     videoUrl = settings.director_video?.url ?? null;
     bioFotoUrl = settings.director_bio_foto?.url ?? null;

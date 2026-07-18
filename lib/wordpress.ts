@@ -54,3 +54,56 @@ export async function getGlobalSettings(): Promise<WPGlobalSettings> {
   return page.acf as unknown as WPGlobalSettings;
 }
 
+
+/** A media item belonging to a service gallery, grouped by project. */
+export interface ServicePhoto {
+  id: number;
+  url: string;
+  alt: string;
+  project: string;
+}
+
+/**
+ * Fetch all Media Library items tagged with a service tag (e.g. `fotoproducto`)
+ * and group them by project, parsed from the filename convention:
+ * `<service>__<project-slug>__<nn>` (e.g. `fotoproducto__alitos-productos__01`).
+ * Returns a map of project display name → photos, in upload order.
+ */
+export async function getServicePhotosByProject(
+  serviceTag: string
+): Promise<Record<string, ServicePhoto[]>> {
+  const tagRes = await fetch(
+    `${WP_API_URL}/media_tag?slug=${encodeURIComponent(serviceTag)}`,
+    { cache: 'no-store' }
+  );
+  if (!tagRes.ok) return {};
+  const tags = (await tagRes.json()) as { id: number }[];
+  if (!tags.length) return {};
+
+  const mediaRes = await fetch(
+    `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=100&orderby=title&order=asc&_fields=id,slug,source_url,alt_text,title`,
+    { cache: 'no-store' }
+  );
+  if (!mediaRes.ok) return {};
+  const items = (await mediaRes.json()) as {
+    id: number;
+    slug: string;
+    source_url: string;
+    alt_text: string;
+    title: { rendered: string };
+  }[];
+
+  const groups: Record<string, ServicePhoto[]> = {};
+  for (const item of items) {
+    const parts = item.slug.split('__');
+    const project =
+      parts.length >= 2 ? parts[1].replace(/-/g, ' ').toUpperCase() : 'OTROS';
+    (groups[project] ??= []).push({
+      id: item.id,
+      url: item.source_url,
+      alt: item.alt_text || project,
+      project,
+    });
+  }
+  return groups;
+}

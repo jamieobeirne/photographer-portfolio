@@ -76,6 +76,8 @@ export interface WPImage {
     fotopage_bio?: ACFMediaFile | null;
     director_video?: ACFMediaFile | null;
     director_bio_foto?: ACFMediaFile | null;
+    /** Director menu + bottom section background (spec 4.4) — fondo_menu_director.jpg */
+    fondo_menu_director?: WPImage | null;
   }
 
   export interface GalleryImage {
