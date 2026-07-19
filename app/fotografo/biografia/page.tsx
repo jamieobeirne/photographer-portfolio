@@ -3,7 +3,7 @@ import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
-const P = 'normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed text-left';
+const P = 'normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case text-left';
 
 export default async function BiografiaFotografoPage() {
   let heroUrl: string | null = null;
@@ -42,7 +42,7 @@ export default async function BiografiaFotografoPage() {
           </div>
         )}
 
-        <div className="order-1 flex-1 space-y-8 text-center">
+        <div className="order-1 w-full lg:w-1/2 space-y-8 text-center">
           <p className="text-[0.58rem] tracking-[0.4em] text-white/30">CERCA DE</p>
           <p className={P}>Nahuel Beade es fotógrafo con base en Barcelona, especializado en fotografía publicitaria y de producto para marcas, combinando una mirada cinematográfica con una sólida formación en cine.</p>
           <p className={P}>Nació el 21 de octubre de 1986 en Santa Fe (Argentina) y creció en Paraná, donde desde muy joven desarrolló un fuerte vínculo con la imagen, el cine y los procesos creativos. Se formó en la Escuela de Artes Visuales “Prof. Roberto López Carnelli”, destacándose académicamente, y posteriormente en la Tecnicatura Superior de Cine y Artes Audiovisuales del I.S.C.A.A. Santa Fe, graduándose en 2012 donde aprendió la técnica fotográfica.</p>

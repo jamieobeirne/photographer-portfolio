@@ -1,5 +1,6 @@
 import type { ACFMediaFile, WPGlobalSettings, WPPage } from '@/types/wordpress';
 import { videoSourceTypeFromUrl } from '@/lib/video';
+import { servicePhotoProjects } from '@/lib/service-photo-projects';
 
 const WP_API_URL = 'https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2';
 
@@ -61,6 +62,7 @@ export interface ServicePhoto {
   url: string;
   alt: string;
   project: string;
+  projectOrder: number;
 }
 
 export interface PortfolioReel {
@@ -104,41 +106,20 @@ export async function getDirectorPhotographyReels(): Promise<PortfolioReel[]> {
  * `<service>__<project-slug>__<nn>` (e.g. `fotoproducto__alitos-productos__01`).
  * Returns a map of project display name → photos, in upload order.
  */
+function projectForMedia(serviceTag: string, mediaSlug: string) {
+  const prefix = `${serviceTag}:`;
+  const match = Object.entries(servicePhotoProjects).find(
+    ([key]) => key.startsWith(prefix) && mediaSlug.includes(key.slice(prefix.length))
+  );
+  return match?.[1] ?? { project: serviceTag, order: Number.MAX_SAFE_INTEGER };
+}
+
 export async function getServicePhotosByProject(
   serviceTag: string
 ): Promise<Record<string, ServicePhoto[]>> {
-  const tagRes = await fetch(
-    `${WP_API_URL}/media_tag?slug=${encodeURIComponent(serviceTag)}`,
-    { cache: 'no-store' }
-  );
-  if (!tagRes.ok) return {};
-  const tags = (await tagRes.json()) as { id: number }[];
-  if (!tags.length) return {};
-
-  const mediaRes = await fetch(
-    `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=100&orderby=title&order=asc&_fields=id,slug,source_url,alt_text,title`,
-    { cache: 'no-store' }
-  );
-  if (!mediaRes.ok) return {};
-  const items = (await mediaRes.json()) as {
-    id: number;
-    slug: string;
-    source_url: string;
-    alt_text: string;
-    title: { rendered: string };
-  }[];
-
   const groups: Record<string, ServicePhoto[]> = {};
-  for (const item of items) {
-    const parts = item.slug.split('__');
-    const project =
-      parts.length >= 2 ? parts[1].replace(/-/g, ' ').toUpperCase() : 'OTROS';
-    (groups[project] ??= []).push({
-      id: item.id,
-      url: item.source_url,
-      alt: item.alt_text || project,
-      project,
-    });
+  for (const photo of await getServicePhotos(serviceTag)) {
+    (groups[photo.project] ??= []).push(photo);
   }
   return groups;
 }
@@ -159,7 +140,7 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
   let totalPages = 1;
   while (page <= totalPages) {
     const mediaRes = await fetch(
-      `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=100&page=${page}&orderby=date&order=asc&_fields=id,source_url,alt_text,title`,
+      `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=100&page=${page}&orderby=date&order=asc&_fields=id,slug,source_url,alt_text,title`,
       { cache: 'no-store' }
     );
     if (!mediaRes.ok) break;
@@ -167,16 +148,21 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
     totalPages = Number(mediaRes.headers.get('X-WP-TotalPages') ?? '1');
     const items = (await mediaRes.json()) as {
       id: number;
+      slug: string;
       source_url: string;
       alt_text: string;
       title: { rendered: string };
     }[];
-    photos.push(...items.map((item) => ({
-      id: item.id,
-      url: item.source_url,
-      alt: item.alt_text || item.title.rendered || serviceTag,
-      project: serviceTag,
-    })));
+    photos.push(...items.map((item) => {
+      const project = projectForMedia(serviceTag, item.slug);
+      return {
+        id: item.id,
+        url: item.source_url,
+        alt: item.alt_text || item.title.rendered || project.project,
+        project: project.project,
+        projectOrder: project.order,
+      };
+    }));
     page += 1;
   }
   return photos;
@@ -188,39 +174,18 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
  * fills remaining slots with further photos, capped at `limit`.
  */
 export async function getPortfolioGridPhotos(limit = 12): Promise<ServicePhoto[]> {
-  const tagRes = await fetch(`${WP_API_URL}/media_tag?per_page=100&_fields=id`, {
-    cache: 'no-store',
-  });
-  if (!tagRes.ok) return [];
-  const tagIds = ((await tagRes.json()) as { id: number }[]).map((t) => t.id);
-  if (!tagIds.length) return [];
-
-  const mediaRes = await fetch(
-    `${WP_API_URL}/media?media_tag=${tagIds.join(',')}&per_page=100&orderby=title&order=asc&_fields=id,slug,source_url,alt_text`,
-    { cache: 'no-store' }
-  );
-  if (!mediaRes.ok) return [];
-  const items = (await mediaRes.json()) as {
-    id: number;
-    slug: string;
-    source_url: string;
-    alt_text: string;
-  }[];
-
   const byProject: Record<string, ServicePhoto[]> = {};
-  for (const item of items) {
-    const parts = item.slug.split('__');
-    const project = parts.length >= 2 ? parts[1] : 'otros';
-    (byProject[project] ??= []).push({
-      id: item.id,
-      url: item.source_url,
-      alt: item.alt_text || project,
-      project,
-    });
+  const serviceTags = ['fotoproducto', 'publicidad', 'foto-reportajes', 'institucionales', 'arquitectura', 'paisajismo-y-cultura'];
+  const services = await Promise.all(serviceTags.map((tag) => getServicePhotos(tag)));
+  for (const photo of services.flat()) {
+    const group = `${photo.projectOrder}:${photo.project}`;
+    (byProject[group] ??= []).push(photo);
   }
 
   // One per project first, then round-robin the rest.
-  const groups = Object.values(byProject);
+  const groups = Object.entries(byProject)
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([, photos]) => photos);
   const picked: ServicePhoto[] = [];
   for (let round = 0; picked.length < limit; round++) {
     let added = false;

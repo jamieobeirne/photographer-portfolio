@@ -22,7 +22,7 @@ export function DirectorNavLinks() {
           <Link
             key={label}
             href={href}
-            className={`text-[clamp(0.62rem,1vw,0.82rem)] font-light whitespace-nowrap transition-colors duration-300 ${
+            className={`text-[clamp(0.72rem,1.8vw,1.05rem)] font-light whitespace-nowrap transition-colors duration-300 ${
               pathname === href ? 'text-orange-500' : 'text-white hover:text-orange-400'
             }`}
           >

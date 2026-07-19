@@ -20,6 +20,13 @@ export async function ServiceGalleryPage({ label, serviceTag }: ServiceGalleryPa
     photos = await getServicePhotos(serviceTag);
   } catch {}
 
+  const projectGroups = Object.entries(
+    photos.reduce<Record<string, typeof photos>>((groups, photo) => {
+      (groups[photo.project] ??= []).push(photo);
+      return groups;
+    }, {})
+  ).sort(([, a], [, b]) => a[0].projectOrder - b[0].projectOrder || a[0].project.localeCompare(b[0].project));
+
   return (
     <main className="min-h-screen bg-black text-white">
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
@@ -33,17 +40,26 @@ export async function ServiceGalleryPage({ label, serviceTag }: ServiceGalleryPa
             ))}
           </div>
         ) : (
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-3">
-            {photos.map((photo) => (
-              <figure key={photo.id} className="mb-3 break-inside-avoid overflow-hidden bg-white/[0.03] border border-white/10 group">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={photo.url}
-                  alt={photo.alt}
-                  loading="lazy"
-                  className="w-full h-auto block group-hover:scale-[1.02] transition-transform duration-700"
-                />
-              </figure>
+          <div className="space-y-14">
+            {projectGroups.map(([project, projectPhotos]) => (
+              <section key={project}>
+                {project !== serviceTag && (
+                  <p className="text-white/45 text-[0.56rem] tracking-[0.32em] mb-5">{project}</p>
+                )}
+                <div className="columns-1 sm:columns-2 lg:columns-3 gap-3">
+                  {projectPhotos.map((photo) => (
+                    <figure key={photo.id} className="mb-3 break-inside-avoid overflow-hidden bg-white/[0.03] border border-white/10 group">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={photo.url}
+                        alt={photo.alt}
+                        loading="lazy"
+                        className="w-full h-auto block group-hover:scale-[1.02] transition-transform duration-700"
+                      />
+                    </figure>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
         )}
