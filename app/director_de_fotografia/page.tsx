@@ -1,23 +1,49 @@
-import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
-import { getGlobalSettings } from '@/lib/wordpress';
+import { getDirectorPhotographyReels, getGlobalSettings } from '@/lib/wordpress';
 
 export default async function DirectorDeFotografiaPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
   let fotoUrl: string | null = null;
+  let reels: Awaited<ReturnType<typeof getDirectorPhotographyReels>> = [];
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_dir_fotographia?.url ?? null;
     logoUrl = settings.logo_dir_fotographia_esp?.url ?? null;
     fotoUrl = settings.cinematographer_nahuel?.url ?? null;
+    reels = await getDirectorPhotographyReels();
   } catch {}
 
   return (
     <main className="min-h-screen bg-black text-white">
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} portraitTop />
+
+      {reels.length > 0 && (
+        <section className="w-[90vw] mx-auto py-12 sm:py-16">
+          <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-8">REELS</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+            {reels.map((reel) => (
+              <figure key={reel.url} className="bg-white/[0.03] border border-white/10">
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  poster={reel.poster}
+                  className="w-full h-auto block"
+                  aria-label={reel.label}
+                >
+                  <source src={reel.url} type="video/mp4" />
+                </video>
+                <figcaption className="px-4 py-3 text-white/40 text-[0.5rem] tracking-[0.28em]">
+                  {reel.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Bio teaser */}
       <section className="border-t border-white/10 flex flex-col sm:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
@@ -72,12 +98,6 @@ export default async function DirectorDeFotografiaPage() {
             director de fotografía y operador de cámara en proyectos publicitarios,
             documentales y de ficción.
           </p>
-          <Link
-            href="/director_de_fotografia/biografia"
-            className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300 self-start"
-          >
-            BIOGRAFÍA
-          </Link>
         </div>
       </section>
 

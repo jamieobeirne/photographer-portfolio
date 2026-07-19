@@ -63,6 +63,41 @@ export interface ServicePhoto {
   project: string;
 }
 
+export interface PortfolioReel {
+  label: string;
+  url: string;
+  poster: string;
+}
+
+/** Fetch the three WordPress-hosted reels displayed on the Director de Fotografía homepage. */
+export async function getDirectorPhotographyReels(): Promise<PortfolioReel[]> {
+  const reels = [
+    { label: 'REEL CAMAROGRAFO · LIVE', slug: 'reel-camarografo-live-02-fhd', posterSlug: 'poster-reel-camarografo-live-02-fhd' },
+    { label: 'REEL DF · CINE', slug: 'reel-df-cine-final-02-alta', posterSlug: 'poster-reel-df-cine-final-02-alta' },
+    { label: 'REEL DF · PUBLICIDAD', slug: 'reel-df-publicidad-final-02-alta', posterSlug: 'poster-reel-df-publicidad-final-02-alta' },
+  ];
+
+  const resolved = await Promise.all(reels.map(async (reel) => {
+    const [videoResponse, posterResponse] = await Promise.all([
+      fetch(
+      `${WP_API_URL}/media?slug=${encodeURIComponent(reel.slug)}&_fields=source_url`,
+      { cache: 'no-store' }
+      ),
+      fetch(
+        `${WP_API_URL}/media?slug=${encodeURIComponent(reel.posterSlug)}&_fields=source_url`,
+        { cache: 'no-store' }
+      ),
+    ]);
+    if (!videoResponse.ok || !posterResponse.ok) return null;
+    const media = (await videoResponse.json()) as { source_url?: string }[];
+    const posters = (await posterResponse.json()) as { source_url?: string }[];
+    return media[0]?.source_url && posters[0]?.source_url
+      ? { label: reel.label, url: media[0].source_url, poster: posters[0].source_url }
+      : null;
+  }));
+  return resolved.filter((reel): reel is PortfolioReel => reel !== null);
+}
+
 /**
  * Fetch all Media Library items tagged with a service tag (e.g. `fotoproducto`)
  * and group them by project, parsed from the filename convention:
