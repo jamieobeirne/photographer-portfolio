@@ -108,14 +108,43 @@ export async function getServicePhotosByProject(
   return groups;
 }
 
-/**
- * Flat list of photos for a service tag, ordered by title so the
- * `<service>__<project>__<nn>` convention keeps each project's photos
- * contiguous (Nahuel: proyectos agrupados, no mezclados).
- */
+/** Fetch every Media Library item tagged with one photography service. */
 export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto[]> {
-  const groups = await getServicePhotosByProject(serviceTag);
-  return Object.values(groups).flat();
+  const tagRes = await fetch(
+    `${WP_API_URL}/media_tag?slug=${encodeURIComponent(serviceTag)}`,
+    { cache: 'no-store' }
+  );
+  if (!tagRes.ok) return [];
+
+  const tags = (await tagRes.json()) as { id: number }[];
+  if (!tags.length) return [];
+
+  const photos: ServicePhoto[] = [];
+  let page = 1;
+  let totalPages = 1;
+  while (page <= totalPages) {
+    const mediaRes = await fetch(
+      `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=100&page=${page}&orderby=date&order=asc&_fields=id,source_url,alt_text,title`,
+      { cache: 'no-store' }
+    );
+    if (!mediaRes.ok) break;
+
+    totalPages = Number(mediaRes.headers.get('X-WP-TotalPages') ?? '1');
+    const items = (await mediaRes.json()) as {
+      id: number;
+      source_url: string;
+      alt_text: string;
+      title: { rendered: string };
+    }[];
+    photos.push(...items.map((item) => ({
+      id: item.id,
+      url: item.source_url,
+      alt: item.alt_text || item.title.rendered || serviceTag,
+      project: serviceTag,
+    })));
+    page += 1;
+  }
+  return photos;
 }
 
 /**
