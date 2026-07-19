@@ -1,12 +1,17 @@
-﻿import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
+import { VideoGrid } from '@/components/VideoGrid';
+import {
+  dfAdvertisingVideos,
+  dfCineTvSeriesVideos,
+  dfMusicVideos,
+} from '@/lib/cinematography-videos';
 import { getGlobalSettings } from '@/lib/wordpress';
 
-const carousels = [
-  { id: 1, label: 'CINE / TV / SERIES' },
-  { id: 2, label: 'PUBLICIDAD' },
-  { id: 3, label: 'VIDEOCLIPS' },
-  { id: 4, label: 'PROYECTOS PERSONALES' },
+const videoSections = [
+  { label: 'CINE / TV / SERIES', videos: dfCineTvSeriesVideos },
+  { label: 'PUBLICIDAD', videos: dfAdvertisingVideos },
+  { label: 'VIDEOCLIPS & LIVE SESSIONS', videos: dfMusicVideos },
 ];
 
 export default async function DirectorDeFotografiaProyectosPage() {
@@ -23,24 +28,13 @@ export default async function DirectorDeFotografiaProyectosPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} portraitTop />
 
+      {/* Portfolio videos — per Nahuel's "Videos porfolio para embeber DIR FOTOGRAFÍA" doc */}
       <div className="py-16 sm:py-20 space-y-16">
-        {carousels.map((carousel) => (
-          <section key={carousel.id}>
-            <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-6 px-6 sm:px-12">
-              {carousel.label}
-            </p>
-            <div
-              className="overflow-x-auto"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              <div className="flex gap-3 px-6 sm:px-12 pb-2">
-                {[1, 2, 3, 4, 5, 6].map((n) => (
-                  <div
-                    key={n}
-                    className="shrink-0 w-[70vw] sm:w-[45vw] lg:w-[30vw] aspect-video bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors duration-500"
-                  />
-                ))}
-              </div>
+        {videoSections.map((section) => (
+          <section key={section.label}>
+            <div className="w-[90vw] mx-auto">
+              <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">{section.label}</p>
+              <VideoGrid videos={section.videos} />
             </div>
           </section>
         ))}
