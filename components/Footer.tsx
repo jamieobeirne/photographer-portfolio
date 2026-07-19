@@ -10,16 +10,16 @@ export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '', p
   return (
     <footer
       className={`relative border-t border-white/10 py-12 px-6 sm:px-12 ${portraitTop ? 'hero-portrait-top' : ''} ${className}`}
-      style={
-        imageUrl
-          ? {
-              backgroundImage: `url(${imageUrl})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }
-          : undefined
-      }
     >
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt=""
+          fill
+          sizes="100vw"
+          className={`object-cover ${portraitTop ? 'object-top' : 'object-center'}`}
+        />
+      )}
       {imageUrl && <div className="absolute inset-0 bg-black/25" />}
 
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
@@ -66,3 +66,4 @@ export function Footer({ imageUrl, logoUrl = '/blackLogo.png', className = '', p
     </footer>
   );
 }
+import Image from 'next/image';

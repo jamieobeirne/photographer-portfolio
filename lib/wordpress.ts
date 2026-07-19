@@ -3,6 +3,8 @@ import { videoSourceTypeFromUrl } from '@/lib/video';
 import { servicePhotoProjects } from '@/lib/service-photo-projects';
 
 const WP_API_URL = 'https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2';
+const CONTENT_REVALIDATE_SECONDS = 60 * 60;
+const cachedContent = { next: { revalidate: CONTENT_REVALIDATE_SECONDS } };
 
 /** Resolve ACF File / URL field to a public media URL. */
 export function acfFileFieldUrl(value: unknown): string | null {
@@ -44,7 +46,7 @@ export function resolveIntroVideo(logoVideo: unknown): { url: string; type: stri
 // Fetch Global Settings page (logo video, images, etc.)
 export async function getGlobalSettings(): Promise<WPGlobalSettings> {
   const url = `${WP_API_URL}/pages?slug=global-settings&acf_format=standard`;
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetch(url, cachedContent);
 
   if (!res.ok) throw new Error(`Failed to fetch global settings: ${res.status}`);
 
@@ -83,11 +85,11 @@ export async function getDirectorPhotographyReels(): Promise<PortfolioReel[]> {
     const [videoResponse, posterResponse] = await Promise.all([
       fetch(
       `${WP_API_URL}/media?slug=${encodeURIComponent(reel.slug)}&_fields=source_url`,
-      { cache: 'no-store' }
+      cachedContent
       ),
       fetch(
         `${WP_API_URL}/media?slug=${encodeURIComponent(reel.posterSlug)}&_fields=source_url`,
-        { cache: 'no-store' }
+        cachedContent
       ),
     ]);
     if (!videoResponse.ok || !posterResponse.ok) return null;
@@ -128,7 +130,7 @@ export async function getServicePhotosByProject(
 export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto[]> {
   const tagRes = await fetch(
     `${WP_API_URL}/media_tag?slug=${encodeURIComponent(serviceTag)}`,
-    { cache: 'no-store' }
+    cachedContent
   );
   if (!tagRes.ok) return [];
 
@@ -141,7 +143,7 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
   while (page <= totalPages) {
     const mediaRes = await fetch(
       `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=100&page=${page}&orderby=date&order=asc&_fields=id,slug,source_url,alt_text,title`,
-      { cache: 'no-store' }
+      cachedContent
     );
     if (!mediaRes.ok) break;
 
@@ -170,33 +172,46 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
 
 /**
  * Representative photos for the Photography home grid (Instagram-style).
- * Pulls from all tagged gallery media: first one photo per project, then
- * fills remaining slots with further photos, capped at `limit`.
+ * Fetches only a small, even sample from each gallery instead of reading the
+ * entire media library just to render the home-page preview.
  */
 export async function getPortfolioGridPhotos(limit = 12): Promise<ServicePhoto[]> {
-  const byProject: Record<string, ServicePhoto[]> = {};
   const serviceTags = ['fotoproducto', 'publicidad', 'foto-reportajes', 'institucionales', 'arquitectura', 'paisajismo-y-cultura'];
-  const services = await Promise.all(serviceTags.map((tag) => getServicePhotos(tag)));
-  for (const photo of services.flat()) {
-    const group = `${photo.projectOrder}:${photo.project}`;
-    (byProject[group] ??= []).push(photo);
-  }
+  const perService = Math.ceil(limit / serviceTags.length);
+  const samples = await Promise.all(serviceTags.map(async (serviceTag) => {
+    const tagRes = await fetch(
+      `${WP_API_URL}/media_tag?slug=${encodeURIComponent(serviceTag)}`,
+      cachedContent
+    );
+    if (!tagRes.ok) return [];
 
-  // One per project first, then round-robin the rest.
-  const groups = Object.entries(byProject)
-    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
-    .map(([, photos]) => photos);
-  const picked: ServicePhoto[] = [];
-  for (let round = 0; picked.length < limit; round++) {
-    let added = false;
-    for (const group of groups) {
-      if (group[round]) {
-        picked.push(group[round]);
-        added = true;
-        if (picked.length >= limit) break;
-      }
-    }
-    if (!added) break;
-  }
-  return picked;
+    const tags = (await tagRes.json()) as { id: number }[];
+    if (!tags.length) return [];
+
+    const mediaRes = await fetch(
+      `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=${perService}&orderby=date&order=asc&_fields=id,slug,source_url,alt_text,title`,
+      cachedContent
+    );
+    if (!mediaRes.ok) return [];
+
+    const items = (await mediaRes.json()) as {
+      id: number;
+      slug: string;
+      source_url: string;
+      alt_text: string;
+      title: { rendered: string };
+    }[];
+    return items.map((item) => {
+      const project = projectForMedia(serviceTag, item.slug);
+      return {
+        id: item.id,
+        url: item.source_url,
+        alt: item.alt_text || item.title.rendered || project.project,
+        project: project.project,
+        projectOrder: project.order,
+      };
+    });
+  }));
+
+  return samples.flat().slice(0, limit);
 }

@@ -1,7 +1,10 @@
 import { DirectorNavLinks } from '@/components/DirectorNavLinks';
+import Image from 'next/image';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings, resolveLogoVideoField } from '@/lib/wordpress';
+
+export const revalidate = 3600;
 
 export default async function DirectorPage() {
   let heroUrl: string | null = null;
@@ -29,6 +32,7 @@ export default async function DirectorPage() {
             loop
             muted
             playsInline
+            preload="metadata"
             className="w-[90vw] mx-auto aspect-video block"
           >
             <source src={video.url} type={video.type} />
@@ -39,12 +43,13 @@ export default async function DirectorPage() {
       {/* Bio — text left, photo right (spec 4.3: Nahuel looks left in the photo) */}
       <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
         {bioFotoUrl && (
-          <div className="order-2 w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+          <div className="order-2 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
+            <Image
               src={bioFotoUrl}
               alt="Nahuel Beade"
-              className="w-full h-full object-cover"
+              fill
+              sizes="(min-width: 1024px) 45vw, 90vw"
+              className="object-cover"
             />
           </div>
         )}

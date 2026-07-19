@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { NavLinks } from './NavLinks';
 import type { ReactNode } from 'react';
 
@@ -17,15 +18,18 @@ export function PageHero({ imageUrl, logoUrl, nav, portraitTop = false }: PageHe
       style={{
         height: 'clamp(150px, 20vw, 160px)',
         backgroundColor: '#080808',
-        ...(imageUrl
-          ? {
-              backgroundImage: `url(${imageUrl})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }
-          : {}),
       }}
     >
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={`object-cover ${portraitTop ? 'object-top' : 'object-center'}`}
+        />
+      )}
       <div className="absolute inset-0 bg-black/25" />
 
       {logoUrl !== undefined && (

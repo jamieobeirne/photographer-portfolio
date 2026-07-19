@@ -1,6 +1,9 @@
 import { Footer } from '@/components/Footer';
+import Image from 'next/image';
 import { PageHero } from '@/components/PageHero';
 import { getDirectorPhotographyReels, getGlobalSettings } from '@/lib/wordpress';
+
+export const revalidate = 3600;
 
 export default async function DirectorDeFotografiaPage() {
   let heroUrl: string | null = null;
@@ -48,12 +51,13 @@ export default async function DirectorDeFotografiaPage() {
       {/* Bio teaser */}
       <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
         {fotoUrl && (
-          <div className="order-2 lg:order-1 w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+          <div className="order-2 lg:order-1 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
+            <Image
               src={fotoUrl}
               alt="Nahuel Beade"
-              className="w-full h-full object-cover"
+              fill
+              sizes="(min-width: 1024px) 45vw, 90vw"
+              className="object-cover"
               style={{ transform: 'scaleX(-1)' }}
             />
           </div>

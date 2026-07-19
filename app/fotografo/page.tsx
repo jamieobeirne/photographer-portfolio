@@ -1,9 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Footer } from '@/components/Footer';
 import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings, getPortfolioGridPhotos } from '@/lib/wordpress';
 import type { ServicePhoto } from '@/lib/wordpress';
+
+export const revalidate = 3600;
 
 const photos = [
   { id: 1,  title: 'RETRATOS' },
@@ -42,17 +45,18 @@ export default async function FotografoPage() {
         <div className="w-[90vw] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3">
           {/* Representative photos pulled from the tagged WP galleries (one per project first) */}
           {gridPhotos.length > 0
-            ? gridPhotos.map((photo) => (
+            ? gridPhotos.map((photo, index) => (
                 <article
                   key={photo.id}
                   className="group relative aspect-[4/3] overflow-hidden border border-white/5 bg-white/[0.03]"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={photo.url}
                     alt={photo.alt}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    fill
+                    priority={index < 2}
+                    sizes="(min-width: 1024px) 44vw, 90vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </article>
               ))
