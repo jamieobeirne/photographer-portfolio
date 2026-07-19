@@ -11,14 +11,29 @@ interface VideoGridProps {
   videos: VideoItem[];
 }
 
-function getThumbnailUrl(embedUrl: string) {
-  const videoId = new URL(embedUrl).pathname.split('/').pop();
-  return videoId && videoId !== 'videoseries'
-    ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-    : null;
+function isVimeoUrl(embedUrl: string) {
+  return embedUrl.includes('player.vimeo.com');
 }
 
-function enableSound(iframe: HTMLIFrameElement) {
+function getThumbnailUrl(embedUrl: string) {
+  const videoId = new URL(embedUrl).pathname.split('/').pop();
+  if (!videoId || videoId === 'videoseries') return null;
+  if (isVimeoUrl(embedUrl)) return `https://vumbnail.com/${videoId}.jpg`;
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+function enableSound(iframe: HTMLIFrameElement, vimeo = false) {
+  if (vimeo) {
+    iframe.contentWindow?.postMessage(
+      JSON.stringify({ method: 'setVolume', value: 1 }),
+      'https://player.vimeo.com',
+    );
+    iframe.contentWindow?.postMessage(
+      JSON.stringify({ method: 'play' }),
+      'https://player.vimeo.com',
+    );
+    return;
+  }
   iframe.contentWindow?.postMessage(
     JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
     'https://www.youtube-nocookie.com',
@@ -42,21 +57,26 @@ function VideoCard({ title, embedUrl, isPlaying, onPlay }: VideoCardProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const playerId = useId().replace(/:/g, '');
   const thumbnailUrl = getThumbnailUrl(embedUrl);
+  const vimeo = isVimeoUrl(embedUrl);
   const origin = typeof window === 'undefined' ? '' : `&origin=${encodeURIComponent(window.location.origin)}`;
-  const playerUrl = `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1&controls=1&rel=0&enablejsapi=1&mute=0${origin}`;
+  const playerUrl = vimeo
+    ? `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1&muted=0&api=1`
+    : `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1&controls=1&rel=0&enablejsapi=1&mute=0${origin}`;
 
   useEffect(() => {
     if (!isPlaying) return;
 
     const onPlayerReady = (event: MessageEvent) => {
       if (
-        event.origin !== 'https://www.youtube-nocookie.com' ||
+        (event.origin !== 'https://www.youtube-nocookie.com' &&
+          event.origin !== 'https://player.vimeo.com') ||
         event.source !== iframeRef.current?.contentWindow
       ) return;
 
       try {
         const message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-        if (message?.event === 'onReady' && iframeRef.current) enableSound(iframeRef.current);
+        const ready = message?.event === 'onReady' || message?.event === 'ready';
+        if (ready && iframeRef.current) enableSound(iframeRef.current, vimeo);
       } catch {
         // Ignore non-JSON messages from the embedded player.
       }
@@ -64,7 +84,7 @@ function VideoCard({ title, embedUrl, isPlaying, onPlay }: VideoCardProps) {
 
     window.addEventListener('message', onPlayerReady);
     return () => window.removeEventListener('message', onPlayerReady);
-  }, [isPlaying]);
+  }, [isPlaying, vimeo]);
 
   return (
     <article>

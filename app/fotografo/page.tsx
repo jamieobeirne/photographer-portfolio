@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
-import { getGlobalSettings } from '@/lib/wordpress';
+import { getGlobalSettings, getPortfolioGridPhotos } from '@/lib/wordpress';
+import type { ServicePhoto } from '@/lib/wordpress';
 
 const photos = [
   { id: 1,  title: 'RETRATOS' },
@@ -23,10 +24,12 @@ export default async function FotografoPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
   const bioImageUrl: string | null = null;
+  let gridPhotos: ServicePhoto[] = [];
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_fotographia?.url ?? null;
     logoUrl = settings.logo_fotographia_esp?.url ?? null;
+    gridPhotos = await getPortfolioGridPhotos(12);
   } catch {}
 
   return (
@@ -37,18 +40,33 @@ export default async function FotografoPage() {
       {/* Instagram-style photo grid */}
       <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
         <div className="w-[90vw] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3">
-          {/* Empty cells — awaiting collection photos from Nahuel (3 per collection) */}
-          {photos.map((photo) => (
-            <article
-              key={photo.id}
-              aria-label={photo.title}
-              className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden border border-white/5 bg-white/[0.03]"
-            >
-              <span className="text-[0.52rem] font-light tracking-[0.35em] text-white/25">
-                IMÁGENES PENDIENTES
-              </span>
-            </article>
-          ))}
+          {/* Representative photos pulled from the tagged WP galleries (one per project first) */}
+          {gridPhotos.length > 0
+            ? gridPhotos.map((photo) => (
+                <article
+                  key={photo.id}
+                  className="group relative aspect-[4/3] overflow-hidden border border-white/5 bg-white/[0.03]"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={photo.url}
+                    alt={photo.alt}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </article>
+              ))
+            : photos.map((photo) => (
+                <article
+                  key={photo.id}
+                  aria-label={photo.title}
+                  className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden border border-white/5 bg-white/[0.03]"
+                >
+                  <span className="text-[0.52rem] font-light tracking-[0.35em] text-white/25">
+                    IMÁGENES PENDIENTES
+                  </span>
+                </article>
+              ))}
         </div>
       </section>
 

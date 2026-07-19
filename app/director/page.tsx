@@ -50,12 +50,12 @@ export default async function DirectorPage() {
         )}
         <div className="order-1 flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20 space-y-6">
           <p className="text-white/30 text-[0.52rem] tracking-[0.4em]">ACERCA DE</p>
-          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Nahuel Beade es director audiovisual con base en Barcelona, con
             formación en cine y una sólida trayectoria en proyectos de ficción,
             documental y contenido comercial.
           </p>
-          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Nació el 21 de octubre de 1986 en Santa Fe (Argentina) y creció en Paraná, donde
             desde muy joven desarrolló un fuerte vínculo con la imagen, el cine, la música y
             los procesos creativos. Se formó en la Escuela de Artes Visuales “Prof. Roberto
@@ -65,12 +65,12 @@ export default async function DirectorPage() {
             en Dirección de Fotografía, lo que influye directamente en su enfoque visual
             como director.
           </p>
-          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             A lo largo de más de 18 años de experiencia, ha trabajado en el ámbito audiovisual
             y fotográfico tanto de manera independiente como en colaboración con equipos de
             comunicación, desarrollando proyectos en publicidad, ficción y documental.
           </p>
-          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Como director, ha desarrollado una amplia variedad de proyectos propios, incluyendo
             cortometrajes, videoclips, livesessions y formatos experimentales, donde combina
             una mirada narrativa con una fuerte impronta visual. Entre sus trabajos se
@@ -80,13 +80,13 @@ export default async function DirectorPage() {
             <em>Urbanos: La Vida en Colectivos</em> (2018), <em>La Pasarela</em> (2020),{' '}
             <em>Lo Que Se Perdió</em> (2021) y <em>Vibra Electrónica</em> (2023).
           </p>
-          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Paralelamente, ha participado en proyectos de otros realizadores como director de
             fotografía, operador de cámara y foquista, experiencia que refuerza su comprensión
             integral del proceso cinematográfico y su capacidad para trabajar dentro de
             equipos técnicos en distintos contextos de producción.
           </p>
-          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case">
+          <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed">
             Actualmente reside en Barcelona, donde desarrolla proyectos en el ámbito
             publicitario y musical, y se encuentra en proceso de desarrollo de su primer
             largometraje.

@@ -1,13 +1,8 @@
-﻿import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
+import { VideoGrid } from '@/components/VideoGrid';
+import { focusPullerVideos } from '@/lib/cinematography-videos';
 import { getGlobalSettings } from '@/lib/wordpress';
-
-const carousels = [
-  { id: 1, label: 'FICCIÓN / TV' },
-  { id: 2, label: 'PUBLICIDAD' },
-  { id: 3, label: 'VIDEOCLIPS' },
-  { id: 4, label: 'PROYECTOS INDEPENDIENTES' },
-];
 
 export default async function FoquistaPage() {
   let heroUrl: string | null = null;
@@ -23,28 +18,14 @@ export default async function FoquistaPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} />
 
-      <div className="py-16 sm:py-20 space-y-16">
-        {carousels.map((carousel) => (
-          <section key={carousel.id}>
-            <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-6 px-6 sm:px-12">
-              {carousel.label}
-            </p>
-            <div
-              className="overflow-x-auto"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              <div className="flex gap-3 px-6 sm:px-12 pb-2">
-                {[1, 2, 3, 4, 5, 6].map((n) => (
-                  <div
-                    key={n}
-                    className="shrink-0 w-[70vw] sm:w-[45vw] lg:w-[30vw] aspect-video bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors duration-500"
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        ))}
-      </div>
+      {/* Portfolio videos — per Nahuel's "Videos porfolio para embeber DIR FOTOGRAFÍA" doc.
+          "El Caso Vitruvio" pending (en postproducción, sin link). */}
+      <section className="py-16 sm:py-20">
+        <div className="w-[90vw] mx-auto">
+          <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">FOQUISTA</p>
+          <VideoGrid videos={focusPullerVideos} />
+        </div>
+      </section>
 
       <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
 

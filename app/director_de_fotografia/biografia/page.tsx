@@ -3,7 +3,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { getGlobalSettings } from '@/lib/wordpress';
 
-const P = 'text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case';
+const P = 'text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed';
 
 export default async function BiografiaDirectorDeFotografiaPage() {
   let logoUrl: string | null = null;

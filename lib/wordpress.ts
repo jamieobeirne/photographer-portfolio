@@ -117,3 +117,57 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
   const groups = await getServicePhotosByProject(serviceTag);
   return Object.values(groups).flat();
 }
+
+/**
+ * Representative photos for the Photography home grid (Instagram-style).
+ * Pulls from all tagged gallery media: first one photo per project, then
+ * fills remaining slots with further photos, capped at `limit`.
+ */
+export async function getPortfolioGridPhotos(limit = 12): Promise<ServicePhoto[]> {
+  const tagRes = await fetch(`${WP_API_URL}/media_tag?per_page=100&_fields=id`, {
+    cache: 'no-store',
+  });
+  if (!tagRes.ok) return [];
+  const tagIds = ((await tagRes.json()) as { id: number }[]).map((t) => t.id);
+  if (!tagIds.length) return [];
+
+  const mediaRes = await fetch(
+    `${WP_API_URL}/media?media_tag=${tagIds.join(',')}&per_page=100&orderby=title&order=asc&_fields=id,slug,source_url,alt_text`,
+    { cache: 'no-store' }
+  );
+  if (!mediaRes.ok) return [];
+  const items = (await mediaRes.json()) as {
+    id: number;
+    slug: string;
+    source_url: string;
+    alt_text: string;
+  }[];
+
+  const byProject: Record<string, ServicePhoto[]> = {};
+  for (const item of items) {
+    const parts = item.slug.split('__');
+    const project = parts.length >= 2 ? parts[1] : 'otros';
+    (byProject[project] ??= []).push({
+      id: item.id,
+      url: item.source_url,
+      alt: item.alt_text || project,
+      project,
+    });
+  }
+
+  // One per project first, then round-robin the rest.
+  const groups = Object.values(byProject);
+  const picked: ServicePhoto[] = [];
+  for (let round = 0; picked.length < limit; round++) {
+    let added = false;
+    for (const group of groups) {
+      if (group[round]) {
+        picked.push(group[round]);
+        added = true;
+        if (picked.length >= limit) break;
+      }
+    }
+    if (!added) break;
+  }
+  return picked;
+}
