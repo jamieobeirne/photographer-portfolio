@@ -3,7 +3,7 @@ import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 
-const P = 'normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed text-left';
+const P = 'normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case text-left';
 
 export default async function BiografiaFotografoPage() {
   let heroUrl: string | null = null;

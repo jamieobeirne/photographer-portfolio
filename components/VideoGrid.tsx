@@ -104,7 +104,7 @@ function VideoCard({ title, embedUrl, isPlaying, onPlay }: VideoCardProps) {
           </button>
         )}
       </div>
-      <p className="mt-3 px-1 text-white text-[0.66rem] font-light leading-relaxed">
+      <p className="mt-3 px-1 text-white text-[0.66rem] font-light leading-relaxed normal-case">
         {title}
       </p>
     </article>

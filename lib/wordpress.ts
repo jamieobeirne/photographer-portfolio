@@ -107,3 +107,13 @@ export async function getServicePhotosByProject(
   }
   return groups;
 }
+
+/**
+ * Flat list of photos for a service tag, ordered by title so the
+ * `<service>__<project>__<nn>` convention keeps each project's photos
+ * contiguous (Nahuel: proyectos agrupados, no mezclados).
+ */
+export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto[]> {
+  const groups = await getServicePhotosByProject(serviceTag);
+  return Object.values(groups).flat();
+}
