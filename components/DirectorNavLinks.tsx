@@ -17,7 +17,9 @@ export function DirectorNavLinks() {
   return (
     <>
       {/* Desktop */}
-      <nav className="hidden xl:flex items-center gap-4 xl:gap-5">
+      {/* 21 July #14 — the Director menu labels are long and ran together;
+          widened to match NavLinks/FotografoNavLinks and then some. */}
+      <nav className="hidden xl:flex items-center gap-7 xl:gap-10">
         {links.map(({ href, label }) => (
           <Link
             key={label}
