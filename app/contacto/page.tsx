@@ -22,31 +22,18 @@ export default async function ContactoPage({
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <PageHero imageUrl={heroUrl} />
+      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} centeredLogo />
 
       {/* Body — video plays only here */}
       <div className="relative overflow-hidden">
         <VideoBackground startTime={20} overlayOpacity={0.3} />
 
-        {/* Logo — link back to home, sits over video */}
-        <section className="relative z-10 flex justify-center py-20 sm:py-28">
-          {logoUrl && (
-            <Link href="/home">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={logoUrl}
-                alt="Nahuel Beade"
-                className="h-[5rem] sm:h-[6rem] md:h-[7rem] w-auto object-contain"
-              />
-            </Link>
-          )}
-        </section>
+        <div className="pt-14 sm:pt-20" />
 
         {/* Form section — centered dark rectangle, not full-width */}
-        <div className="relative z-10 px-4 sm:px-8 pb-24 flex justify-center">
-          <div className="relative w-full max-w-3xl">
-            <div className="absolute -inset-x-8 -inset-y-10 bg-black/60 pointer-events-none" />
-            <section className="relative px-6 sm:px-10 pt-2">
+        <div className="relative z-10 px-6 sm:px-8 pb-24 flex justify-center">
+          <div className="w-full max-w-3xl bg-black/60">
+            <section className="relative px-8 sm:px-12 py-10">
 
             {/* Contact info */}
             <div className="hidden">
