@@ -75,10 +75,12 @@ export interface PortfolioReel {
 
 /** Fetch the three WordPress-hosted reels displayed on the Director de Fotografía homepage. */
 export async function getDirectorPhotographyReels(): Promise<PortfolioReel[]> {
+  // 21 July #8 — display order is CINE > PUBLICIDAD > CAMARÓGRAFO LIVE.
+  // This array order is what reaches the page, so it is the order.
   const reels = [
-    { label: 'REEL CAMAROGRAFO · LIVE', slug: 'reel-camarografo-live-02-fhd', posterSlug: 'poster-reel-camarografo-live-02-fhd' },
     { label: 'REEL DF · CINE', slug: 'reel-df-cine-final-02-alta', posterSlug: 'poster-reel-df-cine-final-02-alta' },
     { label: 'REEL DF · PUBLICIDAD', slug: 'reel-df-publicidad-final-02-alta', posterSlug: 'poster-reel-df-publicidad-final-02-alta' },
+    { label: 'REEL CAMAROGRAFO · LIVE', slug: 'reel-camarografo-live-02-fhd', posterSlug: 'poster-reel-camarografo-live-02-fhd' },
   ];
 
   const resolved = await Promise.all(reels.map(async (reel) => {

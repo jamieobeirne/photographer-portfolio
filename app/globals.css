@@ -37,6 +37,24 @@
   font-size: clamp(1.18rem, 2.34vw, 1.53rem);
 }
 
+/* 21 July #10/#12 — section and project headings were 0.52rem/0.56rem and
+   unreadable. Nahuel asked for "a bit bigger" on Dir. Fotografía and
+   "double" on Fotógrafo; these are the same component, so both are doubled
+   and can be dialled back here in one place. */
+.section-title {
+  font-size: 1.04rem;
+  letter-spacing: 0.4em;
+}
+
+.project-subtitle {
+  font-size: 1.12rem;
+  letter-spacing: 0.32em;
+}
+
+.service-card-title {
+  font-size: 0.95rem;
+}
+
 /* Portrait crop: pin background to the top of the image (clouds) instead of centre.
    Used on Dir. Fotografía hero + footer (spec 2.1). !important beats the inline style. */
 @media (orientation: portrait) {

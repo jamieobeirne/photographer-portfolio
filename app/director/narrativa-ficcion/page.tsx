@@ -18,7 +18,7 @@ export default async function NarrativaFiccionPage() {
     <main className="min-h-screen bg-black text-white">
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
       <section className="w-[90vw] mx-auto py-16 sm:py-20">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">CINE FICCIÓN & DOCUMENTAL</p>
+        <p className="text-white/45 section-title mb-10">CINE FICCIÓN & DOCUMENTAL</p>
         <VideoGrid videos={fictionDocumentaryVideos} />
       </section>
       <Footer imageUrl={heroUrl} />

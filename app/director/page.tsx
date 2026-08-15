@@ -54,7 +54,7 @@ export default async function DirectorPage() {
           </div>
         )}
         <div className="order-1 w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20 space-y-6">
-          <p className="text-white/30 text-[0.52rem] tracking-[0.4em]">ACERCA DE</p>
+          <p className="text-white/45 section-title">ACERCA DE</p>
           <p className="normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case">
             Nahuel Beade es director audiovisual con base en Barcelona, con
             formación en cine y una sólida trayectoria en proyectos de ficción,

@@ -25,7 +25,7 @@ export default async function DirectorDeFotografiaPage() {
 
       {reels.length > 0 && (
         <section className="w-[90vw] mx-auto py-12 sm:py-16">
-          <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-8">REELS</p>
+          <p className="text-white/45 section-title mb-8">REELS</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             {reels.map((reel) => (
               <figure key={reel.url} className="bg-white/[0.03] border border-white/10">
@@ -63,7 +63,7 @@ export default async function DirectorDeFotografiaPage() {
           </div>
         )}
         <div className="order-1 lg:order-2 w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
-          <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-6">ACERCA DE</p>
+          <p className="text-white/45 section-title mb-6">ACERCA DE</p>
           <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case mb-6">
             Nahuel Beade es director de fotografía y operador de cámara con base en
             Barcelona, con formación en cine y una amplia experiencia en proyectos

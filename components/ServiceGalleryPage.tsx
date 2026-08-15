@@ -32,7 +32,7 @@ export async function ServiceGalleryPage({ label, serviceTag }: ServiceGalleryPa
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
 
       <section className="w-[90vw] mx-auto py-16 sm:py-20">
-        <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">{label}</p>
+        <p className="text-white/45 section-title mb-10">{label}</p>
         {photos.length === 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -44,7 +44,7 @@ export async function ServiceGalleryPage({ label, serviceTag }: ServiceGalleryPa
             {projectGroups.map(([project, projectPhotos]) => (
               <section key={project}>
                 {project !== serviceTag && (
-                  <p className="text-white/45 text-[0.56rem] tracking-[0.32em] mb-5">{project}</p>
+                  <p className="text-white/60 project-subtitle mb-5">{project}</p>
                 )}
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-3">
                   {projectPhotos.map((photo) => (

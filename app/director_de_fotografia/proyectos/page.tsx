@@ -33,7 +33,7 @@ export default async function DirectorDeFotografiaProyectosPage() {
         {videoSections.map((section) => (
           <section key={section.label}>
             <div className="w-[90vw] mx-auto">
-              <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">{section.label}</p>
+              <p className="text-white/45 section-title mb-10">{section.label}</p>
               <VideoGrid videos={section.videos} />
             </div>
           </section>

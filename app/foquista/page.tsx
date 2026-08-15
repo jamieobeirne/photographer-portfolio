@@ -22,7 +22,7 @@ export default async function FoquistaPage() {
           "El Caso Vitruvio" pending (en postproducción, sin link). */}
       <section className="py-16 sm:py-20">
         <div className="w-[90vw] mx-auto">
-          <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">FOQUISTA</p>
+          <p className="text-white/45 section-title mb-10">FOQUISTA</p>
           <VideoGrid videos={focusPullerVideos} />
         </div>
       </section>
