@@ -24,7 +24,7 @@ export default async function DirectorDeFotografiaPage() {
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} portraitTop />
 
       {reels.length > 0 && (
-        <section className="w-[90vw] mx-auto py-12 sm:py-16">
+        <section className="page-container py-12 sm:py-16">
           <p className="text-white/45 section-title mb-8">REELS</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             {reels.map((reel) => (
@@ -49,7 +49,7 @@ export default async function DirectorDeFotografiaPage() {
       )}
 
       {/* Bio teaser */}
-      <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
+      <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 page-container">
         {fotoUrl && (
           <div className="order-2 lg:order-1 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
             <Image

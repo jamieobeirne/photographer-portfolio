@@ -42,7 +42,7 @@ export default async function FotografoPage() {
 
       {/* Instagram-style photo grid */}
       <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
-        <div className="w-[90vw] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="page-container grid grid-cols-1 lg:grid-cols-2 gap-3">
           {/* Representative photos pulled from the tagged WP galleries (one per project first) */}
           {gridPhotos.length > 0
             ? gridPhotos.map((photo, index) => (

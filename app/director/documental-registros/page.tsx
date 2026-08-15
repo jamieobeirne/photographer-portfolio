@@ -17,7 +17,7 @@ export default async function DocumentalRegistrosPage() {
   return (
     <main className="min-h-screen bg-black text-white">
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
-      <section className="w-[90vw] mx-auto py-16 sm:py-20">
+      <section className="page-container py-16 sm:py-20">
         <p className="text-white/45 section-title mb-10">VIDEO CLIPS & LIVE SESSION</p>
         <VideoGrid videos={musicVideos} />
       </section>

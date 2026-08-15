@@ -21,7 +21,7 @@ export default async function FoquistaPage() {
       {/* Portfolio videos — per Nahuel's "Videos porfolio para embeber DIR FOTOGRAFÍA" doc.
           "El Caso Vitruvio" pending (en postproducción, sin link). */}
       <section className="py-16 sm:py-20">
-        <div className="w-[90vw] mx-auto">
+        <div className="page-container">
           <p className="text-white/45 section-title mb-10">FOQUISTA</p>
           <VideoGrid videos={focusPullerVideos} />
         </div>

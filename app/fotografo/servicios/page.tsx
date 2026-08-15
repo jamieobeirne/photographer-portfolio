@@ -27,7 +27,7 @@ export default async function ServiciosFotografoPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
 
-      <section className="w-[90vw] mx-auto py-16 sm:py-20">
+      <section className="page-container py-16 sm:py-20">
         <p className="text-white/45 section-title mb-10">SERVICIOS DE FOTOGRAFÍA</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">

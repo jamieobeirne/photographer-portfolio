@@ -18,7 +18,10 @@ export function HamburgerMenu({ links, desktopBreakpoint = 'lg' }: HamburgerMenu
       <button
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className={`flex ${desktopBreakpoint === 'xl' ? 'xl:hidden' : 'lg:hidden'} flex-col justify-center gap-[7.3px] p-2`}
+        /* shrink-0 so a wide logo can never squeeze the button out of the
+           header row — that is why the Dir. Fotografía menu looked missing
+           on mobile (21 July #18). */
+        className={`flex shrink-0 ${desktopBreakpoint === 'xl' ? 'xl:hidden' : 'lg:hidden'} flex-col justify-center gap-[7.3px] p-2`}
       >
         <span className="block w-[29px] h-px bg-white/70" />
         <span className="block w-[29px] h-px bg-white/70" />

@@ -33,7 +33,7 @@ export default async function DirectorPage() {
             muted
             playsInline
             preload="metadata"
-            className="w-[90vw] mx-auto aspect-video block"
+            className="w-full aspect-video block"
           >
             <source src={video.url} type={video.type} />
           </video>
@@ -41,7 +41,7 @@ export default async function DirectorPage() {
       )}
 
       {/* Bio — text left, photo right (spec 4.3: Nahuel looks left in the photo) */}
-      <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 w-[90vw] mx-auto">
+      <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 page-container">
         {bioFotoUrl && (
           <div className="order-2 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
             <Image

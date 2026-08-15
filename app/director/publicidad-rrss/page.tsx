@@ -19,7 +19,7 @@ export default async function PublicidadRrssPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<DirectorNavLinks />} />
 
-      <section className="w-[90vw] mx-auto py-16 sm:py-20">
+      <section className="page-container py-16 sm:py-20">
         <p className="text-white/45 section-title mb-10">PUBLICIDAD & RRSS</p>
         <VideoGrid videos={advertisingVideos} />
       </section>

@@ -32,7 +32,7 @@ export default async function DirectorDeFotografiaProyectosPage() {
       <div className="py-16 sm:py-20 space-y-16">
         {videoSections.map((section) => (
           <section key={section.label}>
-            <div className="w-[90vw] mx-auto">
+            <div className="page-container">
               <p className="text-white/45 section-title mb-10">{section.label}</p>
               <VideoGrid videos={section.videos} />
             </div>
