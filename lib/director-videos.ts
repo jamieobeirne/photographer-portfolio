@@ -1,7 +1,15 @@
 import type { VideoItem } from '@/components/VideoGrid';
 
 const youtube = (id: string) => `https://www.youtube-nocookie.com/embed/${id}`;
-const playlist = (id: string) => `https://www.youtube-nocookie.com/embed/videoseries?list=${id}`;
+/**
+ * A playlist embed. Pass `coverVideoId` to start the playlist on a known video —
+ * that also gives the card a real thumbnail, since a bare `videoseries` URL has
+ * no video ID to derive one from (21 July #16).
+ */
+const playlist = (listId: string, coverVideoId?: string) =>
+  coverVideoId
+    ? `https://www.youtube-nocookie.com/embed/${coverVideoId}?list=${listId}`
+    : `https://www.youtube-nocookie.com/embed/videoseries?list=${listId}`;
 
 export const advertisingVideos: VideoItem[] = [
   ['Spot - La Mar Boutique', 'VnoItWH0k5k'], ['Spot - Catalònia Nova Equipació Horizontal', 'c8XLtf0jgjc'], ['Spot - Eslora, Colección "Errantes 2023"', '1kLT6Frh0DU'], ['Spot - Restaurante Chapa Chapa', '23XKnVXUeUI'], ['Aftermovie - Almas Producciones con DJ Tri.Par.Titos', 'JnMX2NXrPb0'], ['Institucional - Colegio Jesús Salvador', 'tEpYqxS1uk4'], ['Aftermovie - Bubble Circus', 'KGd_8E8Ai3o'], ['Aftermovie - Familly Partner DJ Manu Desrets', '5lGd-tc2eIE'], ['Aftermovie - BYD Presentació Seal 6', 'BMGOnetaqGA'], ['Aftermovie - Shakalaka', '4_OvYbLDqLs'], ['Institucional - AEI Raval Spot', 'HAH5kx1k5tY'], ['Aftermovie - Marter & Open Platja d’Aro', 'haXAz20IUxs'], ['Spot - LaSalle Horta', '-kZRARmY5Iw'], ['Aftermovie - BYD Presentació Atto 2', 'gpDam59eiFo'], ['Aftermovie - Meet Producciones con DJ Jay de Lys', '7W7C9x5xFnc'], ['Spot - Cinética, Compañía de Danza', 'Wsb7bhapY6A'], ['Aftermovie - Meet Producciones con DJ Fabio Florido', 'tbjAtHbXleA'], ['Institucional - Pare Manyanet Vilafranca', '5w5BAOEkSsk'], ['Aftermovie - Meet Producciones con DJ Beico', 'C8aSIB1QJLU'], ['Institucional - Escuela del CAE', 'OqWlNfCJjyo'], ['Aftermovie - Marter & Open Sitges', 'NFySWxcg2Tw'], ['Aftermovie - Estúpida Compañía', '02EJz0zi_YQ'], ['Spot - ¿Qué mundo me estás dejando? (Enersa)', playlist('PLZyHq2-Ib6nOgOA6x7ZfdZYfLH3tkhQ5J')], ['Spot - Usá Loncheras (Esc. del CAE)', 'TaGotXa7UjE'], ['Institucional - Día del Maestro (Esc. del CAE)', 'IMT26XhALs0'], ['Aftermovie - Circo Eguap', 'k5qw5-nTzQo'], ['Aftermovie - Gatonegro Gatoblanco', 'e08AyecP3Gc'], ['Aftermovie - Medio Metro', 'BwvehdBP4Ck'], ['Aftermovie - Gogo Dols', 'gLq-BoUBj4E'], ['BTS - Blessé Carteras', 'rjxLru6PNjo'], ['Spot - Blessé Carteras', 'BO1wZaoiMLc'],
@@ -9,8 +17,8 @@ export const advertisingVideos: VideoItem[] = [
 
 export const fictionDocumentaryVideos: VideoItem[] = [
   ['Cortometraje - Lo Que Se Perdió', 'Gh-N6tr2ITs'], ['Cortometraje - La Pasarela', 'E3PDF01ak8k'], ['Serie web - Urbanos, La Vida en Colectivos', 'ExMpwkW4d5E'], ['Documental - Prácticas de Extensión de Educación Experiencial', 'sLpUtEgpJ8I'], ['Cortometraje - Barquito', 'SgdkHql2RUc'], ['Cortometraje - La Caída de los Globos', '9pHK9h8Xby4?start=20'], ['Documental - SelviHP 2016', 'bZthSVHTFtc'], ['Unitario - Esparza, Desde los Barrios Hacia el Centro', 'xNnORJm45Ag?start=7'],
-].map(([title, id]) => ({ title, embedUrl: youtube(id) }));
+].map(([title, id]) => ({ title, embedUrl: id.startsWith('http') ? id : youtube(id) }));
 
 export const musicVideos: VideoItem[] = [
-  ['Videoclip - En el Film (Yamil Isaac)', 'WZ653wGRJ-Q'], ['Live session - Serie Vibra Electrónica', '3avopcuxv10'], ['Videoclip - Ya No Presume (Ema Barreira)', '2aoiM2MWCzo'], ['Videoclip - Sincronía (Yamil Isaac)', 'V4JfRlPD4Ow'], ['Live session - Un Fuego (Mestizo)', '3lZp0-BbiDc'], ['Videoclip - An Ocean Thing (Ema Barreira & The Soul Flu)', 'ud5PzX-7PiA'], ['Live session - Luis Barbiero Cuarteto', playlist('PLeTk8XlskwbI')], ['Live show - Gildas Bailanta', playlist('PLRbg2c3ss05U')], ['Videoclip - Flores (#Reo)', 'AJB5v-ByEYo'], ['Videoclip - Instantes (#Reo)', 'OKwpKQIvfsM'], ['Videoclip - Es (#Reo)', 'v_X9RgF9VG0'], ['Videoclip - Luna Compañera (Duo Andariego)', '-ArCDoJuIsw'], ['Live session - Demo Session (Francisco Aguirre)', 'cKXe-Elrw1s'], ['Live session - Atardecer (Tango Infinito)', 'C5ANgicJhCo'], ['Live sesión - Flopa & Cia', playlist('PLZyHq2-Ib6nOcTo8_sHFfVQ6K8VT7Yc3Y')],
+  ['Videoclip - En el Film (Yamil Isaac)', 'WZ653wGRJ-Q'], ['Live session - Serie Vibra Electrónica', playlist('PLZyHq2-Ib6nPuceqAxS0TpRiQ7pVy1Lu0', '3AvopCUxv10')], ['Videoclip - Ya No Presume (Ema Barreira)', '2aoiM2MWCzo'], ['Videoclip - Sincronía (Yamil Isaac)', 'V4JfRlPD4Ow'], ['Live session - Un Fuego (Mestizo)', '3lZp0-BbiDc'], ['Videoclip - An Ocean Thing (Ema Barreira & The Soul Flu)', 'ud5PzX-7PiA'], ['Live session - Luis Barbiero Cuarteto', playlist('PLeTk8XlskwbI')], ['Live show - Gildas Bailanta', playlist('PLRbg2c3ss05U')], ['Videoclip - Flores (#Reo)', 'AJB5v-ByEYo'], ['Videoclip - Instantes (#Reo)', 'OKwpKQIvfsM'], ['Videoclip - Es (#Reo)', 'v_X9RgF9VG0'], ['Videoclip - Luna Compañera (Duo Andariego)', '-ArCDoJuIsw'], ['Live session - Demo Session (Francisco Aguirre)', 'cKXe-Elrw1s'], ['Live session - Atardecer (Tango Infinito)', 'C5ANgicJhCo'], ['Live sesión - Flopa & Cia', playlist('PLZyHq2-Ib6nOcTo8_sHFfVQ6K8VT7Yc3Y')],
 ].map(([title, id]) => ({ title, embedUrl: id.startsWith('http') ? id : youtube(id) }));

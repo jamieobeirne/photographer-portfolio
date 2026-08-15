@@ -15,12 +15,32 @@ function isVimeoUrl(embedUrl: string) {
   return embedUrl.includes('player.vimeo.com');
 }
 
-function getThumbnailUrl(embedUrl: string) {
+/**
+ * Thumbnail candidates, best first. The caller falls through the list on error.
+ *
+ * 21 July #16 — "why do some videos have no thumbnail?". Two causes:
+ *  1. Playlist embeds (`/embed/videoseries?list=…`) have no video ID to derive
+ *     one from. Fixed at the source by embedding playlists as
+ *     `/embed/<coverVideoId>?list=<listId>` — see `playlist()` in lib/*-videos.ts.
+ *     Any playlist still using the videoseries form falls back to the placeholder.
+ *  2. maxresdefault only exists for HD uploads, so we fall back to hqdefault.
+ */
+function getThumbnailCandidates(embedUrl: string): string[] {
   const videoId = new URL(embedUrl).pathname.split('/').pop();
-  if (!videoId || videoId === 'videoseries') return null;
-  if (isVimeoUrl(embedUrl)) return `https://vumbnail.com/${videoId}.jpg`;
-  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  if (!videoId || videoId === 'videoseries') return [];
+  if (isVimeoUrl(embedUrl)) return [`https://vumbnail.com/${videoId}.jpg`];
+  return [
+    `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+    `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+  ];
 }
+
+/**
+ * A deleted or private YouTube video still returns HTTP 200 from i.ytimg.com,
+ * but the body is a 120x90 grey placeholder. Treat anything that small as missing
+ * so a dead video renders as our own placeholder rather than a stretched grey box.
+ */
+const DEAD_THUMBNAIL_MAX_WIDTH = 120;
 
 function enableSound(iframe: HTMLIFrameElement, vimeo = false) {
   if (vimeo) {
@@ -56,7 +76,9 @@ interface VideoCardProps extends VideoItem {
 function VideoCard({ title, embedUrl, isPlaying, onPlay }: VideoCardProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const playerId = useId().replace(/:/g, '');
-  const thumbnailUrl = getThumbnailUrl(embedUrl);
+  const thumbnailCandidates = getThumbnailCandidates(embedUrl);
+  const [thumbnailIndex, setThumbnailIndex] = useState(0);
+  const thumbnailUrl = thumbnailCandidates[thumbnailIndex] ?? null;
   const vimeo = isVimeoUrl(embedUrl);
   const origin = typeof window === 'undefined' ? '' : `&origin=${encodeURIComponent(window.location.origin)}`;
   const playerUrl = vimeo
@@ -113,6 +135,12 @@ function VideoCard({ title, embedUrl, isPlaying, onPlay }: VideoCardProps) {
                 alt=""
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
+                onError={() => setThumbnailIndex((i) => i + 1)}
+                onLoad={(event) => {
+                  if (event.currentTarget.naturalWidth <= DEAD_THUMBNAIL_MAX_WIDTH) {
+                    setThumbnailIndex((i) => i + 1);
+                  }
+                }}
               />
             ) : (
               <div className="h-full w-full bg-gradient-to-br from-zinc-800 to-black" />

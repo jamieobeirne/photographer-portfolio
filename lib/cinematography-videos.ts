@@ -1,7 +1,15 @@
 import type { VideoItem } from '@/components/VideoGrid';
 
 const youtube = (id: string) => `https://www.youtube-nocookie.com/embed/${id}`;
-const playlist = (id: string) => `https://www.youtube-nocookie.com/embed/videoseries?list=${id}`;
+/**
+ * A playlist embed. Pass `coverVideoId` to start the playlist on a known video —
+ * that also gives the card a real thumbnail, since a bare `videoseries` URL has
+ * no video ID to derive one from (21 July #16).
+ */
+const playlist = (listId: string, coverVideoId?: string) =>
+  coverVideoId
+    ? `https://www.youtube-nocookie.com/embed/${coverVideoId}?list=${listId}`
+    : `https://www.youtube-nocookie.com/embed/videoseries?list=${listId}`;
 const vimeo = (id: string) => `https://player.vimeo.com/video/${id}`;
 const toItem = ([title, id]: string[]): VideoItem => ({
   title,
@@ -63,7 +71,7 @@ export const dfMusicVideos: VideoItem[] = [
   ['Live session - Un Fuego (Mestizo)', '3lZp0-BbiDc'],
   ['Videoclip - Luna Compañera (Duo Andariego)', '-ArCDoJuIsw'],
   ['Videoclip - En el Film (Yamil Isaac)', 'WZ653wGRJ-Q'],
-  ['Live session - Serie Vibra Electrónica', '3avopcuxv10'],
+  ['Live session - Serie Vibra Electrónica', playlist('PLZyHq2-Ib6nPuceqAxS0TpRiQ7pVy1Lu0', '3AvopCUxv10')],
   ['Live session - Demo Session (Francisco Aguirre)', 'cKXe-Elrw1s'],
   ['Videoclip - Flores (#Reo)', 'AJB5v-ByEYo'],
   ['Videoclip - Instantes (#Reo)', 'OKwpKQIvfsM'],
