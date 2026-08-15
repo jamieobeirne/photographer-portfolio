@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Footer } from '@/components/Footer';
 import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
-import { getGlobalSettings, getPortfolioGridPhotos } from '@/lib/wordpress';
+import { getGlobalSettings, getPortfolioFeedPhotos } from '@/lib/wordpress';
 import type { ServicePhoto } from '@/lib/wordpress';
 
 export const revalidate = 3600;
@@ -32,7 +32,7 @@ export default async function FotografoPage() {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_fotographia?.url ?? null;
     logoUrl = settings.logo_fotographia_esp?.url ?? null;
-    gridPhotos = await getPortfolioGridPhotos(12);
+    gridPhotos = await getPortfolioFeedPhotos(3);
   } catch {}
 
   return (
@@ -40,23 +40,21 @@ export default async function FotografoPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
 
-      {/* Instagram-style photo grid */}
+      {/* 21 July #11/#22 — Instagram-style mosaic: many smaller photos at their
+          own aspect ratios, ~3 per production, interleaved across productions. */}
       <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
-        <div className="page-container grid grid-cols-1 lg:grid-cols-2 gap-3">
-          {/* Representative photos pulled from the tagged WP galleries (one per project first) */}
+        <div className="page-container photo-mosaic">
           {gridPhotos.length > 0
             ? gridPhotos.map((photo, index) => (
-                <article
-                  key={photo.id}
-                  className="group relative aspect-[4/3] overflow-hidden border border-white/5 bg-white/[0.03]"
-                >
+                <article key={photo.id} className="group relative overflow-hidden bg-white/[0.03]">
                   <Image
                     src={photo.url}
                     alt={photo.alt}
-                    fill
-                    priority={index < 2}
-                    sizes="(min-width: 1024px) 44vw, 90vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    width={photo.width ?? 800}
+                    height={photo.height ?? 600}
+                    priority={index < 4}
+                    sizes="(min-width: 1280px) 24vw, (min-width: 640px) 32vw, 49vw"
+                    className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </article>
               ))
@@ -64,7 +62,7 @@ export default async function FotografoPage() {
                 <article
                   key={photo.id}
                   aria-label={photo.title}
-                  className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden border border-white/5 bg-white/[0.03]"
+                  className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-white/[0.03]"
                 >
                   <span className="text-[0.52rem] font-light tracking-[0.35em] text-white/25">
                     IMÁGENES PENDIENTES

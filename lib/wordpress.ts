@@ -65,6 +65,9 @@ export interface ServicePhoto {
   alt: string;
   project: string;
   projectOrder: number;
+  /** Intrinsic pixel size, when WordPress reports it. Needed by the mosaic feed. */
+  width?: number;
+  height?: number;
 }
 
 export interface PortfolioReel {
@@ -172,15 +175,36 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
   return photos;
 }
 
+export const SERVICE_TAGS = [
+  'fotoproducto',
+  'publicidad',
+  'foto-reportajes',
+  'institucionales',
+  'arquitectura',
+  'paisajismo-y-cultura',
+] as const;
+
 /**
- * Representative photos for the Photography home grid (Instagram-style).
- * Fetches only a small, even sample from each gallery instead of reading the
- * entire media library just to render the home-page preview.
+ * Photos for the Photography home mosaic.
+ *
+ * 21 July #11/#22 — Nahuel wants the home to read like an Instagram feed: many
+ * smaller photos at varied sizes, roughly three per production, mixed across
+ * productions rather than grouped. The previous version took an even slice per
+ * *service tag* (2 each, 12 total) and rendered them all at one size, which he
+ * described as "pocas y muy grandes".
+ *
+ * Sampling stays cheap — one media request per tag, same as before — but the
+ * results are grouped by project, capped at `perProject`, then interleaved so
+ * consecutive tiles come from different productions. Intrinsic dimensions come
+ * back with the photos so the mosaic can lay out on real aspect ratios.
  */
-export async function getPortfolioGridPhotos(limit = 12): Promise<ServicePhoto[]> {
-  const serviceTags = ['fotoproducto', 'publicidad', 'foto-reportajes', 'institucionales', 'arquitectura', 'paisajismo-y-cultura'];
-  const perService = Math.ceil(limit / serviceTags.length);
-  const samples = await Promise.all(serviceTags.map(async (serviceTag) => {
+export async function getPortfolioFeedPhotos(
+  perProject = 3,
+  limit = 45,
+): Promise<ServicePhoto[]> {
+  const perTagRequest = 100;
+
+  const byTag = await Promise.all(SERVICE_TAGS.map(async (serviceTag) => {
     const tagRes = await fetch(
       `${WP_API_URL}/media_tag?slug=${encodeURIComponent(serviceTag)}`,
       cachedContent
@@ -191,7 +215,7 @@ export async function getPortfolioGridPhotos(limit = 12): Promise<ServicePhoto[]
     if (!tags.length) return [];
 
     const mediaRes = await fetch(
-      `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=${perService}&orderby=date&order=asc&_fields=id,slug,source_url,alt_text,title`,
+      `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=${perTagRequest}&orderby=date&order=asc&_fields=id,slug,source_url,alt_text,title,media_details`,
       cachedContent
     );
     if (!mediaRes.ok) return [];
@@ -202,7 +226,9 @@ export async function getPortfolioGridPhotos(limit = 12): Promise<ServicePhoto[]
       source_url: string;
       alt_text: string;
       title: { rendered: string };
+      media_details?: { width?: number; height?: number };
     }[];
+
     return items.map((item) => {
       const project = projectForMedia(serviceTag, item.slug);
       return {
@@ -211,9 +237,31 @@ export async function getPortfolioGridPhotos(limit = 12): Promise<ServicePhoto[]
         alt: item.alt_text || item.title.rendered || project.project,
         project: project.project,
         projectOrder: project.order,
-      };
+        width: item.media_details?.width,
+        height: item.media_details?.height,
+      } satisfies ServicePhoto;
     });
   }));
 
-  return samples.flat().slice(0, limit);
+  // Group by project, keeping at most `perProject` from each.
+  const projects = new Map<string, ServicePhoto[]>();
+  for (const photo of byTag.flat()) {
+    const bucket = projects.get(photo.project) ?? [];
+    if (bucket.length < perProject) {
+      bucket.push(photo);
+      projects.set(photo.project, bucket);
+    }
+  }
+
+  // Interleave: one photo from each project per pass, so the feed mixes
+  // productions instead of showing three of the same thing in a row.
+  const buckets = [...projects.values()];
+  const feed: ServicePhoto[] = [];
+  for (let pass = 0; pass < perProject; pass += 1) {
+    for (const bucket of buckets) {
+      if (bucket[pass]) feed.push(bucket[pass]);
+    }
+  }
+
+  return feed.slice(0, limit);
 }

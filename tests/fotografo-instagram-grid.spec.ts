@@ -1,203 +1,108 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Specification tests for the /fotografo Instagram-style grid.
+ * Specification tests for the /fotografo home mosaic.
  *
- * These tests define the DESIRED layout and will fail until the grid is
- * redesigned to match the Instagram profile-page pattern:
+ * SUPERSEDES the June spec (3 equal square cells, 90vw container). Nahuel's
+ * 21 July notes changed the target: he wants the home to read like his old
+ * Wix feed — "3 fotos de cada producción en diferentes tamaños generando un
+ * patrón irregular", edge to edge, with smaller tiles than before.
  *
- *   - 3 equal columns, edge-to-edge (no horizontal padding)
- *   - ≤ 4px gap between cells  (Instagram uses 3px)
- *   - Square (1:1) thumbnail cells
- *   - Cells are empty containers until Nahuel supplies collection photos
- *     (when photos land: every cell should contain an <img> with object-cover)
- *   - No caption text below thumbnails inside the grid
+ * Desired layout:
+ *   - CSS multi-column flow: 2 columns in portrait, 3 from 640px, 4 from 1280px
+ *   - ≤ 4px gutters (Instagram uses 3px)
+ *   - Tiles keep their own aspect ratios — explicitly NOT all square
+ *   - Container is full-bleed in portrait, aligned to the menu margin above it
  *
  * Reference: https://nahuelbeadeph.wixsite.com/nahuelbeadeph
  */
 
 const DESKTOP = { width: 1280, height: 900 };
-const MOBILE  = { width: 390,  height: 844 };
+const TABLET = { width: 900, height: 1000 };
+const MOBILE = { width: 390, height: 844 };
 const MAX_GAP_PX = 4;
 
-// ─── desktop ──────────────────────────────────────────────────────────────────
+const mosaicMetrics = () => {
+  const el = document.querySelector('.photo-mosaic') as HTMLElement | null;
+  if (!el) return null;
+  const style = window.getComputedStyle(el);
+  const rect = el.getBoundingClientRect();
+  const cells = Array.from(el.children).map((child) => {
+    const r = child.getBoundingClientRect();
+    return { w: Math.round(r.width), h: Math.round(r.height), hasImg: !!child.querySelector('img') };
+  });
+  return {
+    columnCount: style.columnCount,
+    columnGap: parseFloat(style.columnGap) || 0,
+    width: rect.width,
+    left: Math.round(rect.left),
+    viewport: window.innerWidth,
+    cells,
+  };
+};
 
-test.describe('/fotografo — Instagram grid (desktop 1280px)', () => {
-  test.beforeEach(async ({ page }) => {
+test.describe('/fotografo — photo mosaic', () => {
+  for (const [name, viewport, expectedColumns] of [
+    ['desktop 1280px', DESKTOP, '4'],
+    ['tablet 900px', TABLET, '3'],
+    ['mobile 390px', MOBILE, '2'],
+  ] as const) {
+    test(`${name}: flows into ${expectedColumns} columns`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      await page.goto('/fotografo');
+      const metrics = await page.evaluate(mosaicMetrics);
+
+      expect(metrics, 'No .photo-mosaic container found').not.toBeNull();
+      expect(
+        metrics!.columnCount,
+        `Expected ${expectedColumns} columns at ${viewport.width}px — got ${metrics!.columnCount}`
+      ).toBe(expectedColumns);
+    });
+  }
+
+  test('gutters are ≤ 4px', async ({ page }) => {
     await page.setViewportSize(DESKTOP);
     await page.goto('/fotografo');
-  });
+    const metrics = await page.evaluate(mosaicMetrics);
 
-  test('portfolio grid has exactly 3 equal columns', async ({ page }) => {
-    const result = await page.evaluate(() => {
-      const grid = Array.from(document.querySelectorAll('[class*="grid"]'))
-          .find((el) => el.getBoundingClientRect().width > window.innerWidth * 0.8);
-      if (!grid) return { count: 0, raw: 'no grid found' };
-      const raw = window.getComputedStyle(grid as Element).gridTemplateColumns;
-      const parts = raw.trim().split(/\s+/);
-      return { count: parts.length, raw };
-    });
-
+    expect(metrics).not.toBeNull();
     expect(
-      result.count,
-      `Expected 3 columns — got ${result.count} (gridTemplateColumns: "${result.raw}")`
-    ).toBe(3);
-  });
-
-  test('gap between cells is ≤ 4px', async ({ page }) => {
-    const gap = await page.evaluate(() => {
-      const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-      let max = 0;
-      for (const el of grids) {
-        const s = window.getComputedStyle(el);
-        max = Math.max(max, parseFloat(s.columnGap) || 0, parseFloat(s.rowGap) || 0);
-      }
-      return max;
-    });
-
-    expect(
-      gap,
-      `Gap is ${gap}px — must be ≤ ${MAX_GAP_PX}px for an Instagram-style tight grid`
+      metrics!.columnGap,
+      `Column gap is ${metrics!.columnGap}px — must be ≤ ${MAX_GAP_PX}px for a tight feed`
     ).toBeLessThanOrEqual(MAX_GAP_PX);
   });
 
-  test('thumbnail cells are square (aspect ratio 1:1 ± 5 %)', async ({ page }) => {
-    const cells = await page.evaluate(() => {
-      const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-      for (const grid of grids) {
-        const children = Array.from(grid.children);
-        if (children.length === 0) continue;
-        return children.slice(0, 9).map((el) => {
-          const r = el.getBoundingClientRect();
-          return { w: Math.round(r.width), h: Math.round(r.height) };
-        });
-      }
-      return [] as { w: number; h: number }[];
-    });
-
-    expect(cells.length, 'No grid cells found').toBeGreaterThan(0);
-
-    for (const { w, h } of cells) {
-      const ratio = w / h;
-      expect(
-        ratio,
-        `Cell is ${w}×${h}px (ratio ${ratio.toFixed(2)}) — expected square (1:1 ± 5 %)`
-      ).toBeCloseTo(1, 1);
-    }
-  });
-
-  test('grid is 90vw wide and centered', async ({ page }) => {
-    const { width, left, vw } = await page.evaluate(() => {
-      const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-      for (const el of grids) {
-        const r = el.getBoundingClientRect();
-        if (r.width > window.innerWidth * 0.8)
-          return { width: r.width, left: Math.round(r.left), vw: window.innerWidth };
-      }
-      return { width: 0, left: -1, vw: window.innerWidth };
-    });
-
-    const expectedWidth = vw * 0.9;
-    const expectedMargin = vw * 0.05;
-
-    expect(width,  `Grid width ${width}px — expected ~${expectedWidth}px (90vw)`).toBeCloseTo(expectedWidth, -1);
-    expect(left,   `Grid left edge ${left}px — expected ~${expectedMargin}px (5vw)`).toBeCloseTo(expectedMargin, -1);
-  });
-
-  // Placeholder images removed 18-Jul-2026 (Jamie's request): cells are empty
-  // containers until Nahuel supplies 3 photos per collection. When real photos
-  // land, restore the every-cell-contains-<img> assertion.
-  test('grid cells render as empty containers (no placeholder images)', async ({ page }) => {
-    const results = await page.evaluate(() => {
-      const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-      for (const grid of grids) {
-        const children = Array.from(grid.children);
-        if (children.length === 0) continue;
-        return children.map((cell) => ({
-          hasImg: !!cell.querySelector('img'),
-          text: cell.textContent?.trim() ?? '',
-        }));
-      }
-      return [] as { hasImg: boolean; text: string }[];
-    });
-
-    expect(results.length, 'No grid cells found').toBeGreaterThan(0);
-
-    const withImg = results.filter((r) => r.hasImg);
-    expect(
-      withImg.length,
-      `${withImg.length} cell(s) still contain an <img> (placeholders should be gone)`
-    ).toBe(0);
-  });
-
-  test('no caption text is rendered below thumbnails inside the grid', async ({ page }) => {
-    const captions = await page.evaluate(() => {
-      const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-      for (const grid of grids) {
-        const children = Array.from(grid.children);
-        if (children.length === 0) continue;
-        return children.map((cell) => {
-          const img = cell.querySelector('img');
-          if (!img) return '';
-          return Array.from(cell.querySelectorAll('p, span, figcaption, h1, h2, h3, h4'))
-            .map((el) => el.textContent?.trim() ?? '')
-            .filter(Boolean)
-            .join(' ');
-        });
-      }
-      return [] as string[];
-    });
-
-    const withText = captions.filter((t) => t.length > 0);
-    expect(
-      withText.length,
-      `${withText.length} cell(s) have visible caption text: ${withText.slice(0, 3).join(' | ')}`
-    ).toBe(0);
-  });
-});
-
-// ─── mobile ───────────────────────────────────────────────────────────────────
-
-test.describe('/fotografo — Instagram grid (mobile 390px)', () => {
-  test.beforeEach(async ({ page }) => {
+  test('mobile mosaic is effectively full-bleed', async ({ page }) => {
     await page.setViewportSize(MOBILE);
     await page.goto('/fotografo');
-  });
+    const metrics = await page.evaluate(mosaicMetrics);
 
-  test('grid still has 3 columns on mobile', async ({ page }) => {
-    const count = await page.evaluate(() => {
-      const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-      for (const el of grids) {
-        const raw = window.getComputedStyle(el).gridTemplateColumns;
-        const parts = raw.trim().split(/\s+/);
-        if (parts.length === 3) return 3;
-      }
-      return 0;
-    });
-
+    expect(metrics).not.toBeNull();
+    // 21 July #17 — Nahuel asked for little or no black margin in portrait.
+    const margin = metrics!.viewport - metrics!.width;
     expect(
-      count,
-      `Mobile grid has ${count} column(s) — Instagram always shows 3 columns`
-    ).toBe(3);
+      margin,
+      `Mosaic leaves ${margin}px of total horizontal margin — expected ≤ 24px in portrait`
+    ).toBeLessThanOrEqual(24);
   });
 
-  test('thumbnail cells are square on mobile', async ({ page }) => {
-    const cells = await page.evaluate(() => {
-      const grids = Array.from(document.querySelectorAll('[class*="grid"]')) as HTMLElement[];
-      for (const grid of grids) {
-        const children = Array.from(grid.children);
-        if (children.length === 0) continue;
-        return children.slice(0, 6).map((el) => {
-          const r = el.getBoundingClientRect();
-          return { w: Math.round(r.width), h: Math.round(r.height) };
-        });
-      }
-      return [] as { w: number; h: number }[];
-    });
+  test('tiles are not uniform — real photos keep their own aspect ratios', async ({ page }) => {
+    await page.setViewportSize(DESKTOP);
+    await page.goto('/fotografo');
+    const metrics = await page.evaluate(mosaicMetrics);
 
-    expect(cells.length, 'No grid cells found on mobile').toBeGreaterThan(0);
-    for (const { w, h } of cells) {
-      expect(w / h, `Mobile cell ${w}×${h}px is not square`).toBeCloseTo(1, 1);
-    }
+    expect(metrics).not.toBeNull();
+    const withPhotos = metrics!.cells.filter((c) => c.hasImg);
+
+    // Without a reachable WordPress the page renders placeholder cells; the
+    // aspect-ratio assertion only makes sense once real photos are present.
+    test.skip(withPhotos.length < 4, 'No photos returned from WordPress — placeholder state');
+
+    const ratios = withPhotos.map((c) => c.w / c.h);
+    const distinct = new Set(ratios.map((r) => r.toFixed(1)));
+    expect(
+      distinct.size,
+      `All ${withPhotos.length} tiles share the same aspect ratio — the mosaic should be irregular`
+    ).toBeGreaterThan(1);
   });
 });

@@ -131,3 +131,26 @@ footer {
   column-gap: clamp(0.5rem, 2.5vw, 1.25rem);
   column-fill: balance;
 }
+
+/* 21 July #11/#22 — the Fotógrafo home feed. Photos keep their own aspect
+   ratio and flow into columns, so the result is the irregular tapestry
+   Nahuel asked for rather than a grid of identical boxes. Tight 3px gutters
+   mirror the Instagram profile grid he referenced. */
+.photo-mosaic {
+  columns: 2;
+  column-gap: 3px;
+  column-fill: balance;
+}
+
+@media (min-width: 640px) {
+  .photo-mosaic { columns: 3; }
+}
+
+@media (min-width: 1280px) {
+  .photo-mosaic { columns: 4; }
+}
+
+.photo-mosaic > * {
+  break-inside: avoid;
+  margin-bottom: 3px;
+}
