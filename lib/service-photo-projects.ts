@@ -5,6 +5,46 @@ export interface ServicePhotoProject {
 }
 
 export const servicePhotoProjects: Record<string, ServicePhotoProject> = {
+  "paisajismo-y-cultura:drive-10qwqzhemejvz0vwv5mn-k7308ek8vlj3": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1irq-mahytyuf5x4fj7hbgqiseuxfbcys": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1rtbhvikp0oe4hd8sz9p04arb7nfazzut": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1kxftvsbq4nej5qm6t2vwty6aryhcnnut": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1mv6gyvv5ctp3amyyjnbd9-3ocppfsjly": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1b7s9vc4-kr0qkorb67ywp5otzby3fyfn": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1kebvfcoeakyt1tzobhyhrvebg3-nlwu2": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1ducsbejxzrhphy8oxv7b-o9kedlwvntx": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1cthasfvcqakowimej70gmtvpejaesrek": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
+  "paisajismo-y-cultura:drive-1qvivjmt-drjatha9wsxb7wojghwan6cz": {
+    "project": "PAISAJISMO Y CULTURA",
+    "order": 40
+  },
   "fotoproducto:drive-1injy9hd0kxbzmfrijrlhkq19yx-bv1-y": {
     "project": "SELECTIVITY",
     "order": 0

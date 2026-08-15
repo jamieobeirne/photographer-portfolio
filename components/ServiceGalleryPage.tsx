@@ -1,7 +1,7 @@
 import { Footer } from '@/components/Footer';
 import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
-import { getGlobalSettings, getServicePhotos } from '@/lib/wordpress';
+import { getGlobalSettings, getServicePhotos, UNGROUPED_PROJECT } from '@/lib/wordpress';
 
 interface ServiceGalleryPageProps {
   label: string;
@@ -43,8 +43,10 @@ export async function ServiceGalleryPage({ label, serviceTag }: ServiceGalleryPa
           <div className="space-y-14">
             {projectGroups.map(([project, projectPhotos]) => (
               <section key={project}>
-                {project !== serviceTag && (
-                  <p className="text-white/60 project-subtitle mb-5">{project}</p>
+                {project !== serviceTag && project !== label && (
+                  <p className="text-white/60 project-subtitle mb-5">
+                    {project === UNGROUPED_PROJECT ? 'OTRAS FOTOS' : project}
+                  </p>
                 )}
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-3">
                   {projectPhotos.map((photo) => (
@@ -65,7 +67,7 @@ export async function ServiceGalleryPage({ label, serviceTag }: ServiceGalleryPa
         )}
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
     </main>
   );
 }

@@ -108,17 +108,24 @@ export async function getDirectorPhotographyReels(): Promise<PortfolioReel[]> {
 }
 
 /**
- * Fetch all Media Library items tagged with a service tag (e.g. `fotoproducto`)
- * and group them by project, parsed from the filename convention:
- * `<service>__<project-slug>__<nn>` (e.g. `fotoproducto__alitos-productos__01`).
- * Returns a map of project display name → photos, in upload order.
+ * Marks media that no project mapping matched.
+ *
+ * 21 July #24 — this used to fall back to `{ project: serviceTag }`, which
+ * ServiceGalleryPage then rendered with its heading suppressed. The result was
+ * an untitled pile of photos at the end of the Publicidad gallery that nobody
+ * could account for. It is now labelled, so unmapped media is always visible
+ * as such. Photos uploaded by hand through WP admin land here by design —
+ * their slugs cannot match the `<tag>-drive-<id>-<name>` convention the import
+ * script produces.
  */
+export const UNGROUPED_PROJECT = '__ungrouped__';
+
 function projectForMedia(serviceTag: string, mediaSlug: string) {
   const prefix = `${serviceTag}:`;
   const match = Object.entries(servicePhotoProjects).find(
     ([key]) => key.startsWith(prefix) && mediaSlug.includes(key.slice(prefix.length))
   );
-  return match?.[1] ?? { project: serviceTag, order: Number.MAX_SAFE_INTEGER };
+  return match?.[1] ?? { project: UNGROUPED_PROJECT, order: Number.MAX_SAFE_INTEGER };
 }
 
 export async function getServicePhotosByProject(
@@ -165,7 +172,7 @@ export async function getServicePhotos(serviceTag: string): Promise<ServicePhoto
       return {
         id: item.id,
         url: item.source_url,
-        alt: item.alt_text || item.title.rendered || project.project,
+        alt: item.alt_text || item.title.rendered || serviceTag,
         project: project.project,
         projectOrder: project.order,
       };
@@ -234,7 +241,7 @@ export async function getPortfolioFeedPhotos(
       return {
         id: item.id,
         url: item.source_url,
-        alt: item.alt_text || item.title.rendered || project.project,
+        alt: item.alt_text || item.title.rendered || serviceTag,
         project: project.project,
         projectOrder: project.order,
         width: item.media_details?.width,
