@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 type Phase = 'video' | 'reveal' | 'exit';
@@ -20,16 +20,33 @@ interface IntroHomeProps {
 
 export function IntroHome({ logoUrl }: IntroHomeProps) {
   const [phase, setPhase] = useState<Phase>('video');
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
     // Logo reveal at 3s (spec 1.2 — moved 1s earlier from 4s)
-    const t1 = setTimeout(() => setPhase('reveal'), 3000);
-    const t2 = setTimeout(() => setPhase('exit'), 7500);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    timers.current = [
+      setTimeout(() => setPhase('reveal'), 3000),
+      setTimeout(() => setPhase('exit'), 7500),
+    ];
+    const scheduled = timers.current;
+    return () => scheduled.forEach(clearTimeout);
   }, []);
 
+  /**
+   * 21 July #3 — clicking anywhere on the intro skips straight to the three
+   * subpages. Cancels the pending timers so they can't re-fire a later phase.
+   */
+  const skipIntro = () => {
+    if (phase === 'exit') return;
+    timers.current.forEach(clearTimeout);
+    setPhase('exit');
+  };
+
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black">
+    <main
+      className="relative min-h-screen overflow-hidden bg-black"
+      onClick={skipIntro}
+    >
 
       {/* Landscape video — desktop */}
       <video
@@ -67,7 +84,17 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
         }}
       />
 
-      {/* Logo — fades in at centre, then moves to top and shrinks */}
+      {/* 21 July #20 — portrait only: black bar the docked logo and CONTACTO sit on */}
+      <div
+        className="sm:hidden absolute top-0 left-0 right-0 h-[5rem] bg-black z-[5]"
+        style={{
+          opacity: phase === 'exit' ? 1 : 0,
+          transition: 'opacity 0.6s ease',
+          transitionDelay: phase === 'exit' ? '0.35s' : '0s',
+        }}
+      />
+
+      {/* Logo — fades in at centre, then docks (top-left in portrait, top-centre otherwise) */}
       {logoUrl && (
         <div
           className={`absolute inset-0 flex items-center justify-center z-10 pointer-events-none ${
@@ -75,7 +102,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           }`}
           style={{
             opacity: phase === 'video' ? 0 : 1,
-            transform: phase === 'exit' ? 'translateY(var(--intro-logo-y)) scale(var(--intro-logo-scale))' : 'translateY(0) scale(1)',
+            transform: phase === 'exit' ? 'translate(var(--intro-logo-x), var(--intro-logo-y)) scale(var(--intro-logo-scale))' : 'translate(0, 0) scale(1)',
             transition: phase === 'exit'
               ? 'transform 0.85s cubic-bezier(0.4,0,0.6,1)'
               : 'opacity 0.9s ease, transform 0s',
@@ -93,7 +120,8 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
 
       {/* Three links — slide up from below */}
       <div
-        className="absolute top-[30px] sm:top-0 right-0 bottom-0 left-0 flex flex-col sm:flex-row z-10"
+        /* Portrait starts below the 5rem logo/CONTACTO bar (21 July #20) */
+        className="absolute top-[5rem] sm:top-0 right-0 bottom-0 left-0 flex flex-col sm:flex-row z-10"
         style={{
           transform: phase === 'exit' ? 'translateY(0)' : 'translateY(100vh)',
           transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1)',
@@ -104,7 +132,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/director_de_fotografia"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.91rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white section-link-label font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             DIRECTOR DE FOTOGRAFÍA
           </p>
         </Link>
@@ -112,7 +140,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/fotografo"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.91rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white section-link-label font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             FOTÓGRAFO
           </p>
         </Link>
@@ -120,7 +148,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
           href="/director"
           className="flex flex-1 min-h-[33.333vh] sm:min-h-0 items-center justify-center hover:bg-white/[0.06] transition-colors duration-500 group"
         >
-          <p className="text-white text-[clamp(0.91rem,1.8vw,1.175rem)] font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
+          <p className="text-white section-link-label font-light text-center px-6 group-hover:tracking-[0.28em] transition-all duration-500">
             DIRECTOR
           </p>
         </Link>
@@ -128,7 +156,7 @@ export function IntroHome({ logoUrl }: IntroHomeProps) {
 
       {/* CONTACTO — fades in with the links */}
       <div
-        className="fixed top-4 right-4 sm:top-6 sm:right-8 z-20"
+        className="fixed top-[2.5rem] -translate-y-1/2 right-5 sm:top-6 sm:right-8 sm:translate-y-0 z-20"
         style={{
           opacity: phase === 'exit' ? 1 : 0,
           transition: 'opacity 0.8s ease',

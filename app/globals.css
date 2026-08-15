@@ -4,16 +4,21 @@
   --background: #000000;
   --foreground: #ededed;
 
-  /* Intro logo exit animation — mobile (h-[10.5rem] source → h-14 target) */
+  /* Intro logo exit animation — mobile (h-[10.5rem] source → h-14 target).
+     21 July #20 — portrait docks the logo to the LEFT of a black bar rather
+     than centred over the video. Scaled width is 10.5rem * 0.333 = 3.5rem,
+     so a centre 3.25rem from the left edge leaves a 1.5rem gutter. */
   --intro-logo-scale: 0.333;
-  --intro-logo-y: calc(-50vh + 2.75rem);
+  --intro-logo-y: calc(-50vh + 2.5rem);
+  --intro-logo-x: calc(-50vw + 3.25rem);
 }
 
 @media (min-width: 640px) {
   :root {
-    /* sm+ (h-[15rem] source → h-12 target) */
+    /* sm+ (h-[15rem] source → h-12 target) — stays centred */
     --intro-logo-scale: 0.2;
     --intro-logo-y: calc(-50vh + 2.5rem);
+    --intro-logo-x: 0px;
   }
 }
 
@@ -24,6 +29,12 @@
   .intro-logo-bottom {
     --intro-logo-y: calc(50vh - 2.75rem);
   }
+}
+
+/* 21 July #5 — the three subpage labels, 30% larger than the previous
+   clamp(0.91rem, 1.8vw, 1.175rem). Shared by the intro and /home. */
+.section-link-label {
+  font-size: clamp(1.18rem, 2.34vw, 1.53rem);
 }
 
 /* Portrait crop: pin background to the top of the image (clouds) instead of centre.
