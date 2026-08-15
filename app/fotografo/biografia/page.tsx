@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FotografoNavLinks } from '@/components/FotografoNavLinks';
 import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
+import { fotografoBio } from '@/lib/bios';
 
 const P = 'normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case text-left';
 
@@ -34,23 +35,25 @@ export default async function BiografiaFotografoPage() {
         <span className="hidden sm:inline">← FOTÓGRAFO</span>
       </Link>
 
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6 pt-16 sm:px-12 sm:pt-20 lg:flex-row lg:items-center lg:gap-16">
+      {/* 21 July #13 — text column widened and pushed to the left margin, photo
+          enlarged to match its height. #19 — photo comes first in portrait. */}
+      <div className="page-container flex w-full flex-col gap-10 pt-16 sm:pt-20 lg:flex-row lg:items-stretch lg:gap-14">
         {bioImageUrl && (
-          <div className="order-2 w-full overflow-hidden lg:w-1/2">
+          <div className="order-1 w-full overflow-hidden lg:order-2 lg:w-[38%]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={bioImageUrl} alt="Nahuel Beade" className="aspect-[4/5] h-full w-full object-cover" />
+            <img
+              src={bioImageUrl}
+              alt="Nahuel Beade"
+              className="aspect-[4/5] h-full w-full object-cover lg:aspect-auto lg:min-h-full"
+            />
           </div>
         )}
 
-        <div className="order-1 w-full lg:w-1/2 space-y-8 text-center">
-          <p className="text-[0.58rem] tracking-[0.4em] text-white/30">CERCA DE</p>
-          <p className={P}>Nahuel Beade es fotógrafo con base en Barcelona, especializado en fotografía publicitaria y de producto para marcas, combinando una mirada cinematográfica con una sólida formación en cine.</p>
-          <p className={P}>Nació el 21 de octubre de 1986 en Santa Fe (Argentina) y creció en Paraná, donde desde muy joven desarrolló un fuerte vínculo con la imagen, el cine y los procesos creativos. Se formó en la Escuela de Artes Visuales “Prof. Roberto López Carnelli”, destacándose académicamente, y posteriormente en la Tecnicatura Superior de Cine y Artes Audiovisuales del I.S.C.A.A. Santa Fe, graduándose en 2012 donde aprendió la técnica fotográfica.</p>
-          <p className={P}>A lo largo de más de 18 años de experiencia, ha trabajado en el ámbito audiovisual y fotográfico desarrollando proyectos tanto de manera independiente como en colaboración con marcas, agencias y equipos de comunicación para redes sociales y otras plataformas y medios.</p>
-          <p className={P}>Su trabajo fotográfico se centra en la creación de imágenes con identidad visual clara, especialmente en el ámbito de la fotografía publicitaria y de producto, donde combina el control de la luz, la composición y la dirección visual para generar piezas orientadas a comunicación de marca.</p>
-          <p className={P}>Paralelamente, ha desarrollado una amplia experiencia en fotoreportaje y cobertura de eventos corporativos y culturales. Esta combinación entre producción controlada y registro documental le permite adaptarse a distintos contextos de trabajo, manteniendo siempre una mirada coherente.</p>
-          <p className={P}>Su enfoque busca integrar lenguaje cinematográfico y fotografía, trasladando recursos narrativos propios del cine a la imagen fija.</p>
-          <p className={P}>Actualmente reside en Barcelona, donde continúa desarrollando proyectos en fotografía publicitaria, contenido de marca y cobertura de eventos.</p>
+        <div className="order-2 w-full space-y-7 text-left lg:order-1 lg:w-[62%]">
+          <p className="section-title text-white/45">ACERCA DE</p>
+          {fotografoBio.map((paragraph) => (
+            <p key={paragraph.slice(0, 40)} className={P}>{paragraph}</p>
+          ))}
           <div className="hidden">
             <Link href="/contacto" className="border border-white/15 px-7 py-3 text-[0.56rem] font-light text-white/40 transition-all duration-300 hover:border-white/45 hover:text-white">CONTACTO</Link>
           </div>
