@@ -105,7 +105,7 @@ export default async function DirectorDeFotografiaPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" portraitTop />
+      <Footer imageUrl={heroUrl} portraitTop />
 
     </main>
   );

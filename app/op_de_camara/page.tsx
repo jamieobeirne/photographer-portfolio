@@ -26,7 +26,7 @@ export default async function OpDeCamaraPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
 
     </main>
   );

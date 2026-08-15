@@ -21,7 +21,7 @@ export default async function DocumentalRegistrosPage() {
         <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">VIDEO CLIPS & LIVE SESSION</p>
         <VideoGrid videos={musicVideos} />
       </section>
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
     </main>
   );
 }

@@ -102,7 +102,7 @@ export default async function FotografoPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
 
     </main>
   );

@@ -21,7 +21,7 @@ export default async function NarrativaFiccionPage() {
         <p className="text-white/30 text-[0.52rem] tracking-[0.4em] mb-10">CINE FICCIÓN & DOCUMENTAL</p>
         <VideoGrid videos={fictionDocumentaryVideos} />
       </section>
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
     </main>
   );
 }

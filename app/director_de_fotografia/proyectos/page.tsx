@@ -40,7 +40,7 @@ export default async function DirectorDeFotografiaProyectosPage() {
         ))}
       </div>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" portraitTop />
+      <Footer imageUrl={heroUrl} portraitTop />
 
     </main>
   );

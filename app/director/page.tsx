@@ -99,7 +99,7 @@ export default async function DirectorPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
 
     </main>
   );

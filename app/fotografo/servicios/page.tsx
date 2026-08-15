@@ -52,7 +52,7 @@ export default async function ServiciosFotografoPage() {
         </div>
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
 
     </main>
   );

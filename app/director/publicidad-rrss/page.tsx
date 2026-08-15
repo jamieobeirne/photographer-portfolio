@@ -24,7 +24,7 @@ export default async function PublicidadRrssPage() {
         <VideoGrid videos={advertisingVideos} />
       </section>
 
-      <Footer imageUrl={heroUrl} logoUrl="/blackLogo.png" />
+      <Footer imageUrl={heroUrl} />
 
     </main>
   );
