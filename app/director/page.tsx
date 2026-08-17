@@ -61,7 +61,7 @@ export default async function DirectorPage() {
         <div className="order-2 w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20 space-y-6">
           <p className="text-white/45 section-title">ACERCA DE</p>
           {directorBio.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)} className="normal-case text-white/65 bio-teaser-text font-light leading-relaxed normal-case">{paragraph}</p>
+            <p key={paragraph.slice(0, 40)} className="text-white/65 bio-teaser-text font-light leading-relaxed normal-case">{paragraph}</p>
           ))}
         </div>
       </section>

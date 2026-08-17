@@ -30,19 +30,6 @@ export function resolveLogoVideoField(logoVideo: unknown): { url: string; type: 
   return { url, type: videoSourceTypeFromUrl(url) };
 }
 
-/**
- * Intro full-screen video: ACF `logo_video` on Global Settings, or `INTRO_VIDEO_URL` (full URL, or path like `/intro.mp4` with `public/intro.mp4`).
- */
-export function resolveIntroVideo(logoVideo: unknown): { url: string; type: string } | null {
-  const fromAcf = resolveLogoVideoField(logoVideo);
-  if (fromAcf) return fromAcf;
-  const fromEnv = process.env.INTRO_VIDEO_URL?.trim();
-  if (fromEnv) {
-    return { url: fromEnv, type: videoSourceTypeFromUrl(fromEnv) };
-  }
-  return null;
-}
-
 // Fetch Global Settings page (logo video, images, etc.)
 export async function getGlobalSettings(): Promise<WPGlobalSettings> {
   const url = `${WP_API_URL}/pages?slug=global-settings&acf_format=standard`;

@@ -125,37 +125,16 @@ footer {
   margin-top: auto !important;
 }
 
-/* Horizontal strip thumbnails (portfolio pages, ≥700px) */
-.strip-img {
-  height: clamp(115px, 35.9vh, 317px);
-  width: auto;
-  max-width: none;
-  flex-shrink: 0;
-}
+/* The Fotógrafo home feed (21 July #11/#22). Tight 3px gutters mirror the
+   Instagram profile grid Nahuel referenced.
 
-@media (min-width: 1200px) {
-  .strip-img {
-    height: clamp(172px, 53.9vh, 476px);
-  }
-}
-
-/* Two-column masonry gallery (portfolio pages, under 700px) */
-.portfolio-masonry {
-  columns: 2;
-  column-gap: clamp(0.5rem, 2.5vw, 1.25rem);
-  column-fill: balance;
-}
-
-/* 21 July #11/#22 — the Fotógrafo home feed. Photos keep their own aspect
-   ratio and flow into columns, so the result is the irregular tapestry
-   Nahuel asked for rather than a grid of identical boxes. Tight 3px gutters
-   mirror the Instagram profile grid he referenced. */
-/* 17 Aug — rebuilt as a dense CSS grid so tiles differ in SIZE, not just height.
-   Supersedes the multi-column flow: that gave every tile an identical width, so
-   a set of similarly-proportioned photos read as a regular grid no matter what.
-   Row height is computed to match column width, so a 1x1 tile is square; the
-   subtractions are the .page-container padding and the inter-column gaps.
-   `dense` backfills the holes the oversized tiles leave behind. */
+   17 Aug — rebuilt as a dense CSS grid so tiles differ in SIZE, not just in
+   height. The original multi-column flow let photos keep their own aspect
+   ratios, but gave every tile an identical width, so a set of similarly
+   proportioned photos read as a regular grid no matter what. Row height is
+   computed to match column width, so a 1x1 tile is square; the subtractions
+   are the .page-container padding and the inter-column gaps. `dense` backfills
+   the holes the oversized tiles leave behind. */
 .photo-mosaic {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

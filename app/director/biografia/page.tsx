@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { directorBio } from '@/lib/bios';
 
-const P = 'normal-case text-white/65 bio-text font-light leading-relaxed normal-case text-left';
+const P = 'text-white/65 bio-text font-light leading-relaxed normal-case text-left';
 
 export default function BiografiaDirectorPage() {
   return (
