@@ -271,3 +271,63 @@ export async function getPortfolioFeedPhotos(
 
   return feed.slice(0, limit);
 }
+
+/**
+ * One cover photo per service gallery, for the Servicios index cards.
+ *
+ * Those cards used to hotlink drive.google.com/thumbnail URLs. Google serves
+ * those inconsistently and blocks them outright for anything not world-readable,
+ * so the cards rendered as black boxes. Every one of these galleries is already
+ * in WordPress, so the cover is taken from there instead.
+ *
+ * Uses the earliest photo in each gallery, which matches the order the galleries
+ * themselves render in. Returns null for a tag when WordPress is unreachable or
+ * the gallery is empty — the page falls back to a styled placeholder rather than
+ * a broken image.
+ */
+export async function getServiceCoverPhotos(): Promise<Record<string, ServicePhoto | null>> {
+  const entries = await Promise.all(
+    SERVICE_TAGS.map(async (serviceTag): Promise<[string, ServicePhoto | null]> => {
+      try {
+        const tagRes = await fetch(
+          `${WP_API_URL}/media_tag?slug=${encodeURIComponent(serviceTag)}`,
+          cachedContent
+        );
+        if (!tagRes.ok) return [serviceTag, null];
+
+        const tags = (await tagRes.json()) as { id: number }[];
+        if (!tags.length) return [serviceTag, null];
+
+        const mediaRes = await fetch(
+          `${WP_API_URL}/media?media_tag=${tags[0].id}&per_page=1&orderby=date&order=asc&_fields=id,source_url,alt_text,title,media_details`,
+          cachedContent
+        );
+        if (!mediaRes.ok) return [serviceTag, null];
+
+        const items = (await mediaRes.json()) as {
+          id: number;
+          source_url: string;
+          alt_text: string;
+          title: { rendered: string };
+          media_details?: { width?: number; height?: number };
+        }[];
+        if (!items.length) return [serviceTag, null];
+
+        const item = items[0];
+        return [serviceTag, {
+          id: item.id,
+          url: item.source_url,
+          alt: item.alt_text || item.title?.rendered || '',
+          project: '',
+          projectOrder: 0,
+          width: item.media_details?.width,
+          height: item.media_details?.height,
+        }];
+      } catch {
+        return [serviceTag, null];
+      }
+    })
+  );
+
+  return Object.fromEntries(entries);
+}

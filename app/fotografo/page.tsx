@@ -22,6 +22,34 @@ const photos = [
   { id: 12, title: 'EVENTOS' },
 ];
 
+/**
+ * Tile sizes for the mosaic, applied by position rather than by photo, so the
+ * layout is stable no matter which photos WordPress returns.
+ *
+ * The period is 11, chosen to be coprime with the 2, 3 and 4 column counts. A
+ * period of 12 would divide evenly into both the 3- and 4-column layouts, so
+ * the oversized tiles would stack into the same columns and read as a pattern.
+ * At 11 the rhythm never lines up with the grid at any breakpoint.
+ *
+ * Four of eleven tiles are oversized. Much beyond that and there is no regular
+ * baseline left for the big tiles to be irregular against.
+ */
+const TILE_PATTERN = [
+  'tile-big',
+  '',
+  'tile-tall',
+  '',
+  '',
+  'tile-wide',
+  '',
+  'tile-tall',
+  '',
+  '',
+  '',
+];
+
+const tileClass = (index: number) => TILE_PATTERN[index % TILE_PATTERN.length];
+
 export default async function FotografoPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
@@ -38,29 +66,32 @@ export default async function FotografoPage() {
 
       <PageHero imageUrl={heroUrl} logoUrl={logoUrl} nav={<FotografoNavLinks />} />
 
-      {/* 21 July #11/#22 — Instagram-style mosaic: many smaller photos at their
-          own aspect ratios, ~3 per production, interleaved across productions. */}
+      {/* 21 July #11/#22 — Instagram-style mosaic, ~3 photos per production,
+          interleaved across productions. 17 Aug — tiles now vary in size as
+          well as height; see TILE_PATTERN above and .photo-mosaic in globals. */}
       <section className="mt-8 sm:mt-16 mb-8 sm:mb-16">
         <div className="page-container photo-mosaic">
           {gridPhotos.length > 0
             ? gridPhotos.map((photo, index) => (
-                <article key={photo.id} className="group relative overflow-hidden bg-white/[0.03]">
+                <article
+                  key={photo.id}
+                  className={`group relative overflow-hidden bg-white/[0.03] ${tileClass(index)}`}
+                >
                   <Image
                     src={photo.url}
                     alt={photo.alt}
-                    width={photo.width ?? 800}
-                    height={photo.height ?? 600}
+                    fill
                     priority={index < 4}
-                    sizes="(min-width: 1280px) 24vw, (min-width: 640px) 32vw, 49vw"
-                    className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(min-width: 1280px) 50vw, (min-width: 640px) 67vw, 100vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </article>
               ))
-            : photos.map((photo) => (
+            : photos.map((photo, index) => (
                 <article
                   key={photo.id}
                   aria-label={photo.title}
-                  className="group relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-white/[0.03]"
+                  className={`group relative flex items-center justify-center overflow-hidden bg-white/[0.03] ${tileClass(index)}`}
                 >
                   <span className="text-[0.52rem] font-light tracking-[0.35em] text-white/25">
                     IMÁGENES PENDIENTES

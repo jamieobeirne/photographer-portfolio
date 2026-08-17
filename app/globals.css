@@ -136,21 +136,44 @@ footer {
    ratio and flow into columns, so the result is the irregular tapestry
    Nahuel asked for rather than a grid of identical boxes. Tight 3px gutters
    mirror the Instagram profile grid he referenced. */
+/* 17 Aug — rebuilt as a dense CSS grid so tiles differ in SIZE, not just height.
+   Supersedes the multi-column flow: that gave every tile an identical width, so
+   a set of similarly-proportioned photos read as a regular grid no matter what.
+   Row height is computed to match column width, so a 1x1 tile is square; the
+   subtractions are the .page-container padding and the inter-column gaps.
+   `dense` backfills the holes the oversized tiles leave behind. */
 .photo-mosaic {
-  columns: 2;
-  column-gap: 3px;
-  column-fill: balance;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: calc((100vw - 1rem - 3px) / 2);
+  grid-auto-flow: row dense;
+  gap: 3px;
 }
 
 @media (min-width: 640px) {
-  .photo-mosaic { columns: 3; }
+  .photo-mosaic {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: calc((100vw - 5rem - 6px) / 3);
+  }
 }
 
 @media (min-width: 1280px) {
-  .photo-mosaic { columns: 4; }
+  .photo-mosaic {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: calc((100vw - 5rem - 9px) / 4);
+  }
 }
 
 .photo-mosaic > * {
-  break-inside: avoid;
-  margin-bottom: 3px;
+  overflow: hidden;
+}
+
+/* Size variants. In portrait the 2-column spans are withheld, because at 2
+   columns they would take the entire screen width and stop being a mosaic. */
+.photo-mosaic > .tile-tall { grid-row: span 2; }
+.photo-mosaic > .tile-big { grid-row: span 2; }
+
+@media (min-width: 640px) {
+  .photo-mosaic > .tile-wide { grid-column: span 2; }
+  .photo-mosaic > .tile-big { grid-column: span 2; }
 }
