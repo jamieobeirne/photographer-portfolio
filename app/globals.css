@@ -59,6 +59,20 @@
    not line up with the header's px-6/px-10 menu margins: too narrow on
    desktop, too much black on mobile. One container, tuned in one place.
    Portrait keeps just enough padding to stop text touching the edge. */
+/* 17 Aug — biography copy, centralised here so the two variants stay in step.
+   Sized up twice this session: +10%, then a further +7%, so 1.177x the original
+   inline clamps overall. Every term is scaled, not just the endpoints, so the
+   increase holds at all viewport widths. Originals were
+   clamp(0.9rem, 1.6vw, 1.05rem) on the full bio pages and
+   clamp(0.82rem, 1.35vw, 0.95rem) on the ACERCA DE teasers. */
+.bio-text {
+  font-size: clamp(1.059rem, 1.883vw, 1.236rem);
+}
+
+.bio-teaser-text {
+  font-size: clamp(0.965rem, 1.589vw, 1.118rem);
+}
+
 .page-container {
   width: 100%;
   margin-inline: auto;

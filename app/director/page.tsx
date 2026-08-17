@@ -41,10 +41,14 @@ export default async function DirectorPage() {
         </section>
       )}
 
-      {/* Bio — text left, photo right (spec 4.3: Nahuel looks left in the photo) */}
+      {/* Bio — photo left, text right (17 Aug, Jamie). NOTE: spec 4.3 recorded
+          that Nahuel looks LEFT in this shot, which is why it previously sat on
+          the right. If he ends up looking away from the copy, the choice is to
+          move it back rather than add scaleX(-1) — mirroring is what made the
+          Dir. de Fotografía photo look wrong. */}
       <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 page-container">
         {bioFotoUrl && (
-          <div className="order-1 lg:order-2 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
+          <div className="order-1 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
             <Image
               src={bioFotoUrl}
               alt="Nahuel Beade"
@@ -54,10 +58,10 @@ export default async function DirectorPage() {
             />
           </div>
         )}
-        <div className="order-2 lg:order-1 w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20 space-y-6">
+        <div className="order-2 w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20 space-y-6">
           <p className="text-white/45 section-title">ACERCA DE</p>
           {directorBio.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)} className="normal-case text-white/65 text-[clamp(0.82rem,1.35vw,0.95rem)] font-light leading-relaxed normal-case">{paragraph}</p>
+            <p key={paragraph.slice(0, 40)} className="normal-case text-white/65 bio-teaser-text font-light leading-relaxed normal-case">{paragraph}</p>
           ))}
         </div>
       </section>

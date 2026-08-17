@@ -49,26 +49,28 @@ export default async function DirectorDeFotografiaPage() {
         </section>
       )}
 
-      {/* Bio teaser */}
+      {/* Bio teaser — 21 July #9. Photo sits RIGHT on desktop, matching the
+          Director page: Nahuel looks left in the shot, so on the right he looks
+          into the text. It was previously on the left and flipped with
+          scaleX(-1) to compensate, which mirrored him. */}
       <section className="border-t border-white/10 flex flex-col lg:flex-row mb-8 sm:mb-16 page-container">
         {fotoUrl && (
-          <div className="order-1 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
+          <div className="order-1 lg:order-2 relative w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto overflow-hidden shrink-0">
             <Image
               src={fotoUrl}
               alt="Nahuel Beade"
               fill
               sizes="(min-width: 1024px) 45vw, 90vw"
               className="object-cover"
-              style={{ transform: 'scaleX(-1)' }}
             />
           </div>
         )}
-        <div className="order-2 w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
+        <div className="order-2 lg:order-1 w-full lg:w-1/2 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
           <p className="text-white/45 section-title mb-6">ACERCA DE</p>
           {directorFotografiaBio.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)} className="text-white/65 text-[clamp(0.82rem,1.35vw,0.95rem)] font-light leading-relaxed normal-case mb-6">{paragraph}</p>
+            <p key={paragraph.slice(0, 40)} className="text-white/65 bio-teaser-text font-light leading-relaxed normal-case mb-6">{paragraph}</p>
           ))}
-          <p className="text-white/65 text-[clamp(0.82rem,1.35vw,0.95rem)] font-light leading-relaxed normal-case mb-8">
+          <p className="text-white/65 bio-teaser-text font-light leading-relaxed normal-case mb-8">
             Actualmente reside en Barcelona, donde continúa desarrollando su trabajo como
             director de fotografía y operador de cámara en proyectos publicitarios,
             documentales y de ficción.

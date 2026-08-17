@@ -10,13 +10,16 @@ interface PageHeroProps {
   /** Portrait mode: pin background to top of image (spec 2.1 — clouds crop) */
   portraitTop?: boolean;
   /**
-   * 21 July #6 — centre the logo in the hero and render no nav.
-   * Used by /contacto, where the logo previously sat in a block below the hero.
+   * Render no nav in the hero. Used by /contacto.
+   *
+   * 21 July #6 originally centred the logo here as well, but the centred logo
+   * read as a different header from every other page, so 17 Aug left-aligned it
+   * to match. Only the nav suppression remains, hence the rename.
    */
-  centeredLogo?: boolean;
+  hideNav?: boolean;
 }
 
-export function PageHero({ imageUrl, logoUrl, nav, portraitTop = false, centeredLogo = false }: PageHeroProps) {
+export function PageHero({ imageUrl, logoUrl, nav, portraitTop = false, hideNav = false }: PageHeroProps) {
   return (
     <section
       className={`relative flex items-center overflow-hidden ${portraitTop ? 'hero-portrait-top' : ''}`}
@@ -38,11 +41,7 @@ export function PageHero({ imageUrl, logoUrl, nav, portraitTop = false, centered
       <div className="absolute inset-0 bg-black/25" />
 
       {logoUrl !== undefined && (
-        <div
-          className={`absolute inset-0 z-10 flex items-center px-6 sm:px-10 ${
-            centeredLogo ? 'justify-center' : 'justify-between'
-          }`}
-        >
+        <div className="absolute inset-0 z-10 flex items-center justify-between px-6 sm:px-10">
           <Link href="/home" className="flex min-w-0 items-center">
             {logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -57,7 +56,7 @@ export function PageHero({ imageUrl, logoUrl, nav, portraitTop = false, centered
               </span>
             )}
           </Link>
-          {!centeredLogo && (nav ?? <NavLinks />)}
+          {!hideNav && (nav ?? <NavLinks />)}
         </div>
       )}
     </section>

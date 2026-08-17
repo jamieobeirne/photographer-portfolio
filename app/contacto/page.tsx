@@ -20,7 +20,7 @@ export default async function ContactoPage({
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} centeredLogo />
+      <PageHero imageUrl={heroUrl} logoUrl={logoUrl} hideNav />
 
       {/* Body — video plays only here */}
       <div className="relative overflow-hidden">

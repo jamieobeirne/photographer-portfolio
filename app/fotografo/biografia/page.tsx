@@ -4,7 +4,7 @@ import { PageHero } from '@/components/PageHero';
 import { getGlobalSettings } from '@/lib/wordpress';
 import { fotografoBio } from '@/lib/bios';
 
-const P = 'normal-case text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case text-left';
+const P = 'normal-case text-white/65 bio-text font-light leading-relaxed normal-case text-left';
 
 export default async function BiografiaFotografoPage() {
   let heroUrl: string | null = null;
