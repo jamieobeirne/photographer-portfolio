@@ -120,22 +120,21 @@ export async function getDirectorPhotographyReels(): Promise<PortfolioReel[]> {
  */
 export const UNGROUPED_PROJECT = '__ungrouped__';
 
+/**
+ * WordPress keeps underscores in attachment slugs, but the mapping keys are
+ * slugified, so an underscore in a Drive ID became a hyphen there. Any ID
+ * containing one therefore never matched and fell silently into UNGROUPED —
+ * 284 photos across Fotoproducto and Foto Reportajes. Normalise both sides.
+ */
+const normaliseSlug = (value: string) => value.replace(/[^a-zA-Z0-9]+/g, '-');
+
 function projectForMedia(serviceTag: string, mediaSlug: string) {
   const prefix = `${serviceTag}:`;
+  const slug = normaliseSlug(mediaSlug);
   const match = Object.entries(servicePhotoProjects).find(
-    ([key]) => key.startsWith(prefix) && mediaSlug.includes(key.slice(prefix.length))
+    ([key]) => key.startsWith(prefix) && slug.includes(normaliseSlug(key.slice(prefix.length)))
   );
   return match?.[1] ?? { project: UNGROUPED_PROJECT, order: Number.MAX_SAFE_INTEGER };
-}
-
-export async function getServicePhotosByProject(
-  serviceTag: string
-): Promise<Record<string, ServicePhoto[]>> {
-  const groups: Record<string, ServicePhoto[]> = {};
-  for (const photo of await getServicePhotos(serviceTag)) {
-    (groups[photo.project] ??= []).push(photo);
-  }
-  return groups;
 }
 
 /** Fetch every Media Library item tagged with one photography service. */

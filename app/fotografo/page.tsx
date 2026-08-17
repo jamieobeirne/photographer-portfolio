@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { Footer } from '@/components/Footer';
 import { FotografoNavLinks } from '@/components/FotografoNavLinks';
@@ -26,7 +25,6 @@ const photos = [
 export default async function FotografoPage() {
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
-  const bioImageUrl: string | null = null;
   let gridPhotos: ServicePhoto[] = [];
   try {
     const settings = await getGlobalSettings();
@@ -69,34 +67,6 @@ export default async function FotografoPage() {
                   </span>
                 </article>
               ))}
-        </div>
-      </section>
-
-      {/* Bio teaser */}
-      <section className="hidden" aria-hidden="true">
-        {bioImageUrl && (
-          <div className="order-2 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={bioImageUrl}
-              alt="Nahuel Beade"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
-        <div className="order-1 flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
-          <p className="text-white/45 section-title mb-6">ACERCA DE</p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case mb-8">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris.
-          </p>
-          <Link
-            href="/fotografo/biografia"
-            className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300 self-start"
-          >
-            BIOGRAFÍA
-          </Link>
         </div>
       </section>
 

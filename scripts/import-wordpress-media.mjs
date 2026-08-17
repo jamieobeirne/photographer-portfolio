@@ -1,5 +1,10 @@
 import { readFileSync } from 'node:fs';
 
+/** WordPress keeps underscores in attachment slugs; slugified keys turn them
+ * into hyphens. Normalise both sides or every Drive ID with an underscore
+ * silently fails to match. */
+const norm = (value) => value.replace(/[^a-zA-Z0-9]+/g, '-');
+
 const WP_API_URL = process.env.WP_API_URL ?? 'https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2';
 
 function readEnvFile() {
@@ -78,7 +83,7 @@ async function importItem(item) {
     }
     uploadedMarkers.set(item.tag, new Set(slugs));
   }
-  if (uploadedMarkers.get(item.tag).has(marker) || [...uploadedMarkers.get(item.tag)].some((slug) => slug.includes(marker))) {
+  if (uploadedMarkers.get(item.tag).has(marker) || [...uploadedMarkers.get(item.tag)].some((slug) => norm(slug).includes(norm(marker)))) {
     skipped += 1;
     completed += 1;
     if (completed % 10 === 0) console.log(`Progress: ${completed}/${items.length}`);

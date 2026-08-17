@@ -42,3 +42,7 @@ next-env.d.ts
 
 .vercel
 .env*
+scripts/ungrouped-backup/
+scripts/*.log
+scripts/ungrouped-audit.txt
+nahuel-21-july.bundle

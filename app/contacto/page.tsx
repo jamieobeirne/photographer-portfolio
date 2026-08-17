@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
 import { VideoBackground } from '@/components/VideoBackground';
@@ -12,7 +11,6 @@ export default async function ContactoPage({
   const result = await searchParams;
   let heroUrl: string | null = null;
   let logoUrl: string | null = null;
-  const bioFotoUrl: string | null = null;
   try {
     const settings = await getGlobalSettings();
     heroUrl = settings.fondo_contacto?.url ?? null;
@@ -34,30 +32,6 @@ export default async function ContactoPage({
         <div className="relative z-10 px-6 sm:px-8 pb-24 flex justify-center">
           <div className="w-full max-w-3xl bg-black/60">
             <section className="relative px-8 sm:px-12 py-10">
-
-            {/* Contact info */}
-            <div className="hidden">
-              <div className="space-y-2">
-                <p className="text-white text-[0.52rem] font-light tracking-[0.4em]">EMAIL</p>
-                <p className="text-white text-[clamp(0.84rem,1.6vw,1rem)] font-light">
-                  jamieobeirne123@gmail.com
-                </p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-white text-[0.52rem] font-light tracking-[0.4em]">TELÉFONO</p>
-                <p className="text-white text-[clamp(0.84rem,1.6vw,1rem)] font-light">
-                  +54 11 0000 0000
-                </p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-white text-[0.52rem] font-light tracking-[0.4em]">UBICACIÓN</p>
-                <p className="text-white text-[clamp(0.84rem,1.6vw,1rem)] font-light">
-                  Buenos Aires, Argentina
-                </p>
-              </div>
-            </div>
-
-            <div className="hidden" />
 
             {result.sent === '1' && (
               <p className="mb-8 text-center text-[0.62rem] font-light text-white/75">
@@ -128,33 +102,6 @@ export default async function ContactoPage({
         </div>
       </div>
 
-      {/* Bio teaser */}
-      <section className="hidden" aria-hidden="true">
-        {bioFotoUrl && (
-          <div className="order-2 sm:order-1 w-full sm:w-[45%] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={bioFotoUrl}
-              alt="Nahuel Beade"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
-        <div className="order-1 sm:order-2 flex-1 flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16 lg:px-20 lg:py-20">
-          <p className="text-white/45 section-title mb-6">ACERCA DE</p>
-          <p className="text-white/65 text-[clamp(0.9rem,1.6vw,1.05rem)] font-light leading-relaxed normal-case mb-8">
-            Nahuel Beade es director de fotografía y operador de cámara con base en
-            Barcelona, con formación en cine y una amplia experiencia en proyectos
-            de ficción, documental y publicidad.
-          </p>
-          <Link
-            href="/director_de_fotografia/biografia"
-            className="text-white/40 text-[0.56rem] font-light border border-white/15 px-7 py-3 hover:text-white hover:border-white/45 transition-all duration-300 self-start"
-          >
-            BIOGRAFÍA
-          </Link>
-        </div>
-      </section>
 
       <Footer imageUrl={heroUrl} />
 

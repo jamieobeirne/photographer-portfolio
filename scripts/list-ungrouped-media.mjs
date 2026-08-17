@@ -16,6 +16,11 @@
  */
 import { readFileSync } from 'node:fs';
 
+/** WordPress keeps underscores in attachment slugs; slugified keys collapse
+ * every run of non-alphanumerics to one hyphen. Normalise both sides or Drive
+ * IDs containing '_', '__' or '-_' silently fail to match. */
+const norm = (value) => value.replace(/[^a-zA-Z0-9]+/g, '-');
+
 const WP_API_URL =
   process.env.WP_API_URL ?? 'https://lightcyan-deer-205982.hostingersite.com/wp-json/wp/v2';
 
@@ -91,7 +96,7 @@ for (const tag of tags) {
     totalPages = Number(mediaRes.headers.get('X-WP-TotalPages') ?? '1');
     for (const item of await mediaRes.json()) {
       total += 1;
-      if (!mapped.some(({ driveKey }) => item.slug.includes(driveKey))) {
+      if (!mapped.some(({ driveKey }) => norm(item.slug).includes(norm(driveKey)))) {
         ungrouped.push({ id: item.id, slug: item.slug, date: item.date, url: item.source_url });
       }
     }
